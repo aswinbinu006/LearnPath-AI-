@@ -1,6 +1,7 @@
 import { prisma } from '../prismaClient.js';
 import { RECOMMENDATION_WEIGHTS } from '../../config/recommendationConfig.js';
 import { logger } from '../../utils/logger.js';
+import { RecommendationEngine } from './recommendationEngine.js';
 
 export interface UpdateProfileParams {
   userId: string;
@@ -112,24 +113,49 @@ export class LearnerProfileService {
     }
 
     // 4. Calculate Mathematical Confidence Score:
-    // 0.35(Goal) + 0.35(Skill) + 0.15(Interest) + 0.15(History)
-    const goalScore = 90; // Stated clearly with timeline
-    const skillScore = baselineQuizScore !== undefined ? baselineQuizScore : 70;
-    const interestScore = Math.max(interestFrontend, interestBackend, interestFullstack, interestAi);
-    
-    // Previous learning history from user records
+    // 0.40(Goal) + 0.35(Skill) + 0.15(Interest) + 0.10(History)
     const userWithStats = await prisma.user.findUnique({
       where: { id: userId },
-      include: { progress: true, assessments: true },
+      include: {
+        progress: true,
+        assessments: true,
+        quizAttempts: true,
+        userSkills: true,
+      },
     });
-    const historyCount = (userWithStats?.progress.length || 0) + (userWithStats?.assessments.length || 0);
-    const historyScore = Math.min(100, 60 + historyCount * 10);
 
-    const confidenceScore = Math.round(
-      RECOMMENDATION_WEIGHTS.goal * goalScore +
-      RECOMMENDATION_WEIGHTS.skill * skillScore +
-      RECOMMENDATION_WEIGHTS.interest * interestScore +
-      RECOMMENDATION_WEIGHTS.history * historyScore
+    const goalMatch = RecommendationEngine.calculateGoalMatch(
+      goalRole,
+      goalSummary || '',
+      recommendedTrack,
+      goalTimeline
+    );
+
+    const evaluatedSkills = Object.entries(selfRatedSkills).map(([skillName, rating]) => ({
+      skillName,
+      score: rating <= 5 ? rating * 20 : rating,
+    }));
+
+    const skillReadiness = RecommendationEngine.calculateSkillReadiness(
+      evaluatedSkills.length > 0 ? evaluatedSkills : userWithStats?.userSkills || [],
+      recommendedTrack,
+      userWithStats?.quizAttempts || [],
+      baselineQuizScore
+    );
+
+    const interestMatch = RecommendationEngine.calculateInterestMatch(
+      { interestFrontend, interestBackend, interestFullstack, interestAi },
+      recommendedTrack,
+      selectedInterests
+    );
+
+    const historyScore = RecommendationEngine.calculateHistoryScore(userWithStats);
+
+    const confidenceScore = RecommendationEngine.computeCompositeConfidence(
+      goalMatch,
+      skillReadiness,
+      interestMatch,
+      historyScore
     );
 
     // 5. Upsert LearnerProfile
@@ -146,7 +172,7 @@ export class LearnerProfileService {
         interestBackend,
         interestFullstack,
         interestAi,
-        confidenceScore: Math.min(99, Math.max(65, confidenceScore)),
+        confidenceScore,
         recommendedTrack,
         studyPaceMinutes,
         lastRecommendationUpdate: new Date(),
@@ -161,7 +187,7 @@ export class LearnerProfileService {
         interestBackend,
         interestFullstack,
         interestAi,
-        confidenceScore: Math.min(99, Math.max(65, confidenceScore)),
+        confidenceScore,
         recommendedTrack,
         studyPaceMinutes,
         lastRecommendationUpdate: new Date(),
@@ -180,32 +206,45 @@ export class LearnerProfileService {
       const profile = await prisma.learnerProfile.findUnique({ where: { userId } });
       if (!profile) return null;
 
-      const userSkills = await prisma.userSkill.findMany({ where: { userId } });
-      const avgSkillScore = userSkills.length > 0
-        ? Math.round(userSkills.reduce((acc, s) => acc + s.score, 0) / userSkills.length)
-        : 70;
-
-      const latestQuiz = await prisma.quizAttempt.findFirst({
-        where: { userId },
-        orderBy: { completedAt: 'desc' },
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        include: {
+          userSkills: true,
+          quizAttempts: { orderBy: { completedAt: 'desc' } },
+          progress: true,
+          assessments: true,
+        },
       });
 
-      const goalScore = 90;
-      const skillScore = latestQuiz ? latestQuiz.score : avgSkillScore;
-      const interestScore = Math.max(profile.interestFrontend, profile.interestBackend, profile.interestFullstack, profile.interestAi);
-      const historyScore = 80;
+      const recommendedTrack = profile.recommendedTrack || user?.targetRole || 'Frontend Engineer';
 
-      const newConfidence = Math.round(
-        RECOMMENDATION_WEIGHTS.goal * goalScore +
-        RECOMMENDATION_WEIGHTS.skill * skillScore +
-        RECOMMENDATION_WEIGHTS.interest * interestScore +
-        RECOMMENDATION_WEIGHTS.history * historyScore
+      const goalMatch = RecommendationEngine.calculateGoalMatch(
+        profile.goalRole,
+        profile.goalSummary || '',
+        recommendedTrack,
+        profile.goalTimeline || ''
+      );
+
+      const skillReadiness = RecommendationEngine.calculateSkillReadiness(
+        user?.userSkills || [],
+        recommendedTrack,
+        user?.quizAttempts || []
+      );
+
+      const interestMatch = RecommendationEngine.calculateInterestMatch(profile, recommendedTrack);
+      const historyScore = RecommendationEngine.calculateHistoryScore(user);
+
+      const newConfidence = RecommendationEngine.computeCompositeConfidence(
+        goalMatch,
+        skillReadiness,
+        interestMatch,
+        historyScore
       );
 
       return await prisma.learnerProfile.update({
         where: { userId },
         data: {
-          confidenceScore: Math.min(99, Math.max(65, newConfidence)),
+          confidenceScore: newConfidence,
           lastRecommendationUpdate: new Date(),
         },
       });

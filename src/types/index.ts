@@ -340,6 +340,9 @@ export interface RecommendationCenterData {
     skillValidation: number;
     interestSignals: number;
     learningHistory: number;
+    skillReadiness?: number;
+    interestMatch?: number;
+    historyScore?: number;
   };
   nextRecommendedAction: {
     title: string;
@@ -360,6 +363,8 @@ export interface RecommendationCenterData {
 export interface ParsedGoalData {
   targetRole: string;
   timeline: string;
+  experienceLevel?: 'Beginner' | 'Intermediate' | 'Advanced';
+  interests?: string[];
   strengths: string[];
   weakAreas: string[];
   suggestedTrack: string;

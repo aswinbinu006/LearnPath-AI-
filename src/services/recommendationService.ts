@@ -52,13 +52,17 @@ export const recommendationService = {
     baselineScore?: number;
     studyPaceMinutes?: number;
     prerequisiteInjected?: string;
+    goalTimeline?: string;
+    injectedModules?: string[];
+    fastTrackedModules?: string[];
+    skippedModules?: string[];
   }): Promise<string> {
     try {
       const response = await api.post<{ success: boolean; data: { explanation: string } }>('/recommendations/explain', context);
       return response.data?.explanation || '';
     } catch (err) {
       console.error('Failed to generate roadmap explanation', err);
-      return `We've personalized your roadmap for ${context.targetRole} based on your baseline score of ${context.baselineScore ?? 45}%.`;
+      return `Curriculum customized for ${context.targetRole} based on your baseline score of ${context.baselineScore ?? 45}%.`;
     }
   },
 

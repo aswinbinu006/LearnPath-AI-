@@ -1,10 +1,10 @@
 // ── Configurable Weights & Thresholds for Intelligent Learner Profiling ──
 
 export const RECOMMENDATION_WEIGHTS = {
-  goal: 0.35,
+  goal: 0.40,
   skill: 0.35,
   interest: 0.15,
-  history: 0.15,
+  history: 0.10,
 };
 
 export const SKILL_THRESHOLDS = {

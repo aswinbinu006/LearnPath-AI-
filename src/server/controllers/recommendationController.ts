@@ -47,15 +47,30 @@ export const parseCareerGoal = async (req: AuthRequest, res: Response) => {
 
 export const explainRoadmap = async (req: AuthRequest, res: Response) => {
   try {
-    const { targetRole, strengths, weakAreas, baselineScore, studyPaceMinutes, prerequisiteInjected } = req.body;
+    const {
+      targetRole,
+      goalTimeline,
+      strengths,
+      weakAreas,
+      baselineScore,
+      studyPaceMinutes,
+      prerequisiteInjected,
+      injectedModules,
+      fastTrackedModules,
+      skippedModules,
+    } = req.body;
 
     const explanation = await ExplanationService.explainRoadmap({
       targetRole: targetRole || 'Frontend Engineer',
+      goalTimeline: goalTimeline || '6 months',
       strengths: Array.isArray(strengths) ? strengths : ['Foundations'],
       weakAreas: Array.isArray(weakAreas) ? weakAreas : ['APIs'],
       baselineScore,
       studyPaceMinutes,
       prerequisiteInjected,
+      injectedModules: Array.isArray(injectedModules) ? injectedModules : undefined,
+      fastTrackedModules: Array.isArray(fastTrackedModules) ? fastTrackedModules : undefined,
+      skippedModules: Array.isArray(skippedModules) ? skippedModules : undefined,
     });
 
     return res.status(200).json({

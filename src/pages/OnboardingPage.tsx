@@ -125,6 +125,10 @@ export const OnboardingPage: React.FC = () => {
         } else {
           setSkillRatings({ 'Python/Node': 0, 'REST APIs': 0, 'SQL & Databases': 0, 'Git/Arch': 0 });
         }
+
+        if (parsed.interests && parsed.interests.length > 0) {
+          setSelectedInterests(parsed.interests.slice(0, 3));
+        }
       }
       setCurrentScreen(3);
     } catch (err) {
@@ -189,28 +193,42 @@ export const OnboardingPage: React.FC = () => {
     const score = Math.round((correct / Math.max(1, quizQuestions.length)) * 100);
     setQuizScore(score);
 
-    // Compute preview confidence score: 0.35(Goal) + 0.35(Skill) + 0.15(Interest) + 0.15(History)
-    const goalMatch = 92;
-    const skillMatch = score;
-    const interestMatch = 85;
-    const historyMatch = 75;
-    const computedConfidence = Math.round(0.35 * goalMatch + 0.35 * skillMatch + 0.15 * interestMatch + 0.15 * historyMatch);
+    // Compute preview confidence score: 0.40(Goal) + 0.35(Skill) + 0.15(Interest) + 0.10(History)
+    const goalMatch = detectedRole.toLowerCase().includes('engineer') ? 94 : 88;
+    const skillMatch = Math.min(99, Math.max(35, Math.round(score * 0.7 + (strengths.length > 0 ? 25 : 15))));
+    const interestMatch = Math.min(95, Math.max(60, 60 + selectedInterests.length * 10));
+    const historyMatch = 70; // Deterministic onboarding profile depth baseline
+    const computedConfidence = Math.min(
+      99,
+      Math.max(
+        50,
+        Math.round(0.40 * goalMatch + 0.35 * skillMatch + 0.15 * interestMatch + 0.10 * historyMatch)
+      )
+    );
     setConfidenceScore(computedConfidence);
 
-    // AI Call 2: Explain Roadmap ("Why we recommended this")
+    // AI Call 2: Explain Roadmap with Pedagogical Reasoning
+    const primaryWeak = weakAreas[0] || (detectedRole.includes('Backend') ? 'REST APIs' : 'Async JavaScript');
+    const primaryStrong = strengths[0] || (detectedRole.includes('Backend') ? 'Python' : 'HTML/CSS');
+    const injectedModule = score < 50 || weakAreas.length > 0 ? `${primaryWeak} Fundamentals Refresher` : undefined;
+    const fastTracked = strengths.length > 0 ? `${primaryStrong} Advanced Architecture` : undefined;
+
     try {
       const explanationText = await recommendationService.explainRoadmap({
         targetRole: detectedRole,
+        goalTimeline: timeline || '6 months',
         strengths,
         weakAreas,
         baselineScore: score,
         studyPaceMinutes: studyPaceMinutes || 30,
-        prerequisiteInjected: score < 50 ? 'REST API Fundamentals Refresher' : undefined,
+        prerequisiteInjected: injectedModule,
+        injectedModules: injectedModule ? [injectedModule] : [],
+        fastTrackedModules: fastTracked ? [fastTracked] : [],
       });
       setExplanation(explanationText);
     } catch {
       setExplanation(
-        `Based on your target of becoming a ${detectedRole} and your ${score}% baseline assessment, we have tailored your initial phase with a targeted refresher before moving to advanced architecture.`
+        `Curriculum sequenced for your ${detectedRole} target on a ${timeline || '6 months'} timeline (${studyPaceMinutes || 30} min/day). ${injectedModule ? `${injectedModule} was prioritized because your baseline scored ${score}%, eliminating downstream learning friction.` : `Your strength in ${primaryStrong} enables fast-tracked progression through production modules.`}`
       );
     }
 
