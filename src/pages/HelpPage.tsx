@@ -5,7 +5,6 @@ import {
   HelpCircle,
   BookOpen,
   Sparkles,
-  Award,
   ChevronDown,
   ChevronUp,
   MessageSquareCode,

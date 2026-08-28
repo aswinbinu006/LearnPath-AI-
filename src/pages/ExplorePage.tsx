@@ -5,7 +5,7 @@ import { Course } from '../types/index.js';
 import { Card } from '../components/common/Card.js';
 import { Badge } from '../components/common/Badge.js';
 import { Button } from '../components/common/Button.js';
-import { Search, Clock, BookOpen, Sparkles, Filter, Check } from 'lucide-react';
+import { Search, Clock, BookOpen, Sparkles, Check } from 'lucide-react';
 
 import { useToast } from '../contexts/ToastContext.js';
 import { CourseGridSkeleton } from '../components/common/Skeleton.js';

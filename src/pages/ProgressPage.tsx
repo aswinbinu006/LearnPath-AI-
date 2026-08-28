@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext.js';
 import { assessmentService } from '../services/assessmentService.js';
 import { Card } from '../components/common/Card.js';
 import { Badge } from '../components/common/Badge.js';
-import { Flame, Clock, Award, CheckCircle2, TrendingUp } from 'lucide-react';
+import { Flame, Clock, Award, TrendingUp, CheckCircle2 } from 'lucide-react';
 
 import { useToast } from '../contexts/ToastContext.js';
 import { StatsGridSkeleton, Skeleton } from '../components/common/Skeleton.js';
