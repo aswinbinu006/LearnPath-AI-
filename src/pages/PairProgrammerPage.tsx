@@ -1,13 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { PairProgrammerWorkspace } from '../components/pair-programmer/PairProgrammerWorkspace.js';
-import { Card } from '../components/common/Card.js';
-import { Button } from '../components/common/Button.js';
-import { Badge } from '../components/common/Badge.js';
-import { Cpu, Sparkles, BookOpen, Layers, CheckCircle2 } from 'lucide-react';
+import { Cpu, Sparkles, Code2, ArrowRight } from 'lucide-react';
+import { useToast } from '../contexts/ToastContext.js';
 
 const PRESET_CHALLENGES = [
   {
+    id: 'arrays',
+    topic: 'Arrays & Immutable Transformations',
+    title: 'Array Immutability & Functional Pipeline',
+    prompt: 'Refactor the array processor to eliminate loose equality and avoid mutating the incoming data buffer.',
+    initialCode: `// ⚡ Arrays & Immutability Challenge
+function normalizeUserScores(scores: number[]) {
+  var normalized = [];
+  for (var i = 0; i <= scores.length; i++) {
+    var raw = scores[i];
+    if (raw == 0) {
+      normalized.push(10);
+    } else if (raw > 100) {
+      normalized.push(100);
+    } else {
+      normalized.push(raw);
+    }
+  }
+  return normalized;
+}
+
+const inputScores = [0, 85, 120, 92];
+console.log("Normalized:", normalizeUserScores(inputScores));
+`,
+    solutionCode: `function normalizeUserScores(scores: readonly number[]): number[] {
+  return scores.map((score) => {
+    if (score === 0) return 10;
+    if (score > 100) return 100;
+    return score;
+  });
+}
+
+const inputScores = [0, 85, 120, 92] as const;
+console.log("Normalized:", normalizeUserScores(inputScores));
+`,
+  },
+  {
     id: 'concurrency',
+    topic: 'Event Loop & Async Concurrency',
     title: 'Distributed Event Loop & Task Processor',
     prompt: 'Refactor the task processor to prevent off-by-one errors and avoid legacy var scope hoisting.',
     initialCode: `// ⚡ Task Processor Challenge
@@ -41,6 +77,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
   },
   {
     id: 'memoization',
+    topic: 'Memory Management & Teardown',
     title: 'LRU Cache & Memory Leak Prevention',
     prompt: 'Implement a memory-safe LRU cache with automatic event listener cleanup.',
     initialCode: `// ⚡ LRU Cache Implementation
@@ -70,7 +107,6 @@ console.log("Cache Size:", cache.cache.size);
     solutionCode: `class LRUCache<K, V> {
   private capacity: number;
   private cache: Map<K, V>;
-  private cleanupResize?: () => void;
 
   constructor(capacity: number) {
     this.capacity = capacity;
@@ -97,11 +133,70 @@ console.log("Cache Size:", cache.cache.size);
 }
 `,
   },
+  {
+    id: 'react-state',
+    topic: 'React State & Reconciliation',
+    title: 'Immutable State Machine & Reconciliation',
+    prompt: 'Fix direct React state mutations and ensure pure immutability for fast component reconciliation.',
+    initialCode: `// ⚡ React State Handler
+function updateLearnerProgress(state: any, milestoneId: string) {
+  // Direct state mutation anti-pattern
+  state.completedMilestones.push(milestoneId);
+  state.lastActive = new Date();
+  return state;
+}
+
+const prevState = { completedMilestones: ['m1'], lastActive: null };
+console.log("Updated State:", updateLearnerProgress(prevState, 'm2'));
+`,
+    solutionCode: `interface LearnerState {
+  readonly completedMilestones: readonly string[];
+  readonly lastActive: Date | null;
+}
+
+function updateLearnerProgress(state: LearnerState, milestoneId: string): LearnerState {
+  return {
+    ...state,
+    completedMilestones: [...state.completedMilestones, milestoneId],
+    lastActive: new Date(),
+  };
+}
+
+const prevState: LearnerState = { completedMilestones: ['m1'], lastActive: null };
+console.log("Updated State:", updateLearnerProgress(prevState, 'm2'));
+`,
+  },
 ];
 
 export const PairProgrammerPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const toast = useToast();
   const [selectedChallengeIdx, setSelectedChallengeIdx] = useState(0);
+
+  // Auto-select challenge if passed via query params from Learning Path
+  useEffect(() => {
+    const challengeParam = searchParams.get('challenge') || searchParams.get('topic');
+    if (challengeParam) {
+      const lower = challengeParam.toLowerCase();
+      const matchedIdx = PRESET_CHALLENGES.findIndex(
+        (ch) => ch.id.includes(lower) || ch.title.toLowerCase().includes(lower) || ch.topic.toLowerCase().includes(lower)
+      );
+      if (matchedIdx !== -1) {
+        setSelectedChallengeIdx(matchedIdx);
+      }
+    }
+  }, [searchParams]);
+
   const activeChallenge = PRESET_CHALLENGES[selectedChallengeIdx];
+
+  const handleChallengeComplete = () => {
+    toast.success(
+      `Mastery verified for "${activeChallenge.title}"! Progress synchronized to your Learning Path.`,
+      'Milestone Completed 🎉'
+    );
+    const nextIdx = (selectedChallengeIdx + 1) % PRESET_CHALLENGES.length;
+    setSelectedChallengeIdx(nextIdx);
+  };
 
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12 select-none">
@@ -121,7 +216,7 @@ export const PairProgrammerPage: React.FC = () => {
         </div>
 
         {/* Challenge Selector */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           {PRESET_CHALLENGES.map((ch, idx) => (
             <button
               key={ch.id}
@@ -132,7 +227,7 @@ export const PairProgrammerPage: React.FC = () => {
                   : 'bg-white dark:bg-black text-slate-700 dark:text-slate-300 border-slate-200 dark:border-neutral-800 hover:border-slate-300'
               }`}
             >
-              Challenge 0{idx + 1}
+              {ch.id === 'arrays' ? 'Arrays' : ch.id === 'concurrency' ? 'Event Loop' : ch.id === 'memoization' ? 'LRU Cache' : 'React State'}
             </button>
           ))}
         </div>
@@ -145,13 +240,11 @@ export const PairProgrammerPage: React.FC = () => {
         lessonPrompt={activeChallenge.prompt}
         initialCode={activeChallenge.initialCode}
         solutionCode={activeChallenge.solutionCode}
-        onComplete={() => {
-          const nextIdx = (selectedChallengeIdx + 1) % PRESET_CHALLENGES.length;
-          setSelectedChallengeIdx(nextIdx);
-        }}
+        onComplete={handleChallengeComplete}
       />
     </div>
   );
 };
 
 export default PairProgrammerPage;
+

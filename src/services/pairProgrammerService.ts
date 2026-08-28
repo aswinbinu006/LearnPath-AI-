@@ -2,21 +2,34 @@ import { api } from './api.js';
 
 export type HintLevel = 'EASY' | 'MEDIUM' | 'EXPERT';
 
+export type ExecutionTier = 'Tier 1 (Groq LLM)' | 'Tier 2 (Gemini Fallback)' | 'Tier 3 (Heuristic AST)';
+
+export interface ScoreBreakdown {
+  baseScore: number;
+  errorDeductions: number;
+  warningDeductions: number;
+  performanceDeductions: number;
+  finalScore: number;
+}
+
 export interface CodeIssue {
   line: number;
   type: 'error' | 'warning' | 'performance';
   message: string;
   explanation: string;
   socraticQuestion: string;
+  confidence?: 'High' | 'Medium' | 'Low';
   suggestedFixSnippet?: string;
 }
 
 export interface PairAnalysisData {
   status: 'clean' | 'has_errors' | 'optimal';
   codeHealthScore: number;
+  executionTier: ExecutionTier;
   issues: CodeIssue[];
   hint: string;
   hintLevel: HintLevel;
+  scoreBreakdown?: ScoreBreakdown;
   improvementMetrics: {
     healthTrend: string;
     resolvedCount: number;

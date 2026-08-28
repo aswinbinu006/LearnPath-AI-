@@ -65,6 +65,13 @@ async function runTests() {
   assert(cleanAnalysis.codeHealthScore === 100, 'Clean code achieves 100% Health Score');
   assert(cleanAnalysis.status === 'optimal', 'Status is marked as optimal');
 
+  // Test 5: 3-Tier Pipeline, Issue Confidence & Transparent Score Breakdown
+  console.log('\nTest 5: 3-Tier Pipeline Metadata, Confidence Labels & Score Breakdown');
+  assert(analysisMedium.executionTier === 'Tier 3 (Heuristic AST)', 'Correct execution tier recorded');
+  assert(analysisMedium.issues.every((i) => i.confidence !== undefined), 'All detected issues have explicit confidence levels');
+  assert(analysisMedium.scoreBreakdown.baseScore === 100, 'Score breakdown includes 100% base score');
+  assert(analysisMedium.scoreBreakdown.finalScore === analysisMedium.codeHealthScore, 'Score breakdown finalScore matches codeHealthScore');
+
   console.log(`\n📊 Test Results: ${passed} Passed, ${failed} Failed\n`);
   if (failed > 0) process.exit(1);
 }

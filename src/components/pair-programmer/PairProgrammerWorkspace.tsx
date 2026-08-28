@@ -103,6 +103,8 @@ console.log("Processed Batch:", processTasks(sampleBatch));
   const [isRunning, setIsRunning] = useState(false);
   const [terminalOutput, setTerminalOutput] = useState<string | null>(null);
   const [executionTime, setExecutionTime] = useState<number | null>(null);
+  const [showPipelineModal, setShowPipelineModal] = useState(false);
+  const [showHealthBreakdown, setShowHealthBreakdown] = useState(false);
 
   // Chat State
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
@@ -314,7 +316,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
     <div className={`flex flex-col h-[calc(100vh-8.5rem)] min-h-[640px] bg-[#070a13] text-slate-100 rounded-3xl border border-slate-800/80 shadow-2xl overflow-hidden ${className}`}>
       {/* ── Top Sleek IDE Control Bar ──────────────────────── */}
       <div className="flex flex-wrap items-center justify-between px-5 py-3 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 gap-3 select-none">
-        {/* Left: Branding & Status */}
+        {/* Left: Branding, Status & 3-Tier Pipeline Badge */}
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 via-blue-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
             <Cpu className="w-4 h-4" />
@@ -322,10 +324,87 @@ console.log("Processed Batch:", processTasks(sampleBatch));
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-sm tracking-tight text-white">Cursor AI Pair Programmer</span>
-              <span className="flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span className={`w-1.5 h-1.5 rounded-full bg-emerald-400 ${isAnalyzing ? 'animate-ping' : 'animate-pulse'}`} />
-                {isAnalyzing ? 'Analyzing...' : 'Live Watcher'}
-              </span>
+              
+              {/* 3-Tier Pipeline Execution Pill */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setShowPipelineModal(!showPipelineModal)}
+                  className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 hover:bg-indigo-500/20 transition cursor-pointer"
+                  title="Click to view multi-tier AI execution path"
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full ${isAnalyzing ? 'animate-ping bg-amber-400' : 'bg-indigo-400'}`} />
+                  <span>{analysis?.executionTier || 'Tier 1 (Groq LLM)'}</span>
+                </button>
+
+                {/* 3-Tier Pipeline Details Dropdown */}
+                {showPipelineModal && (
+                  <div className="absolute top-8 left-0 w-72 p-3.5 bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 rounded-2xl shadow-2xl z-50 text-xs space-y-2.5 animate-in fade-in zoom-in-95 duration-150">
+                    <div className="flex items-center justify-between pb-1.5 border-b border-slate-800">
+                      <span className="font-extrabold text-[11px] uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5 text-amber-400" />
+                        AI Execution Pipeline
+                      </span>
+                      <button onClick={() => setShowPipelineModal(false)} className="text-slate-400 hover:text-white cursor-pointer">
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      {/* Tier 1 */}
+                      <div className={`p-2 rounded-xl border flex items-center justify-between ${
+                        analysis?.executionTier?.includes('Tier 1')
+                          ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
+                          : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                      }`}>
+                        <div>
+                          <div className="font-bold text-[11px]">Tier 1 • Groq LLM</div>
+                          <div className="text-[10px] text-slate-400">Primary Llama-3.3-70B</div>
+                        </div>
+                        <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                          analysis?.executionTier?.includes('Tier 1') ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'
+                        }`}>
+                          {analysis?.executionTier?.includes('Tier 1') ? 'Active' : 'Standby'}
+                        </span>
+                      </div>
+
+                      {/* Tier 2 */}
+                      <div className={`p-2 rounded-xl border flex items-center justify-between ${
+                        analysis?.executionTier?.includes('Tier 2')
+                          ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
+                          : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                      }`}>
+                        <div>
+                          <div className="font-bold text-[11px]">Tier 2 • Gemini Fallback</div>
+                          <div className="text-[10px] text-slate-400">Google Gemini 1.5 Flash</div>
+                        </div>
+                        <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                          analysis?.executionTier?.includes('Tier 2') ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'
+                        }`}>
+                          {analysis?.executionTier?.includes('Tier 2') ? 'Active' : 'Standby'}
+                        </span>
+                      </div>
+
+                      {/* Tier 3 */}
+                      <div className={`p-2 rounded-xl border flex items-center justify-between ${
+                        analysis?.executionTier?.includes('Tier 3')
+                          ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
+                          : 'bg-slate-950/40 border-slate-800 text-slate-400'
+                      }`}>
+                        <div>
+                          <div className="font-bold text-[11px]">Tier 3 • Heuristic AST</div>
+                          <div className="text-[10px] text-slate-400">Deterministic Static Parser</div>
+                        </div>
+                        <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full ${
+                          analysis?.executionTier?.includes('Tier 3') ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-slate-800 text-slate-400'
+                        }`}>
+                          {analysis?.executionTier?.includes('Tier 3') ? 'Active' : 'Ready'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <p className="text-[11px] text-slate-400 truncate max-w-sm">{lessonTitle}</p>
           </div>
@@ -354,19 +433,63 @@ console.log("Processed Batch:", processTasks(sampleBatch));
 
         {/* Right: Code Health & Actions */}
         <div className="flex items-center gap-2">
-          {/* Health Score Pill */}
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
-            <Activity className="w-3.5 h-3.5 text-blue-400" />
-            <span className="text-slate-400 font-semibold text-[11px]">Health:</span>
-            <span className={`font-mono font-extrabold ${
-              (analysis?.codeHealthScore || 100) >= 90
-                ? 'text-emerald-400'
-                : (analysis?.codeHealthScore || 100) >= 70
-                ? 'text-amber-400'
-                : 'text-rose-400'
-            }`}>
-              <AnimatedNumber value={analysis?.codeHealthScore || 100} suffix="%" />
-            </span>
+          {/* Health Score Pill with Transparent Breakdown Dropdown */}
+          <div className="relative">
+            <button
+              type="button"
+              onClick={() => setShowHealthBreakdown(!showHealthBreakdown)}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-xs transition cursor-pointer"
+              title="Click to view scoring breakdown"
+            >
+              <Activity className="w-3.5 h-3.5 text-blue-400" />
+              <span className="text-slate-400 font-semibold text-[11px]">Health:</span>
+              <span className={`font-mono font-extrabold ${
+                (analysis?.codeHealthScore || 100) >= 90
+                  ? 'text-emerald-400'
+                  : (analysis?.codeHealthScore || 100) >= 70
+                  ? 'text-amber-400'
+                  : 'text-rose-400'
+              }`}>
+                <AnimatedNumber value={analysis?.codeHealthScore || 100} suffix="%" />
+              </span>
+            </button>
+
+            {/* Score Breakdown Dropdown Popover */}
+            {showHealthBreakdown && (
+              <div className="absolute top-10 right-0 w-64 p-3.5 bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 rounded-2xl shadow-2xl z-50 text-xs space-y-2 animate-in fade-in zoom-in-95 duration-150">
+                <div className="flex items-center justify-between pb-1.5 border-b border-slate-800">
+                  <span className="font-extrabold text-[11px] uppercase tracking-wider text-slate-300">
+                    Transparent Scoring
+                  </span>
+                  <button onClick={() => setShowHealthBreakdown(false)} className="text-slate-400 hover:text-white cursor-pointer">
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="space-y-1.5 text-slate-300 text-[11px]">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Base Clean Score</span>
+                    <span className="font-mono font-bold text-slate-200">100%</span>
+                  </div>
+                  <div className="flex justify-between text-rose-400">
+                    <span>Errors Deduction</span>
+                    <span className="font-mono font-bold">-{analysis?.scoreBreakdown?.errorDeductions ?? 0}%</span>
+                  </div>
+                  <div className="flex justify-between text-amber-400">
+                    <span>Warnings Deduction</span>
+                    <span className="font-mono font-bold">-{analysis?.scoreBreakdown?.warningDeductions ?? 0}%</span>
+                  </div>
+                  <div className="flex justify-between text-blue-400">
+                    <span>Performance Deduction</span>
+                    <span className="font-mono font-bold">-{analysis?.scoreBreakdown?.performanceDeductions ?? 0}%</span>
+                  </div>
+                  <div className="pt-2 border-t border-slate-800 flex justify-between font-bold text-white text-xs">
+                    <span>Final Evaluated Score</span>
+                    <span className="font-mono text-emerald-400">{analysis?.codeHealthScore || 100}%</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Compare Toggle */}
@@ -695,17 +818,26 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1.5">
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
                           <span
                             className={`px-2 py-0.5 rounded-md text-[10px] font-mono font-bold ${
                               issue.type === 'error'
-                                ? 'bg-rose-500/20 text-rose-300'
+                                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
                                 : issue.type === 'warning'
-                                ? 'bg-amber-500/20 text-amber-300'
-                                : 'bg-blue-500/20 text-blue-300'
+                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                                : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
                             }`}
                           >
                             Line {issue.line}
+                          </span>
+                          <span className={`px-2 py-0.2 rounded-full text-[9px] font-bold ${
+                            issue.confidence === 'High'
+                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                              : issue.confidence === 'Medium'
+                              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                              : 'bg-slate-700/40 text-slate-300 border border-slate-600/40'
+                          }`}>
+                            {issue.confidence || 'High'} Confidence
                           </span>
                           <span className="text-xs font-bold text-white">{issue.message}</span>
                         </div>

@@ -256,19 +256,28 @@ export const LearningPathPage: React.FC = () => {
                               </Badge>
                             </div>
 
-                            <div className="mt-4 flex items-center justify-between gap-4">
-                              <div className="flex-1">
+                            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                              <div className="flex-1 min-w-[140px]">
                                 <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-1">
                                   {mod.progressPercentage}% Complete
                                 </div>
                                 <ProgressBar value={mod.progressPercentage} size="sm" />
                               </div>
-                              <button
-                                onClick={() => navigate('/courses/js-async-programming')}
-                                className="text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 hover:underline cursor-pointer"
-                              >
-                                Continue
-                              </button>
+                              <div className="flex items-center gap-3">
+                                <button
+                                  onClick={() => navigate(`/ai/pair-programmer?topic=${encodeURIComponent(mod.title)}`)}
+                                  className="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 hover:underline cursor-pointer flex items-center gap-1"
+                                >
+                                  <span>Practice in AI Studio</span>
+                                  <ArrowRight className="w-3 h-3" />
+                                </button>
+                                <button
+                                  onClick={() => navigate('/courses/js-async-programming')}
+                                  className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition cursor-pointer"
+                                >
+                                  Continue
+                                </button>
+                              </div>
                             </div>
                           </div>
                         );
