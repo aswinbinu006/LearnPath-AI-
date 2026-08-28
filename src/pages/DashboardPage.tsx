@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { dashboardService } from '../services/dashboardService.js';
 import { courseService } from '../services/courseService.js';
@@ -181,12 +181,13 @@ export const DashboardPage: React.FC = () => {
   const displayName = authUser?.name || user.name || 'Learner';
 
   const categories = ['ALL', 'Completed', 'Frontend', 'Backend', 'Full Stack', 'Data Structures'];
-  const filteredCourses =
-    selectedCategory === 'ALL'
-      ? courses
-      : selectedCategory === 'Completed'
-      ? courses.filter((c) => (c as any).isCompleted || (c as any).progressPercent > 0)
-      : courses.filter((c) => c.category === selectedCategory);
+  const filteredCourses = useMemo(() => {
+    if (selectedCategory === 'ALL') return courses;
+    if (selectedCategory === 'Completed') {
+      return courses.filter((c) => (c as any).isCompleted || (c as any).progressPercent > 0);
+    }
+    return courses.filter((c) => c.category === selectedCategory);
+  }, [courses, selectedCategory]);
 
   return (
     <div className="space-y-8 max-w-7xl mx-auto pb-12 select-none">
