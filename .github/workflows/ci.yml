@@ -1,0 +1,98 @@
+name: Continuous Integration & Production Build Pipeline
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-test:
+    name: Code Quality, Typecheck & Automated Test Suite
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password123
+          POSTGRES_DB: learnpath_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: TypeScript Static Code Analysis
+        run: npm run typecheck
+
+      - name: Environment Configuration Validation
+        env:
+          DATABASE_URL: postgresql://postgres:password123@localhost:5432/learnpath_test?schema=public
+          JWT_SECRET: test_jwt_secret_for_ci_pipeline_123456789
+          NODE_ENV: test
+        run: npm run validate:env
+
+      - name: PostgreSQL Schema Push & Prisma Client Generation
+        env:
+          DATABASE_URL: postgresql://postgres:password123@localhost:5432/learnpath_test?schema=public
+        run: |
+          npx prisma generate
+          npx prisma db push --skip-generate
+          npx tsx prisma/seed.ts
+
+      - name: Execute Security & RBAC Test Suite
+        env:
+          DATABASE_URL: postgresql://postgres:password123@localhost:5432/learnpath_test?schema=public
+          JWT_SECRET: test_jwt_secret_for_ci_pipeline_123456789
+          ADMIN_SECURITY_CODE: HCL-ADMIN-2026
+        run: |
+          npm test
+          npx tsx tests/admin_dashboard.test.ts
+
+      - name: Build Frontend & Backend Production Bundles
+        run: |
+          npm run build
+          npm run build:server
+
+  docker-build:
+    name: Docker Multi-Stage Image Build & Verification
+    runs-on: ubuntu-latest
+    needs: validate-and-test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Container
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: learnpath-ai:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

@@ -1,0 +1,359 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 String             @id @default(uuid())
+  email              String             @unique
+  passwordHash       String
+  name               String
+  avatarUrl          String?
+  role               String             @default("STUDENT")
+  headline           String             @default("Professional Learner")
+  bio                String?
+  targetRole         String             @default("Frontend Engineer")
+  experienceLevel    String             @default("Intermediate")
+  theme              String             @default("light")
+  dailyGoalMinutes   Int                @default(45)
+  learningStreak     Int                @default(0)
+  totalHoursInvested Float              @default(0.0)
+  lastActiveAt       DateTime           @default(now())
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+
+  learningPaths      LearningPath[]
+  progress           UserProgress[]
+  focusTasks         DailyFocusTask[]
+  userSkills         UserSkill[]
+  skillGaps          SkillGap[]
+  assessments        Assessment[]
+  conversations      Conversation[]
+  recommendations    Recommendation[]
+  sessions           Session[]
+  loginHistory       LoginHistory[]
+  auditLogs          AuditLog[]
+  learnerProfile     LearnerProfile?
+  quizAttempts       QuizAttempt[]
+}
+
+model LearnerProfile {
+  id                       String   @id @default(uuid())
+  userId                   String   @unique
+  user                     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  goalRole                 String   @default("Frontend Engineer")
+  goalTimeline             String?  @default("6 months")
+  goalSummary              String?
+  strengths                String?
+  weakAreas                String?
+  interestFrontend         Int      @default(50)
+  interestBackend          Int      @default(50)
+  interestFullstack        Int      @default(50)
+  interestAi               Int      @default(50)
+  confidenceScore          Int      @default(85)
+  recommendedTrack         String   @default("Frontend")
+  recommendationReason     String?
+  nextRecommendedAction    String?
+  studyPaceMinutes         Int      @default(30)
+  weeklyCheckInDue         Boolean  @default(false)
+  lastWeeklyFeedback       String?
+  lastRecommendationUpdate DateTime @default(now())
+  lastUpdated              DateTime @default(now())
+}
+
+model QuizAttempt {
+  id                   String   @id @default(uuid())
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId             String?
+  category             String
+  score                Int      @default(0)
+  timeTakenSeconds     Int      @default(0)
+  attemptNumber        Int      @default(1)
+  hintsUsed            Int      @default(0)
+  firstAttemptAccuracy Float    @default(0.0)
+  completedAt          DateTime @default(now())
+}
+
+model UserSkill {
+  id               String    @id @default(uuid())
+  userId           String
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skillId          String?
+  skill            Skill?    @relation(fields: [skillId], references: [id], onDelete: SetNull)
+  skillName        String    @default("General")
+  score            Int       @default(50)
+  level            String    @default("Beginner") // Beginner, Beginner+, Intermediate, Advanced
+  proficiencyScore Int       @default(70)
+  status           String    @default("PROFICIENT")
+  targetLevel      String    @default("Advanced")
+  lastEvaluatedAt  DateTime  @default(now())
+  lastUpdated      DateTime  @default(now())
+  @@index([userId, skillName])
+}
+
+model LearningPath {
+  id                  String          @id @default(uuid())
+  userId              String
+  user                User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title               String          @default("Frontend Engineering Path")
+  description         String
+  targetRole          String
+  totalProgress       Int             @default(42)
+  totalHoursEstimated Int             @default(90)
+  totalHoursInvested  Float           @default(38.0)
+  currentFocus        String          @default("Async JavaScript")
+  currentPhaseIndex   Int             @default(1)
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+
+  phases              LearningPhase[]
+}
+
+model LearningPhase {
+  id             String         @id @default(uuid())
+  learningPathId String
+  learningPath   LearningPath   @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+  phaseNumber    Int
+  title          String
+  description    String?
+  estimatedHours Int
+  status         String         @default("LOCKED")
+  iconType       String         @default("book")
+  order          Int
+
+  modules        PhaseModule[]
+}
+
+model Course {
+  id              String           @id @default(uuid())
+  title           String
+  slug            String           @unique
+  description     String
+  category        String
+  difficulty      String           @default("Intermediate")
+  durationMinutes Int              @default(180)
+  icon            String?
+  coverImage      String?
+  isFeatured      Boolean          @default(false)
+  isRecommended   Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+
+  modules         Module[]
+  recommendations Recommendation[]
+}
+
+model Module {
+  id               String         @id @default(uuid())
+  courseId         String
+  course           Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title            String
+  description      String
+  order            Int
+  estimatedMinutes Int            @default(60)
+  totalLessons     Int            @default(5)
+
+  lessons          Lesson[]
+  phaseModules     PhaseModule[]
+  userProgress     UserProgress[]
+}
+
+model PhaseModule {
+  id                 String         @id @default(uuid())
+  phaseId            String
+  phase              LearningPhase  @relation(fields: [phaseId], references: [id], onDelete: Cascade)
+  moduleId           String?
+  module             Module?        @relation(fields: [moduleId], references: [id], onDelete: SetNull)
+  title              String
+  summary            String?
+  isCurrent          Boolean        @default(false)
+  status             String         @default("LOCKED")
+  progressPercentage Int            @default(0)
+  order              Int
+}
+
+model Lesson {
+  id              String   @id @default(uuid())
+  moduleId        String
+  module          Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  title           String
+  type            String   @default("VIDEO")
+  content         String
+  codeSnippet     String?
+  durationMinutes Int      @default(15)
+  order           Int
+}
+
+model UserProgress {
+  id                 String   @id @default(uuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  moduleId           String
+  module             Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  completedLessons   Int      @default(0)
+  totalLessons       Int      @default(5)
+  progressPercentage Int      @default(0)
+  isCompleted        Boolean  @default(false)
+  lastAccessedAt     DateTime @default(now())
+}
+
+model DailyFocusTask {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title           String
+  typeLabel       String
+  durationMinutes Int
+  isCompleted     Boolean  @default(false)
+  order           Int      @default(0)
+  scheduledDate   String
+}
+
+model SkillCategory {
+  id          String   @id @default(uuid())
+  name        String
+  slug        String   @unique
+  description String?
+  skills      Skill[]
+}
+
+model Skill {
+  id          String        @id @default(uuid())
+  categoryId  String
+  category    SkillCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  name        String
+  slug        String        @unique
+  description String?
+
+  userSkills  UserSkill[]
+}
+
+
+model SkillGap {
+  id                     String  @id @default(uuid())
+  userId                 String
+  user                   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  skillName              String
+  severity               String
+  description            String
+  targetLevel            String  @default("Advanced")
+  recommendedCourseTitle String?
+  recommendedCourseId    String?
+}
+
+model Assessment {
+  id                String                 @id @default(uuid())
+  userId            String
+  user              User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title             String
+  category          String
+  targetRole        String                 @default("Senior Frontend Developer")
+  score             Int                    @default(0)
+  maxScore          Int                    @default(100)
+  proficiencyResult String?
+  feedback          String?
+  status            String                 @default("COMPLETED")
+  createdAt         DateTime               @default(now())
+
+  submissions       AssessmentSubmission[]
+}
+
+model AssessmentQuestion {
+  id                 String  @id @default(uuid())
+  category           String
+  questionText       String
+  codeBlock          String?
+  options            String
+  correctOptionIndex Int
+  explanation        String
+  skillTested        String
+  difficulty         String  @default("Intermediate")
+}
+
+model AssessmentSubmission {
+  id                  String     @id @default(uuid())
+  assessmentId        String
+  assessment          Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  questionId          String
+  selectedOptionIndex Int
+  isCorrect           Boolean
+}
+
+model Conversation {
+  id        String        @id @default(uuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title     String
+  category  String        @default("General")
+  timeGroup String        @default("TODAY")
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  messages  ChatMessage[]
+}
+
+model ChatMessage {
+  id             String       @id @default(uuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String
+  content        String
+  createdAt      DateTime     @default(now())
+}
+
+model Recommendation {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId    String?
+  course      Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  title       String
+  reason      String
+  tags        String?
+  isDismissed Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  refreshToken String   @unique
+  userAgent    String?
+  browser      String?  @default("Chrome")
+  os           String?  @default("Windows")
+  ipAddress    String?  @default("127.0.0.1")
+  lastActiveAt DateTime @default(now())
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}
+
+model LoginHistory {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  browser   String   @default("Chrome")
+  os        String   @default("Windows")
+  ipAddress String   @default("127.0.0.1")
+  status    String   @default("SUCCESS")
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action    String
+  category  String   @default("GENERAL")
+  details   String?
+  ipAddress String?  @default("127.0.0.1")
+  userAgent String?
+  browser   String?  @default("Chrome")
+  os        String?  @default("Windows")
+  status    String   @default("SUCCESS")
+  createdAt DateTime @default(now())
+}
