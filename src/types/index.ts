@@ -354,10 +354,22 @@ export interface RecommendationCenterData {
   recommendationReason: string;
   skillsNeedingAttention: { name: string; score: number; level: string }[];
   recentlyImprovedSkills: { name: string; score: number; level: string }[];
+  skillGapBreakdown?: SkillGapAnalysisItem[];
   studyPaceMinutes: number;
   lastRecommendationUpdate: string;
   weeklyCheckInDue: boolean;
   timeline: TimelineItem[];
+}
+
+export interface SkillGapAnalysisItem {
+  skillName: string;
+  requiredScore: number;
+  currentScore: number;
+  gap: number;
+  severity: 'CRITICAL' | 'MODERATE' | 'MINOR' | 'MASTERED';
+  priorityOrder: number;
+  category: string;
+  prerequisiteModuleTitle: string;
 }
 
 export interface ParsedGoalData {

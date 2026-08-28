@@ -1,5 +1,11 @@
 import { prisma } from '../prismaClient.js';
-import { RECOMMENDATION_WEIGHTS, PACE_MODIFIERS, TRACK_SKILL_MAPPING } from '../../config/recommendationConfig.js';
+import {
+  RECOMMENDATION_WEIGHTS,
+  PACE_MODIFIERS,
+  TRACK_SKILL_MAPPING,
+  ROLE_SKILL_REQUIREMENTS,
+  TargetSkillRequirement,
+} from '../../config/recommendationConfig.js';
 import { logger } from '../../utils/logger.js';
 
 export interface TimelineItem {
@@ -9,6 +15,17 @@ export interface TimelineItem {
   detail: string;
   type: 'ASSESSMENT' | 'REFINEMENT' | 'MILESTONE' | 'CHECKIN';
   timestamp: string;
+}
+
+export interface SkillGapAnalysisItem {
+  skillName: string;
+  requiredScore: number;
+  currentScore: number;
+  gap: number;
+  severity: 'CRITICAL' | 'MODERATE' | 'MINOR' | 'MASTERED';
+  priorityOrder: number;
+  category: string;
+  prerequisiteModuleTitle: string;
 }
 
 export interface RecommendationCenterData {
@@ -33,6 +50,7 @@ export interface RecommendationCenterData {
   recommendationReason: string;
   skillsNeedingAttention: { name: string; score: number; level: string }[];
   recentlyImprovedSkills: { name: string; score: number; level: string }[];
+  skillGapBreakdown?: SkillGapAnalysisItem[];
   studyPaceMinutes: number;
   lastRecommendationUpdate: string;
   weeklyCheckInDue: boolean;
@@ -237,7 +255,56 @@ export class RecommendationEngine {
   }
 
   /**
-   * Get complete Recommendation Center payload with transparent confidence breakdown and timeline
+   * Quantitative Skill Gap Engine:
+   * Gap = max(0, Required Benchmark - Current Score)
+   * Sorted in descending gap order to resolve largest pedagogical bottlenecks first.
+   */
+  public static computeSkillGaps(
+    targetRole: string,
+    userSkills: Array<{ skillName: string; score: number }>
+  ): SkillGapAnalysisItem[] {
+    const safeTrack = targetRole || 'Frontend Engineer';
+    const requirements = ROLE_SKILL_REQUIREMENTS[safeTrack] || ROLE_SKILL_REQUIREMENTS['Frontend Engineer'] || [];
+
+    const analysisItems: SkillGapAnalysisItem[] = requirements.map((req) => {
+      const reqLower = req.skillName.toLowerCase();
+      const matched = userSkills.find((s) => {
+        const sLower = s.skillName.toLowerCase();
+        return sLower.includes(reqLower) || reqLower.includes(sLower) ||
+          reqLower.split(/[ /&]/).some((part) => part.length > 2 && sLower.includes(part));
+      });
+
+      const currentScore = matched ? matched.score : 35; // Default unassessed baseline
+      const gap = Math.max(0, req.requiredScore - currentScore);
+
+      let severity: 'CRITICAL' | 'MODERATE' | 'MINOR' | 'MASTERED' = 'MINOR';
+      if (gap >= 35) severity = 'CRITICAL';
+      else if (gap >= 15) severity = 'MODERATE';
+      else if (gap === 0) severity = 'MASTERED';
+
+      return {
+        skillName: req.skillName,
+        requiredScore: req.requiredScore,
+        currentScore,
+        gap,
+        severity,
+        priorityOrder: 0,
+        category: req.category,
+        prerequisiteModuleTitle: req.prerequisiteModuleTitle,
+      };
+    });
+
+    // Sort descending by gap percentage (largest gap = highest priority)
+    analysisItems.sort((a, b) => b.gap - a.gap);
+    analysisItems.forEach((item, idx) => {
+      item.priorityOrder = idx + 1;
+    });
+
+    return analysisItems;
+  }
+
+  /**
+   * Get complete Recommendation Center payload with transparent confidence breakdown, skill gaps, and timeline
    */
   public static async getRecommendationCenterData(userId: string): Promise<RecommendationCenterData> {
     const user = await prisma.user.findUnique({
@@ -280,27 +347,48 @@ export class RecommendationEngine {
       learningHistory
     );
 
-    // 2. Skill categorizations
+    // 2. Quantitative Skill Gap Engine Evaluation
     const allSkills = user?.userSkills || [];
-    const skillsNeedingAttention = allSkills
-      .filter((s) => s.score < 60)
-      .map((s) => ({ name: s.skillName, score: s.score, level: s.level }))
-      .slice(0, 3);
+    const skillGapBreakdown = this.computeSkillGaps(recommendedTrack, allSkills);
+
+    // Sync database SkillGap table asynchronously
+    setImmediate(async () => {
+      try {
+        await prisma.skillGap.deleteMany({ where: { userId } });
+        for (const gapItem of skillGapBreakdown.filter((g) => g.gap > 0)) {
+          await prisma.skillGap.create({
+            data: {
+              userId,
+              skillName: gapItem.skillName,
+              severity: gapItem.severity,
+              description: `Required: ${gapItem.requiredScore}%, Current: ${gapItem.currentScore}% (Gap: ${gapItem.gap}%)`,
+              targetLevel: gapItem.requiredScore >= 80 ? 'Advanced' : 'Intermediate',
+              recommendedCourseTitle: gapItem.prerequisiteModuleTitle,
+            },
+          });
+        }
+      } catch {
+        // Non-blocking
+      }
+    });
+
+    // 3. Skill categorizations
+    const skillsNeedingAttention = skillGapBreakdown
+      .filter((s) => s.gap > 0)
+      .slice(0, 3)
+      .map((s) => ({
+        name: s.skillName,
+        score: s.currentScore,
+        level: s.currentScore >= 70 ? 'Proficient' : s.currentScore >= 50 ? 'Developing' : 'Beginner',
+      }));
 
     const recentlyImprovedSkills = allSkills
       .filter((s) => s.score >= 60)
       .map((s) => ({ name: s.skillName, score: s.score, level: s.level }))
       .slice(0, 3);
 
-    // If empty, supply representative defaults based on track
     if (skillsNeedingAttention.length === 0) {
-      if (recommendedTrack.includes('Backend')) {
-        skillsNeedingAttention.push({ name: 'REST APIs & HTTP', score: 42, level: 'Beginner+' });
-      } else if (recommendedTrack.includes('AI')) {
-        skillsNeedingAttention.push({ name: 'Vector Embeddings', score: 48, level: 'Beginner+' });
-      } else {
-        skillsNeedingAttention.push({ name: 'Async JavaScript', score: 45, level: 'Beginner+' });
-      }
+      skillsNeedingAttention.push({ name: 'Architecture Refinement', score: 75, level: 'Proficient' });
     }
 
     if (recentlyImprovedSkills.length === 0) {
@@ -311,21 +399,22 @@ export class RecommendationEngine {
       }
     }
 
-    // 3. Next Recommended Action
-    const weakSkill = skillsNeedingAttention[0]?.name || 'Core Fundamentals';
+    // 4. Next Recommended Action based on largest skill gap
+    const highestPriorityGap = skillGapBreakdown[0];
+    const weakSkill = highestPriorityGap?.skillName || skillsNeedingAttention[0]?.name || 'Core Fundamentals';
     const nextRecommendedAction = {
-      title: `${weakSkill} Focused Practice`,
-      description: `Targeted interactive practice module tailored to boost your ${weakSkill} score into Proficient tier.`,
-      reason: `Recommended because your evaluated readiness scored ${skillsNeedingAttention[0]?.score || 45}% in ${weakSkill}.`,
+      title: `${weakSkill} Focused Mastery`,
+      description: `Targeted interactive practice module to bridge your ${highestPriorityGap?.gap || 35}% competency gap in ${weakSkill}.`,
+      reason: `Recommended as Priority #1 because your current proficiency is ${highestPriorityGap?.currentScore || 35}% (Required: ${highestPriorityGap?.requiredScore || 80}%).`,
       type: 'PRACTICE',
       actionUrl: '/learning-path',
     };
 
-    // 4. Recommendation Reason
+    // 5. Recommendation Reason
     const recommendationReason = profile?.recommendationReason ||
-      `Based on your target of becoming a ${recommendedTrack} within ${profile?.goalTimeline || '6 months'}, we've balanced foundational review with hands-on architecture practice matching your ${studyPaceMinutes} min/day commitment.`;
+      `Based on your target of becoming a ${recommendedTrack} within ${profile?.goalTimeline || '6 months'}, we have prioritized ${weakSkill} (Priority #1 Gap: ${highestPriorityGap?.gap || 35}%) before advancing to high-throughput production architecture.`;
 
-    // 5. Dynamic "Why the Path Changed" Timeline
+    // 6. Dynamic "Why the Path Changed" Timeline
     const timeline = this.buildTimeline(user);
 
     return {
@@ -344,6 +433,7 @@ export class RecommendationEngine {
       recommendationReason,
       skillsNeedingAttention,
       recentlyImprovedSkills,
+      skillGapBreakdown,
       studyPaceMinutes,
       lastRecommendationUpdate: profile?.lastRecommendationUpdate ? profile.lastRecommendationUpdate.toISOString() : new Date().toISOString(),
       weeklyCheckInDue: profile?.weeklyCheckInDue ?? false,

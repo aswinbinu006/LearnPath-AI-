@@ -538,6 +538,53 @@ export const DashboardPage: React.FC = () => {
               ))}
             </div>
           </Card>
+
+          {/* ── AI Skill Gap Prioritization Card ─────────── */}
+          {recCenter?.skillGapBreakdown && recCenter.skillGapBreakdown.length > 0 && (
+            <Card className="p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-4">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-neutral-800">
+                <div className="flex items-center gap-2">
+                  <Target className="w-4 h-4 text-rose-500" />
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+                    AI Skill Gap Ranking
+                  </h4>
+                </div>
+                <span className="text-[10px] font-bold text-slate-400">
+                  Gap Priority
+                </span>
+              </div>
+
+              <div className="space-y-2.5">
+                {recCenter.skillGapBreakdown.slice(0, 4).map((gap, idx) => (
+                  <div key={idx} className="p-3 rounded-xl border border-slate-100 dark:border-neutral-800/80 bg-slate-50/50 dark:bg-neutral-950 flex items-center justify-between gap-3 text-xs">
+                    <div className="space-y-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className="px-1.5 py-0.2 rounded font-mono text-[10px] font-bold bg-slate-200 dark:bg-neutral-800 text-slate-700 dark:text-slate-300">
+                          #{gap.priorityOrder}
+                        </span>
+                        <span className="font-bold text-slate-900 dark:text-slate-100">{gap.skillName}</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500">
+                        Target: <span className="font-mono font-semibold text-slate-700 dark:text-slate-300">{gap.requiredScore}%</span> • Current: <span className="font-mono font-semibold text-slate-700 dark:text-slate-300">{gap.currentScore}%</span>
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                        gap.severity === 'CRITICAL'
+                          ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                          : gap.severity === 'MODERATE'
+                          ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                          : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                      }`}>
+                        {gap.gap > 0 ? `-${gap.gap}% Gap` : 'Mastered ✓'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          )}
         </div>
       </div>
     </div>
