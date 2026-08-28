@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import apiRouter from './routes/index.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -67,13 +68,36 @@ app.use((req, res, next) => {
 // API Routes
 app.use('/api', apiRouter);
 
-// Serve static frontend assets if in production
-if (process.env.NODE_ENV === 'production') {
-  const distPath = path.resolve(__dirname, '../../dist');
+// Serve static frontend assets
+const possibleDistPaths = [
+  path.resolve(process.cwd(), 'dist'),
+  path.resolve(__dirname, '../../dist'),
+  path.resolve(__dirname, '..'),
+  path.resolve(__dirname, '../..'),
+];
+
+const distPath = possibleDistPaths.find((p) => fs.existsSync(path.join(p, 'index.html')));
+
+if (distPath) {
+  logger.info(`Serving static frontend assets from: ${distPath}`);
   app.use(express.static(distPath));
 
-  app.get('*', (req, res) => {
+  // SPA fallback for all non-API GET routes
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api')) {
+      return next();
+    }
     res.sendFile(path.join(distPath, 'index.html'));
+  });
+} else {
+  logger.warn('Frontend build (dist/index.html) not found. API routes are active.');
+  app.get('/', (req, res) => {
+    res.json({
+      status: 'online',
+      message: 'LearnPath AI API Server is running.',
+      hint: 'Frontend dist/index.html was not found. Please build frontend with `npm run build`.',
+      healthCheck: '/api/health',
+    });
   });
 }
 
