@@ -234,7 +234,7 @@ Respond ONLY with valid JSON in this exact structure:
         });
 
         if (res.ok) {
-          const data: any = await res.json();
+          const data: any = await responseOrJson(res);
           const content = data?.choices?.[0]?.message?.content;
           if (content) {
             const cleaned = content.replace(/```json/g, '').replace(/```/g, '').trim();
@@ -246,10 +246,35 @@ Respond ONLY with valid JSON in this exact structure:
           }
         }
       } catch (err) {
-        logger.warn('LLM Pair Programmer analysis failed, using fallback', { error: String(err) });
+        logger.warn('LLM Pair Programmer analysis failed, checking Gemini fallback', { error: String(err) });
       }
     }
 
+    // 2. Try Google Gemini Fallback
+    const gemini = this.getGeminiClient();
+    if (gemini) {
+      try {
+        const model = gemini.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const result = await model.generateContent(`${systemPrompt}\n\nCandidate Code:\n\`\`\`typescript\n${code}\n\`\`\``);
+        const text = result.response.text()?.trim();
+        if (text) {
+          const cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
+          const parsed = JSON.parse(cleaned);
+          return {
+            ...parsed,
+            hintLevel,
+          };
+        }
+      } catch (err) {
+        logger.warn('Gemini Pair Programmer analysis failed, using deterministic AST analyzer', { error: String(err) });
+      }
+    }
+
+    // 3. Fallback to deterministic static AST & heuristic analyzer
     return fallback;
   }
+}
+
+async function responseOrJson(res: any) {
+  return await res.json();
 }
