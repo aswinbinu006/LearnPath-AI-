@@ -438,12 +438,12 @@ export const OnboardingPage: React.FC = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {[
-                  { name: 'Building beautiful websites', icon: Globe, track: 'Frontend (+30)' },
-                  { name: 'Creating APIs & Microservices', icon: Server, track: 'Backend (+30)' },
-                  { name: 'Building complete applications', icon: Layers, track: 'Full Stack (+25)' },
-                  { name: 'AI & Machine Learning', icon: Cpu, track: 'AI & Systems (+30)' },
-                  { name: 'DevOps & Cloud Infrastructure', icon: Cloud, track: 'Cloud (+25)' },
-                  { name: 'Cybersecurity & Hardening', icon: Shield, track: 'Security (+25)' },
+                  { name: 'Building beautiful websites', icon: Globe, track: 'Frontend Engineering' },
+                  { name: 'Creating APIs & Microservices', icon: Server, track: 'Backend Architecture' },
+                  { name: 'Building complete applications', icon: Layers, track: 'Full Stack Development' },
+                  { name: 'AI & Machine Learning', icon: Cpu, track: 'AI & Intelligent Systems' },
+                  { name: 'DevOps & Cloud Infrastructure', icon: Cloud, track: 'Cloud & Infrastructure' },
+                  { name: 'Cybersecurity & Hardening', icon: Shield, track: 'Cybersecurity & Hardening' },
                 ].map((item) => {
                   const isSelected = selectedInterests.includes(item.name);
                   const Icon = item.icon;
