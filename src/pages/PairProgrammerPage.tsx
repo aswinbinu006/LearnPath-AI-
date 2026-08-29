@@ -215,13 +215,13 @@ export const PairProgrammerPage: React.FC = () => {
           </p>
         </div>
 
-        {/* Challenge Selector */}
-        <div className="flex items-center gap-2 flex-wrap">
+        {/* Challenge Selector — Horizontal Touch Scroll on Mobile */}
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 pt-1 -mx-1 px-1 touch-pan-x shrink-0">
           {PRESET_CHALLENGES.map((ch, idx) => (
             <button
               key={ch.id}
               onClick={() => setSelectedChallengeIdx(idx)}
-              className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition cursor-pointer ${
+              className={`px-3 py-1.5 min-h-[38px] rounded-xl border text-xs font-bold transition-all cursor-pointer shrink-0 active:scale-95 flex items-center justify-center ${
                 selectedChallengeIdx === idx
                   ? 'bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/20'
                   : 'bg-white dark:bg-black text-slate-700 dark:text-slate-300 border-slate-200 dark:border-neutral-800 hover:border-slate-300'

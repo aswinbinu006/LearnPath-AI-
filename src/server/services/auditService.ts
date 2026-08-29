@@ -49,7 +49,8 @@ export function parseDeviceFromReq(req?: Request) {
     return { browser: 'Chrome', os: 'Windows', ipAddress: '127.0.0.1', userAgent: '' };
   }
 
-  const ua = req.headers['user-agent'] || '';
+  const rawUa = req.headers['user-agent'];
+  const ua = (Array.isArray(rawUa) ? rawUa[0] : (rawUa || '')) as string;
   let browser = 'Chrome';
   let os = 'Windows';
 
@@ -65,9 +66,18 @@ export function parseDeviceFromReq(req?: Request) {
   else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
 
   const forwarded = req.headers['x-forwarded-for'];
-  const ipAddress = (Array.isArray(forwarded) ? forwarded[0] : (forwarded as string)?.split(',')[0]) ||
-    req.socket.remoteAddress ||
-    '127.0.0.1';
+  let ipAddress = '127.0.0.1';
+  if (forwarded) {
+    if (Array.isArray(forwarded)) {
+      ipAddress = (forwarded[0]?.split(',')[0] || '127.0.0.1').trim();
+    } else if (typeof forwarded === 'string') {
+      ipAddress = (forwarded.split(',')[0] || '127.0.0.1').trim();
+    }
+  } else if (req.ip) {
+    ipAddress = String(req.ip).trim();
+  } else if (req.socket?.remoteAddress) {
+    ipAddress = String(req.socket.remoteAddress).trim();
+  }
 
   return { browser, os, ipAddress, userAgent: ua };
 }
@@ -80,10 +90,14 @@ export class AuditService {
     try {
       const device = parseDeviceFromReq(params.req);
 
-      const ipAddress = params.ipAddress || device.ipAddress;
-      const userAgent = params.userAgent || device.userAgent;
-      const browser = params.browser || device.browser;
-      const os = params.os || device.os;
+      const rawIp = params.ipAddress || device.ipAddress;
+      const ipAddress = (Array.isArray(rawIp) ? rawIp[0]?.split(',')[0] : (typeof rawIp === 'string' ? rawIp.split(',')[0] : '127.0.0.1')).trim();
+
+      const rawUa = params.userAgent !== undefined ? params.userAgent : device.userAgent;
+      const userAgent = Array.isArray(rawUa) ? rawUa[0] : (rawUa || null);
+
+      const browser = params.browser || device.browser || 'Chrome';
+      const os = params.os || device.os || 'Windows';
 
       let serializedDetails: string | null = null;
       if (params.details) {
@@ -101,7 +115,7 @@ export class AuditService {
           category: params.category || 'GENERAL',
           details: serializedDetails,
           ipAddress,
-          userAgent: userAgent ? userAgent.substring(0, 500) : null,
+          userAgent: userAgent ? String(userAgent).substring(0, 500) : null,
           browser,
           os,
           status: params.status || 'SUCCESS',

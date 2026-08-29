@@ -83,15 +83,15 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-black border-b border-slate-200/90 dark:border-neutral-800 px-4 sm:px-6 flex items-center justify-between sticky top-0 z-20 transition-colors">
+    <header className="h-16 bg-white dark:bg-black border-b border-slate-200/90 dark:border-neutral-800 px-3 sm:px-6 flex items-center justify-between sticky top-0 z-20 transition-colors select-none">
       {/* Left side: Mobile Menu Button & Context Indicator */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3">
         {onOpenMobileMenu && (
           <button
             onClick={onOpenMobileMenu}
             type="button"
-            className="lg:hidden p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-            aria-label="Open menu"
+            className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all cursor-pointer"
+            aria-label="Open navigation menu"
           >
             <Menu className="w-5 h-5" />
           </button>
@@ -111,7 +111,7 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
       </div>
 
       {/* Right Controls: Theme Toggle, Notifications, User Menu */}
-      <div className="flex items-center gap-2 sm:gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3">
         {/* Theme Toggle */}
         <ThemeToggle />
 
@@ -120,17 +120,17 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
           <button
             onClick={() => setShowNotifications(!showNotifications)}
             type="button"
-            className="relative p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            className="relative min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all cursor-pointer"
             aria-label="Notifications"
           >
             <Bell className="w-5 h-5" />
             {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-black" />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-black" />
             )}
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-72 sm:w-80 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
+            <div className="absolute right-0 mt-2 w-[calc(100vw-1.5rem)] max-w-sm sm:w-80 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-neutral-800">
                 <div className="flex items-center gap-2">
                   <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Notifications</h4>
@@ -188,15 +188,15 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
             type="button"
-            className="flex items-center p-0.5 rounded-full hover:ring-2 hover:ring-blue-500 transition-all cursor-pointer"
+            className="min-h-[44px] min-w-[44px] flex items-center justify-center p-0.5 rounded-full hover:ring-2 hover:ring-blue-500 active:scale-95 transition-all cursor-pointer"
             aria-label="User menu"
           >
             <Avatar name={user?.name || 'User'} size="sm" />
           </button>
 
           {showUserMenu && (
-            <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-xl py-2 z-50 animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-4 py-2 border-b border-slate-100 dark:border-neutral-800">
+            <div className="absolute right-0 mt-2 w-60 sm:w-56 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-100">
+              <div className="px-4 py-2.5 border-b border-slate-100 dark:border-neutral-800">
                 <p className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
                   {user?.name || 'User'}
                 </p>
@@ -211,7 +211,7 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
                     navigate('/settings');
                     setShowUserMenu(false);
                   }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-800 text-left transition-colors cursor-pointer"
+                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-800 text-left transition-colors cursor-pointer"
                 >
                   <UserIcon className="w-4 h-4 text-slate-400" />
                   <span>Profile & Goals</span>
@@ -221,7 +221,7 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
                     navigate('/settings');
                     setShowUserMenu(false);
                   }}
-                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-800 text-left transition-colors cursor-pointer"
+                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-800 text-left transition-colors cursor-pointer"
                 >
                   <Settings className="w-4 h-4 text-slate-400" />
                   <span>Preferences & Theme</span>
@@ -231,7 +231,7 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
               <div className="border-t border-slate-100 dark:border-neutral-800 pt-1">
                 <button
                   onClick={handleLogout}
-                  className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 text-left transition-colors cursor-pointer"
+                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 text-left transition-colors cursor-pointer"
                 >
                   <LogOut className="w-4 h-4 text-red-500" />
                   <span>Log out</span>

@@ -270,6 +270,13 @@ console.log("Processed Batch:", processTasks(sampleBatch));
   };
 
   const [rightPanelTab, setRightPanelTab] = useState<'copilot' | 'diagnostics'>('copilot');
+  const [mobileTab, setMobileTab] = useState<'editor' | 'diagnostics' | 'copilot' | 'console'>('editor');
+
+  // Auto-switch to console tab on mobile when code runs
+  const handleRunCodeWithMobileTab = async () => {
+    setMobileTab('console');
+    await handleRunCode();
+  };
 
   // Fix All issues at once
   const handleFixAll = () => {
@@ -313,40 +320,40 @@ console.log("Processed Batch:", processTasks(sampleBatch));
   const codeLines = useMemo(() => code.split('\n'), [code]);
 
   return (
-    <div className={`flex flex-col h-[calc(100vh-8.5rem)] min-h-[640px] bg-[#070a13] text-slate-100 rounded-3xl border border-slate-800/80 shadow-2xl overflow-hidden ${className}`}>
+    <div className={`flex flex-col h-[calc(100vh-8.5rem)] min-h-[580px] sm:min-h-[640px] bg-[#070a13] text-slate-100 rounded-2xl sm:rounded-3xl border border-slate-800/80 shadow-2xl overflow-hidden relative ${className}`}>
       {/* ── Top Sleek IDE Control Bar ──────────────────────── */}
-      <div className="flex flex-wrap items-center justify-between px-5 py-3 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 gap-3 select-none">
+      <div className="flex flex-wrap items-center justify-between px-3.5 sm:px-5 py-2.5 sm:py-3 bg-slate-900/90 backdrop-blur-md border-b border-slate-800/80 gap-2 sm:gap-3 select-none">
         {/* Left: Branding, Status & 3-Tier Pipeline Badge */}
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 via-blue-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+        <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 via-blue-600 to-violet-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 shrink-0">
             <Cpu className="w-4 h-4" />
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold text-sm tracking-tight text-white">Cursor AI Pair Programmer</span>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="font-extrabold text-xs sm:text-sm tracking-tight text-white truncate">AI Pair Studio</span>
               
               {/* 3-Tier Pipeline Execution Pill */}
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setShowPipelineModal(!showPipelineModal)}
-                  className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 hover:bg-indigo-500/20 transition cursor-pointer"
+                  className="flex items-center gap-1.5 px-2.5 py-1 sm:py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 hover:bg-indigo-500/20 active:scale-95 transition cursor-pointer min-h-[32px] sm:min-h-0"
                   title="Click to view multi-tier AI execution path"
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full ${isAnalyzing ? 'animate-ping bg-amber-400' : 'bg-indigo-400'}`} />
-                  <span>{analysis?.executionTier || 'Tier 1 (Groq LLM)'}</span>
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isAnalyzing ? 'animate-ping bg-amber-400' : 'bg-indigo-400'}`} />
+                  <span className="truncate">{analysis?.executionTier || 'Tier 1 (Groq LLM)'}</span>
                 </button>
 
                 {/* 3-Tier Pipeline Details Dropdown */}
                 {showPipelineModal && (
-                  <div className="absolute top-8 left-0 w-72 p-3.5 bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 rounded-2xl shadow-2xl z-50 text-xs space-y-2.5 animate-in fade-in zoom-in-95 duration-150">
+                  <div className="absolute top-9 left-0 w-72 p-3.5 bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 rounded-2xl shadow-2xl z-50 text-xs space-y-2.5 animate-in fade-in zoom-in-95 duration-150">
                     <div className="flex items-center justify-between pb-1.5 border-b border-slate-800">
                       <span className="font-extrabold text-[11px] uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
                         <Zap className="w-3.5 h-3.5 text-amber-400" />
                         AI Execution Pipeline
                       </span>
-                      <button onClick={() => setShowPipelineModal(false)} className="text-slate-400 hover:text-white cursor-pointer">
-                        <X className="w-3.5 h-3.5" />
+                      <button onClick={() => setShowPipelineModal(false)} className="text-slate-400 hover:text-white cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center">
+                        <X className="w-4 h-4" />
                       </button>
                     </div>
 
@@ -406,43 +413,43 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                 )}
               </div>
             </div>
-            <p className="text-[11px] text-slate-400 truncate max-w-sm">{lessonTitle}</p>
+            <p className="text-[11px] text-slate-400 truncate max-w-sm hidden sm:block">{lessonTitle}</p>
           </div>
         </div>
 
         {/* Center: Hint Level Selector */}
-        <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800/80 text-xs">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-2 flex items-center gap-1">
-            <Lightbulb className="w-3 h-3 text-amber-400" />
-            Hint Level:
+        <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-slate-800/80 text-xs shrink-0">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-1.5 sm:px-2 flex items-center gap-1">
+            <Lightbulb className="w-3 h-3 text-amber-400 shrink-0" />
+            <span className="hidden sm:inline">Hint:</span>
           </span>
           {(['EASY', 'MEDIUM', 'EXPERT'] as HintLevel[]).map((level) => (
             <button
               key={level}
               onClick={() => setHintLevel(level)}
-              className={`px-2.5 py-1 rounded-lg font-bold text-[11px] transition-all cursor-pointer ${
+              className={`px-2 sm:px-2.5 py-1 rounded-lg font-bold text-[11px] min-h-[32px] sm:min-h-0 flex items-center justify-center transition-all cursor-pointer ${
                 hintLevel === level
                   ? 'bg-blue-600 text-white shadow-xs'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
               }`}
             >
-              {level === 'EASY' ? 'Easy' : level === 'MEDIUM' ? 'Medium' : 'Expert'}
+              {level === 'EASY' ? 'Easy' : level === 'MEDIUM' ? 'Med' : 'Exp'}
             </button>
           ))}
         </div>
 
-        {/* Right: Code Health & Actions */}
+        {/* Right: Code Health & Desktop Actions */}
         <div className="flex items-center gap-2">
           {/* Health Score Pill with Transparent Breakdown Dropdown */}
           <div className="relative">
             <button
               type="button"
               onClick={() => setShowHealthBreakdown(!showHealthBreakdown)}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-xs transition cursor-pointer"
+              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-xs transition cursor-pointer min-h-[36px] sm:min-h-0"
               title="Click to view scoring breakdown"
             >
-              <Activity className="w-3.5 h-3.5 text-blue-400" />
-              <span className="text-slate-400 font-semibold text-[11px]">Health:</span>
+              <Activity className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+              <span className="text-slate-400 font-semibold text-[11px] hidden xs:inline">Health:</span>
               <span className={`font-mono font-extrabold ${
                 (analysis?.codeHealthScore || 100) >= 90
                   ? 'text-emerald-400'
@@ -492,10 +499,10 @@ console.log("Processed Batch:", processTasks(sampleBatch));
             )}
           </div>
 
-          {/* Compare Toggle */}
+          {/* Desktop Compare Toggle */}
           <button
             onClick={() => setIsComparing(!isComparing)}
-            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition cursor-pointer ${
+            className={`hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-semibold transition cursor-pointer min-h-[36px] ${
               isComparing
                 ? 'bg-indigo-600 text-white border-indigo-500 shadow-sm'
                 : 'bg-slate-950 text-slate-300 border-slate-800 hover:border-slate-700'
@@ -505,11 +512,11 @@ console.log("Processed Batch:", processTasks(sampleBatch));
             <span>{isComparing ? 'Close Diff' : 'Compare'}</span>
           </button>
 
-          {/* Run Code Button */}
+          {/* Desktop Run Code Button */}
           <button
             onClick={handleRunCode}
             disabled={isRunning}
-            className="flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 transition cursor-pointer disabled:opacity-50"
+            className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs rounded-xl shadow-md shadow-emerald-600/20 transition cursor-pointer disabled:opacity-50 min-h-[36px]"
           >
             <Play className={`w-3.5 h-3.5 ${isRunning ? 'animate-spin' : 'fill-current'}`} />
             <span>{isRunning ? 'Running...' : 'Run Code'}</span>
@@ -517,10 +524,74 @@ console.log("Processed Batch:", processTasks(sampleBatch));
         </div>
       </div>
 
-      {/* ── Main Split Canvas (Left Code Editor / Right Copilot & Diagnostics) ── */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 min-h-0 overflow-hidden">
-        {/* ════ LEFT PANE (7 cols): Interactive Code Editor ══════════════ */}
-        <div className="lg:col-span-7 flex flex-col h-full border-r border-slate-800/80 bg-[#090d16] min-h-0 overflow-hidden">
+      {/* ── Mobile Segmented Tab Bar (< lg screens) ─────────── */}
+      <div className="lg:hidden flex items-center justify-between px-3 py-2 bg-slate-950 border-b border-slate-800/80 gap-1 select-none overflow-x-auto no-scrollbar">
+        <button
+          type="button"
+          onClick={() => setMobileTab('editor')}
+          className={`flex-1 min-h-[40px] px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+            mobileTab === 'editor'
+              ? 'bg-blue-600 text-white shadow-xs'
+              : 'text-slate-400 hover:text-slate-200 bg-slate-900/60'
+          }`}
+        >
+          <Code2 className="w-3.5 h-3.5" />
+          <span>Editor</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setMobileTab('diagnostics')}
+          className={`flex-1 min-h-[40px] px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+            mobileTab === 'diagnostics'
+              ? 'bg-blue-600 text-white shadow-xs'
+              : 'text-slate-400 hover:text-slate-200 bg-slate-900/60'
+          }`}
+        >
+          <AlertCircle className="w-3.5 h-3.5" />
+          <span>Issues</span>
+          <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-extrabold ${
+            (analysis?.issues?.length || 0) > 0 ? 'bg-rose-500/20 text-rose-300' : 'bg-emerald-500/20 text-emerald-300'
+          }`}>
+            {analysis?.issues?.length || 0}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setMobileTab('copilot')}
+          className={`flex-1 min-h-[40px] px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+            mobileTab === 'copilot'
+              ? 'bg-blue-600 text-white shadow-xs'
+              : 'text-slate-400 hover:text-slate-200 bg-slate-900/60'
+          }`}
+        >
+          <Bot className="w-3.5 h-3.5" />
+          <span>Copilot</span>
+        </button>
+
+        {terminalOutput && (
+          <button
+            type="button"
+            onClick={() => setMobileTab('console')}
+            className={`flex-1 min-h-[40px] px-2.5 py-1.5 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+              mobileTab === 'console'
+                ? 'bg-emerald-600 text-white shadow-xs'
+                : 'text-emerald-400 bg-emerald-950/40 border border-emerald-500/30'
+            }`}
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            <span>Console</span>
+          </button>
+        )}
+      </div>
+
+      {/* ── Main Canvas (Split on desktop, Active Tab on mobile) ── */}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 min-h-0 overflow-hidden pb-16 sm:pb-0">
+        {/* ════ LEFT PANE: Code Editor & Console ══════════════ */}
+        <div className={`lg:col-span-7 flex flex-col h-full border-r border-slate-800/80 bg-[#090d16] min-h-0 overflow-hidden ${
+          mobileTab === 'editor' || mobileTab === 'console' ? 'flex' : 'hidden lg:flex'
+        }`}>
           {/* Editor Header / Tab Bar */}
           <div className="flex items-center justify-between px-4 py-2 bg-slate-900/60 border-b border-slate-800/80 text-xs font-mono select-none">
             <div className="flex items-center gap-2">
@@ -533,8 +604,16 @@ console.log("Processed Batch:", processTasks(sampleBatch));
 
             <div className="flex items-center gap-3 text-slate-400">
               <button
+                onClick={() => setIsComparing(!isComparing)}
+                className="sm:hidden flex items-center gap-1 hover:text-white transition cursor-pointer text-[11px] min-h-[32px] px-1.5"
+              >
+                <GitCompare className="w-3 h-3" />
+                <span>{isComparing ? 'Code' : 'Diff'}</span>
+              </button>
+
+              <button
                 onClick={handleCopyCode}
-                className="flex items-center gap-1 hover:text-white transition cursor-pointer text-[11px]"
+                className="flex items-center gap-1 hover:text-white transition cursor-pointer text-[11px] min-h-[32px] px-1.5"
               >
                 {copied ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                 <span>{copied ? 'Copied' : 'Copy'}</span>
@@ -542,7 +621,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
 
               <button
                 onClick={handleResetCode}
-                className="flex items-center gap-1 hover:text-rose-400 transition cursor-pointer text-[11px]"
+                className="flex items-center gap-1 hover:text-rose-400 transition cursor-pointer text-[11px] min-h-[32px] px-1.5"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>Reset</span>
@@ -552,25 +631,25 @@ console.log("Processed Batch:", processTasks(sampleBatch));
 
           {/* Solution Diff Mode (if toggled) */}
           {isComparing ? (
-            <div className="flex-1 grid grid-cols-2 gap-2 p-3 overflow-y-auto font-mono text-xs">
+            <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2 p-3 overflow-y-auto font-mono text-xs">
               <div className="p-3.5 bg-slate-950 rounded-2xl border border-slate-800">
                 <div className="text-[10px] uppercase font-bold text-slate-400 pb-2 mb-2 border-b border-slate-800">
                   Your Current Code
                 </div>
-                <pre className="whitespace-pre-wrap text-slate-300 leading-relaxed">{code}</pre>
+                <pre className="whitespace-pre-wrap text-slate-300 leading-relaxed text-[11px]">{code}</pre>
               </div>
               <div className="p-3.5 bg-emerald-950/20 rounded-2xl border border-emerald-500/30">
                 <div className="text-[10px] uppercase font-bold text-emerald-400 pb-2 mb-2 border-b border-emerald-900/40">
                   Optimal Reference Solution
                 </div>
-                <pre className="whitespace-pre-wrap text-emerald-300 leading-relaxed">{solutionCode}</pre>
+                <pre className="whitespace-pre-wrap text-emerald-300 leading-relaxed text-[11px]">{solutionCode}</pre>
               </div>
             </div>
           ) : (
             /* Live Interactive Code Buffer */
             <div className="flex-1 flex overflow-y-auto font-mono text-xs relative">
               {/* Line Numbers Gutter */}
-              <div className="w-12 bg-[#060910] border-r border-slate-800/80 py-3 select-none flex flex-col text-slate-600 text-right pr-2 shrink-0">
+              <div className="w-10 sm:w-12 bg-[#060910] border-r border-slate-800/80 py-3 select-none flex flex-col text-slate-600 text-right pr-2 shrink-0">
                 {codeLines.map((_, idx) => {
                   const lineNum = idx + 1;
                   const issue = issuesByLine.get(lineNum);
@@ -582,6 +661,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                         if (issue) {
                           setSelectedIssueLine(lineNum);
                           setRightPanelTab('diagnostics');
+                          setMobileTab('diagnostics');
                         }
                       }}
                       className={`h-5 leading-5 flex items-center justify-end gap-1 ${
@@ -616,7 +696,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                   spellCheck={false}
                   autoCapitalize="off"
                   autoComplete="off"
-                  className="w-full h-full p-3 bg-transparent text-slate-200 font-mono text-xs leading-5 resize-none focus:outline-none selection:bg-blue-600/40"
+                  className="w-full h-full p-3 bg-transparent text-slate-200 font-mono text-xs sm:text-xs leading-5 resize-none focus:outline-none selection:bg-blue-600/40"
                 />
               </div>
             </div>
@@ -624,7 +704,9 @@ console.log("Processed Batch:", processTasks(sampleBatch));
 
           {/* Terminal Console Output Drawer */}
           {terminalOutput && (
-            <div className="h-40 border-t border-slate-800/90 bg-[#05070e] p-3 flex flex-col font-mono text-xs">
+            <div className={`h-44 sm:h-40 border-t border-slate-800/90 bg-[#05070e] p-3 flex flex-col font-mono text-xs ${
+              mobileTab === 'console' ? 'flex flex-1' : 'flex'
+            }`}>
               <div className="flex items-center justify-between pb-1.5 mb-1.5 border-b border-slate-800/80 text-[11px] text-slate-400">
                 <div className="flex items-center gap-2">
                   <Terminal className="w-3.5 h-3.5 text-emerald-400" />
@@ -638,7 +720,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                     <button
                       type="button"
                       onClick={onComplete}
-                      className="px-2.5 py-0.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] flex items-center gap-1 transition cursor-pointer shadow-sm shadow-emerald-500/20"
+                      className="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[10px] flex items-center gap-1 transition cursor-pointer shadow-sm shadow-emerald-500/20 min-h-[32px]"
                     >
                       <span>Next Challenge</span>
                       <ChevronRight className="w-3 h-3" />
@@ -646,7 +728,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                   )}
                   <button
                     onClick={() => setTerminalOutput(null)}
-                    className="text-slate-500 hover:text-slate-300 cursor-pointer"
+                    className="text-slate-500 hover:text-slate-300 cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
@@ -659,11 +741,13 @@ console.log("Processed Batch:", processTasks(sampleBatch));
           )}
         </div>
 
-        {/* ════ RIGHT PANE (5 cols): Clean Copilot & Diagnostics Panel ═ */}
-        <div className="lg:col-span-5 flex flex-col h-full bg-[#0a0d18] min-h-0 overflow-hidden">
-          {/* Segmented Right Panel Tabs */}
-          <div className="px-4 py-2.5 bg-slate-900/60 border-b border-slate-800/80 flex items-center justify-between gap-2">
-            <div className="flex items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800/80 w-full sm:w-auto">
+        {/* ════ RIGHT PANE: Copilot & Diagnostics ══════════════ */}
+        <div className={`lg:col-span-5 flex flex-col h-full bg-[#0a0d18] min-h-0 overflow-hidden ${
+          mobileTab === 'diagnostics' || mobileTab === 'copilot' ? 'flex' : 'hidden lg:flex'
+        }`}>
+          {/* Desktop Right Panel Tabs */}
+          <div className="hidden lg:flex px-4 py-2.5 bg-slate-900/60 border-b border-slate-800/80 items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 p-1 bg-slate-950 rounded-xl border border-slate-800/80">
               <button
                 type="button"
                 onClick={() => setRightPanelTab('copilot')}
@@ -711,20 +795,23 @@ console.log("Processed Batch:", processTasks(sampleBatch));
             )}
           </div>
 
-          {/* TAB 1: AI Copilot & Conversation Stream */}
-          {rightPanelTab === 'copilot' && (
+          {/* TAB: AI Copilot Stream */}
+          {(rightPanelTab === 'copilot' || mobileTab === 'copilot') && (
             <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
               {/* Socratic Hint Compact Banner */}
               {analysis?.hint && (
-                <div className="p-3.5 mx-3.5 mt-3 rounded-2xl bg-gradient-to-r from-blue-950/40 to-indigo-950/40 border border-blue-500/20 text-xs shadow-sm space-y-1.5 shrink-0">
+                <div className="p-3.5 mx-3 sm:mx-3.5 mt-3 rounded-2xl bg-gradient-to-r from-blue-950/40 to-indigo-950/40 border border-blue-500/20 text-xs shadow-sm space-y-1.5 shrink-0">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-blue-300 uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-                      <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                      <Sparkles className="w-3.5 h-3.5 text-blue-400 shrink-0" />
                       Socratic Hint ({hintLevel})
                     </span>
                     <button
-                      onClick={() => setRightPanelTab('diagnostics')}
-                      className="text-[10px] text-blue-400 hover:underline cursor-pointer"
+                      onClick={() => {
+                        setRightPanelTab('diagnostics');
+                        setMobileTab('diagnostics');
+                      }}
+                      className="text-[10px] text-blue-400 hover:underline cursor-pointer min-h-[32px] flex items-center"
                     >
                       View {analysis.issues?.length || 0} line issues →
                     </button>
@@ -736,7 +823,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
               )}
 
               {/* Chat Message Stream */}
-              <div className="flex-1 p-3.5 overflow-y-auto space-y-3">
+              <div className="flex-1 p-3.5 overflow-y-auto space-y-3 overscroll-contain">
                 {chatMessages.map((msg) => (
                   <div
                     key={msg.id}
@@ -760,7 +847,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
               </div>
 
               {/* Quick Prompt Suggestion Chips */}
-              <div className="px-3.5 py-1.5 flex items-center gap-1.5 overflow-x-auto border-t border-slate-800/60 bg-slate-950/60">
+              <div className="px-3.5 py-1.5 flex items-center gap-1.5 overflow-x-auto border-t border-slate-800/60 bg-slate-950/60 no-scrollbar touch-pan-x">
                 {QUICK_PROMPTS.map((prompt, idx) => (
                   <button
                     key={idx}
@@ -768,14 +855,14 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                     onClick={() => {
                       setChatInput(prompt);
                     }}
-                    className="px-2 py-0.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800 text-[10px] font-medium whitespace-nowrap transition cursor-pointer"
+                    className="px-2.5 py-1 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 text-[11px] font-medium whitespace-nowrap transition cursor-pointer min-h-[32px] flex items-center"
                   >
                     {prompt}
                   </button>
                 ))}
               </div>
 
-              {/* Floating Chat Input Composer */}
+              {/* Chat Input Composer */}
               <form
                 onSubmit={handleSendMessage}
                 className="p-3 bg-slate-950 border-t border-slate-800/80 flex items-center gap-2"
@@ -784,13 +871,14 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                   type="text"
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Ask AI Copilot about line errors or optimizations..."
-                  className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500"
+                  placeholder="Ask AI Copilot about line errors or fixes..."
+                  className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-base sm:text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 min-h-[44px]"
                 />
                 <button
                   type="submit"
                   disabled={!chatInput.trim() || isChatSending}
-                  className="p-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-40 transition cursor-pointer"
+                  className="min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 text-white disabled:opacity-40 transition cursor-pointer"
+                  aria-label="Send message"
                 >
                   <Send className="w-4 h-4" />
                 </button>
@@ -798,9 +886,23 @@ console.log("Processed Batch:", processTasks(sampleBatch));
             </div>
           )}
 
-          {/* TAB 2: Code Diagnostics & Linter Issues */}
-          {rightPanelTab === 'diagnostics' && (
-            <div className="flex-1 p-4 overflow-y-auto space-y-3">
+          {/* TAB: Code Diagnostics & Linter Issues */}
+          {(rightPanelTab === 'diagnostics' || mobileTab === 'diagnostics') && (
+            <div className="flex-1 p-3.5 sm:p-4 overflow-y-auto space-y-3 overscroll-contain">
+              {/* Mobile Fix All action bar */}
+              {(analysis?.issues?.length || 0) > 0 && (
+                <div className="lg:hidden pb-1 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={handleFixAll}
+                    className="w-full min-h-[44px] rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-md transition cursor-pointer active:scale-95"
+                  >
+                    <Sparkles className="w-4 h-4 text-white" />
+                    <span>Apply All {analysis?.issues?.length} Fixes</span>
+                  </button>
+                </div>
+              )}
+
               {analysis?.issues && analysis.issues.length > 0 ? (
                 analysis.issues.map((issue, idx) => {
                   const isSelected = selectedIssueLine === issue.line;
@@ -842,7 +944,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                           <span className="text-xs font-bold text-white">{issue.message}</span>
                         </div>
                         <ChevronRight
-                          className={`w-3.5 h-3.5 text-slate-500 transition-transform ${
+                          className={`w-4 h-4 text-slate-500 transition-transform shrink-0 ${
                             isSelected ? 'rotate-90 text-white' : ''
                           }`}
                         />
@@ -850,17 +952,17 @@ console.log("Processed Batch:", processTasks(sampleBatch));
 
                       <p className="text-xs text-slate-300 leading-relaxed">{issue.explanation}</p>
 
-                      {/* Quick Fix Button */}
-                      <div className="mt-2.5 flex items-center justify-between">
+                      {/* Quick Fix Button — 48px Thumb Target */}
+                      <div className="mt-3 flex items-center justify-between">
                         <button
                           type="button"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleQuickFix(issue);
                           }}
-                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-blue-600/20 hover:bg-blue-600/40 border border-blue-500/40 text-[11px] font-bold text-blue-300 transition-all cursor-pointer"
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600/25 hover:bg-blue-600/40 border border-blue-500/40 text-xs font-bold text-blue-300 min-h-[44px] transition-all cursor-pointer active:scale-95"
                         >
-                          <Sparkles className="w-3 h-3 text-blue-400" />
+                          <Sparkles className="w-3.5 h-3.5 text-blue-400" />
                           <span>Quick Fix Line {issue.line}</span>
                         </button>
                       </div>
@@ -869,10 +971,10 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                       {isSelected && (
                         <div className="mt-2.5 pt-2.5 border-t border-slate-800 text-xs text-indigo-300 bg-indigo-950/40 p-2.5 rounded-xl space-y-1">
                           <div className="flex items-center gap-1.5 font-bold text-[11px] text-indigo-200">
-                            <Lightbulb className="w-3.5 h-3.5 text-amber-400" />
+                            <Lightbulb className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                             <span>Mentor Question to Ponder:</span>
                           </div>
-                          <p className="italic text-slate-200">{issue.socraticQuestion}</p>
+                          <p className="italic text-slate-200 leading-relaxed">{issue.socraticQuestion}</p>
                         </div>
                       )}
                     </div>
@@ -889,7 +991,7 @@ console.log("Processed Batch:", processTasks(sampleBatch));
                     <button
                       type="button"
                       onClick={onComplete}
-                      className="mt-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition cursor-pointer shadow-md shadow-emerald-600/20"
+                      className="mt-2 w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs min-h-[44px] flex items-center justify-center gap-1.5 transition cursor-pointer shadow-md shadow-emerald-600/20 active:scale-95"
                     >
                       <span>Advance to Next Challenge</span>
                       <ChevronRight className="w-3.5 h-3.5" />
@@ -922,6 +1024,28 @@ console.log("Processed Batch:", processTasks(sampleBatch));
             </div>
           )}
         </div>
+      </div>
+
+      {/* ── Mobile Sticky Run Bar (< lg viewports) ──────────── */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 p-3 bg-[#070a13]/95 backdrop-blur-xl border-t border-slate-800 z-40 pb-safe shadow-2xl flex items-center justify-between gap-2 select-none">
+        <button
+          onClick={handleResetCode}
+          type="button"
+          className="min-h-[48px] px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-400 flex items-center justify-center gap-1 text-xs font-semibold active:scale-95 transition"
+          title="Reset code"
+        >
+          <RotateCcw className="w-4 h-4" />
+        </button>
+
+        <button
+          onClick={handleRunCodeWithMobileTab}
+          disabled={isRunning}
+          type="button"
+          className="flex-1 min-h-[48px] bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-[0.98] text-white font-extrabold text-sm rounded-xl shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 transition disabled:opacity-50"
+        >
+          <Play className={`w-4 h-4 ${isRunning ? 'animate-spin' : 'fill-current'}`} />
+          <span>{isRunning ? 'Executing Sandbox...' : 'Run Code Sandbox'}</span>
+        </button>
       </div>
     </div>
   );

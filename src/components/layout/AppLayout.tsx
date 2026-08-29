@@ -18,11 +18,11 @@ export const AppLayout: React.FC = () => {
   const isFullBleedPage = location.pathname.startsWith('/ai-mentor') || location.pathname.startsWith('/pair-programmer');
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100 flex flex-col transition-colors">
+    <div className="min-h-[100dvh] bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100 flex flex-col transition-colors">
       {/* Global Offline Resilience Banner */}
       <OfflineBanner />
 
-      <div className="flex-1 flex flex-row">
+      <div className="flex-1 flex flex-row h-[100dvh] overflow-hidden">
         {/* Sidebar (Desktop sticky & Mobile drawer) */}
         <Sidebar
           isMobileOpen={isMobileMenuOpen}
@@ -31,13 +31,13 @@ export const AppLayout: React.FC = () => {
         />
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+        <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
           <TopNav onOpenMobileMenu={() => setIsMobileMenuOpen(true)} />
           <main className={cn(
             'flex-1 min-h-0',
             isFullBleedPage
               ? 'p-0 overflow-hidden flex flex-col'
-              : 'p-4 sm:p-6 lg:p-8 overflow-y-auto'
+              : 'p-3.5 sm:p-6 lg:p-8 overflow-y-auto pb-safe'
           )}>
             <AnimatePresence mode="wait">
               <motion.div

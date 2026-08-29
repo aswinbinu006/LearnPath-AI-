@@ -85,44 +85,44 @@ export const LearningPathPage: React.FC = () => {
   const { stats, phases } = data;
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto pb-12">
+    <div className="space-y-6 sm:space-y-8 max-w-5xl mx-auto pb-12 select-none">
       {/* Header */}
       <div>
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
           My Learning Path
         </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-3xl leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-3xl leading-relaxed">
           {data.description}
         </p>
       </div>
 
       {/* Top 3 Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5">
         {/* Metric 1: Overall Progress */}
-        <Card className="p-5 border-slate-200/90 dark:border-neutral-800 shadow-sm flex flex-col justify-between">
+        <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 shadow-xs flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold tracking-wider text-slate-500 dark:text-slate-400 uppercase">
               OVERALL PROGRESS
             </span>
             <TrendingUp className={`w-4 h-4 ${stats.overallProgress > 0 ? 'text-emerald-500' : 'text-slate-400'}`} />
           </div>
-          <div className="mt-3">
+          <div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
               {stats.overallProgress}%
             </h3>
-            <ProgressBar value={stats.overallProgress} size="sm" className="mt-2.5" />
+            <ProgressBar value={stats.overallProgress} size="sm" className="mt-2" />
           </div>
         </Card>
 
         {/* Metric 2: Time Invested */}
-        <Card className="p-5 border-slate-200/90 dark:border-neutral-800 shadow-sm flex flex-col justify-between">
+        <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 shadow-xs flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold tracking-wider text-slate-500 dark:text-slate-400 uppercase">
               TIME INVESTED
             </span>
             <Clock className={`w-4 h-4 ${stats.timeInvestedHours > 0 ? 'text-emerald-500' : 'text-slate-400'}`} />
           </div>
-          <div className="mt-3">
+          <div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono">
               {Math.round(stats.timeInvestedHours)}h
             </h3>
@@ -133,20 +133,20 @@ export const LearningPathPage: React.FC = () => {
         </Card>
 
         {/* Metric 3: Current Focus */}
-        <Card className="p-5 border-slate-200/90 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+        <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 shadow-xs flex flex-col justify-between space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-[11px] font-bold tracking-wider text-slate-500 dark:text-slate-400 uppercase">
               CURRENT FOCUS
             </span>
             <Target className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           </div>
-          <div className="mt-3">
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 truncate">
+          <div>
+            <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-slate-100 truncate">
               {stats.currentFocus}
             </h3>
             <button
               onClick={() => navigate('/courses/js-async-programming')}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 mt-1 cursor-pointer"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 mt-1 cursor-pointer min-h-[36px]"
             >
               <span>Resume Module</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -156,23 +156,23 @@ export const LearningPathPage: React.FC = () => {
       </div>
 
       {/* Curriculum Roadmap Card */}
-      <Card className="p-8 border-slate-200/90 dark:border-slate-800 shadow-sm">
-        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-8">
+      <Card className="p-4 sm:p-8 border-slate-200/90 dark:border-neutral-800 shadow-xs">
+        <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mb-6 sm:mb-8">
           Curriculum Roadmap
         </h3>
 
         {/* Timeline Container */}
-        <div className="space-y-10 relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
+        <div className="space-y-8 sm:space-y-10 relative before:absolute before:inset-0 before:left-4 sm:before:left-5 before:w-0.5 before:bg-slate-200 dark:before:bg-slate-800">
           {phases.map((phase) => {
             const isCompleted = phase.status === 'COMPLETED';
             const isInProgress = phase.status === 'IN_PROGRESS';
             const isLocked = phase.status === 'LOCKED';
 
             return (
-              <div key={phase.id} className="relative flex items-start gap-6 group">
+              <div key={phase.id} className="relative flex items-start gap-3.5 sm:gap-6 group">
                 {/* Phase Icon Node */}
                 <div
-                  className={`w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 z-10 transition-all ${
+                  className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl flex items-center justify-center shrink-0 z-10 transition-all ${
                     isCompleted
                       ? 'bg-emerald-600 text-white shadow-md shadow-emerald-500/20 ring-4 ring-emerald-100 dark:ring-emerald-950/60'
                       : isInProgress
@@ -181,27 +181,27 @@ export const LearningPathPage: React.FC = () => {
                   }`}
                 >
                   {isCompleted ? (
-                    <CheckCircle2 className="w-5 h-5" />
+                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : isInProgress ? (
-                    <GraduationCap className="w-5 h-5" />
+                    <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : phase.phaseNumber === 4 ? (
-                    <Trophy className="w-5 h-5" />
+                    <Trophy className="w-4 h-4 sm:w-5 sm:h-5" />
                   ) : (
-                    <Lock className="w-4 h-4" />
+                    <Lock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   )}
                 </div>
 
                 {/* Phase Content Area */}
                 <div className="flex-1 min-w-0 pt-0.5">
                   {/* Phase Subtitle & Status */}
-                  <div className="flex flex-wrap items-center gap-2.5">
+                  <div className="flex flex-wrap items-center gap-2">
                     <span className="text-[11px] font-bold tracking-wider text-slate-500 dark:text-slate-400 uppercase">
                       PHASE {phase.phaseNumber}
                     </span>
                     <span className="text-xs text-slate-400 dark:text-slate-500">•</span>
                     <div className="flex items-center gap-1 text-xs text-slate-500 dark:text-slate-400 font-medium">
-                      <Clock className="w-3 h-3" />
-                      <span>{phase.estimatedHours}h total</span>
+                      <Clock className="w-3 h-3 shrink-0" />
+                      <span>{phase.estimatedHours}h</span>
                     </div>
                     {isCompleted && (
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">
@@ -220,11 +220,11 @@ export const LearningPathPage: React.FC = () => {
                     )}
                   </div>
 
-                  <h4 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1">
+                  <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 mt-1">
                     {phase.title}
                   </h4>
                   {phase.description && (
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 mb-3">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 mb-3 leading-relaxed">
                       {phase.description}
                     </p>
                   )}
@@ -234,19 +234,19 @@ export const LearningPathPage: React.FC = () => {
                     {phase.modules.map((mod) => {
                       if (mod.isCurrent) {
                         return (
-                          /* Active / Current Module Highlighted Card matching Screenshot */
+                          /* Active / Current Module Highlighted Card */
                           <div
                             key={mod.id}
-                            className="p-4 rounded-xl border-2 border-blue-600 bg-white dark:bg-slate-900 shadow-sm"
+                            className="p-3.5 sm:p-4 rounded-xl border-2 border-blue-600 bg-white dark:bg-slate-900 shadow-sm space-y-3"
                           >
-                            <div className="flex items-start justify-between">
-                              <div className="flex items-start gap-2.5">
-                                <PlayCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex items-start gap-2.5 min-w-0">
+                                <PlayCircle className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
                                 <div>
-                                  <h5 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                                  <h5 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug">
                                     {mod.title}
                                   </h5>
-                                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
                                     {mod.summary}
                                   </p>
                                 </div>
@@ -256,24 +256,24 @@ export const LearningPathPage: React.FC = () => {
                               </Badge>
                             </div>
 
-                            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                            <div className="mt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-neutral-800">
                               <div className="flex-1 min-w-[140px]">
                                 <div className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 mb-1">
                                   {mod.progressPercentage}% Complete
                                 </div>
                                 <ProgressBar value={mod.progressPercentage} size="sm" />
                               </div>
-                              <div className="flex items-center gap-3">
+                              <div className="grid grid-cols-2 sm:flex items-center gap-2 pt-1 sm:pt-0">
                                 <button
                                   onClick={() => navigate(`/ai/pair-programmer?topic=${encodeURIComponent(mod.title)}`)}
-                                  className="text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 hover:underline cursor-pointer flex items-center gap-1"
+                                  className="min-h-[40px] px-3 py-2 rounded-xl border border-indigo-200 dark:border-indigo-800/60 bg-indigo-50/50 dark:bg-indigo-950/30 text-xs font-bold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 flex items-center justify-center gap-1 active:scale-95 transition-all cursor-pointer"
                                 >
-                                  <span>Practice in AI Studio</span>
+                                  <span>AI Studio</span>
                                   <ArrowRight className="w-3 h-3" />
                                 </button>
                                 <button
                                   onClick={() => navigate('/courses/js-async-programming')}
-                                  className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition cursor-pointer"
+                                  className="min-h-[40px] px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center shadow-xs"
                                 >
                                   Continue
                                 </button>
@@ -287,22 +287,22 @@ export const LearningPathPage: React.FC = () => {
                         return (
                           <div
                             key={mod.id}
-                            className="p-3.5 rounded-xl border border-emerald-500/30 dark:border-emerald-500/20 bg-emerald-50/50 dark:bg-emerald-950/20 flex items-center justify-between transition-colors"
+                            className="p-3 sm:p-3.5 rounded-xl border border-emerald-500/30 dark:border-emerald-500/20 bg-emerald-50/50 dark:bg-emerald-950/20 flex items-center justify-between gap-2 transition-colors"
                           >
-                            <div className="flex items-center gap-2.5">
-                              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
-                              <div>
-                                <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                              <div className="min-w-0">
+                                <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block truncate">
                                   {mod.title}
                                 </span>
                                 {mod.summary && (
-                                  <span className="text-xs text-slate-500 dark:text-slate-400 ml-2 hidden sm:inline">
+                                  <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:inline truncate">
                                     {mod.summary}
                                   </span>
                                 )}
                               </div>
                             </div>
-                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 font-mono shrink-0">
                               100% ✓
                             </span>
                           </div>
@@ -313,14 +313,14 @@ export const LearningPathPage: React.FC = () => {
                       return (
                         <div
                           key={mod.id}
-                          className="p-3.5 rounded-xl border border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/40 flex items-center justify-between opacity-80"
+                          className="p-3 sm:p-3.5 rounded-xl border border-slate-200/60 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/40 flex items-center justify-between opacity-80"
                         >
-                          <div>
-                            <p className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                          <div className="min-w-0">
+                            <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 truncate">
                               {mod.title}
                             </p>
                             {mod.summary && (
-                              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5">
+                              <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-0.5 truncate">
                                 {mod.summary}
                               </p>
                             )}
@@ -337,14 +337,14 @@ export const LearningPathPage: React.FC = () => {
 
         {/* ── 🎓 100% ROADMAP COMPLETION CELEBRATION & NEXT STEPS ── */}
         {stats.overallProgress === 100 && (
-          <div className="mt-10 p-6 sm:p-8 rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-50/60 via-white to-teal-50/30 dark:from-emerald-950/30 dark:via-neutral-950 dark:to-teal-950/20 shadow-md space-y-4">
+          <div className="mt-8 sm:mt-10 p-5 sm:p-8 rounded-2xl border-2 border-emerald-500/40 bg-gradient-to-br from-emerald-50/60 via-white to-teal-50/30 dark:from-emerald-950/30 dark:via-neutral-950 dark:to-teal-950/20 shadow-md space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 text-xs font-bold uppercase tracking-wider">
                   <Trophy className="w-3.5 h-3.5" />
                   <span>Curriculum Milestone Mastered!</span>
                 </div>
-                <h4 className="text-xl font-extrabold text-slate-900 dark:text-slate-100">
+                <h4 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-slate-100">
                   Congratulations on finishing your {user?.targetRole || 'Engineering'} Path!
                 </h4>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-neutral-300 leading-relaxed max-w-2xl">
@@ -352,13 +352,13 @@ export const LearningPathPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex flex-wrap sm:flex-col gap-2.5 shrink-0">
+              <div className="flex flex-col sm:flex-col gap-2.5 w-full sm:w-auto shrink-0">
                 <Button
                   variant="primary"
                   size="md"
                   onClick={() => navigate('/recruiter-portfolio')}
                   rightIcon={<ArrowRight className="w-4 h-4" />}
-                  className="font-semibold cursor-pointer"
+                  className="font-semibold cursor-pointer w-full sm:w-auto min-h-[44px]"
                 >
                   View Recruiter Portfolio
                 </Button>
@@ -366,9 +366,9 @@ export const LearningPathPage: React.FC = () => {
                   variant="outline"
                   size="md"
                   onClick={() => navigate('/explore')}
-                  className="font-semibold cursor-pointer"
+                  className="font-semibold cursor-pointer w-full sm:w-auto min-h-[44px]"
                 >
-                  Explore Advanced Specializations
+                  Explore Specializations
                 </Button>
               </div>
             </div>

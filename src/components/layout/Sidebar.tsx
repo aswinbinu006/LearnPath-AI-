@@ -54,7 +54,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const sidebarContent = (
     <div className="flex flex-col h-full bg-white dark:bg-black border-r border-slate-200 dark:border-neutral-800">
       {/* Brand Header */}
-      <div className="p-6 pb-5 flex items-center justify-between">
+      <div className="p-5 sm:p-6 pb-4 flex items-center justify-between border-b border-slate-100 dark:border-neutral-800/80">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm shadow-blue-500/20 font-bold text-lg">
             L
@@ -63,7 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             <h1 className="font-extrabold text-lg tracking-tight text-blue-600 dark:text-blue-500 leading-tight">
               LearnPath AI
             </h1>
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium truncate max-w-[140px]">
               {user?.headline || 'Professional Learner'}
             </p>
           </div>
@@ -74,7 +74,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={onMobileClose}
             type="button"
-            className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all"
+            aria-label="Close navigation"
           >
             <X className="w-5 h-5" />
           </button>
@@ -82,7 +83,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Navigation Links */}
-      <div className="flex-1 px-3.5 py-2 space-y-1 overflow-y-auto">
+      <div className="flex-1 px-3 py-3 space-y-1 overflow-y-auto overscroll-contain">
         {/* Admin Governance Portal Link for Admins */}
         {(user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN') && (
           <NavLink
@@ -92,7 +93,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             className={({ isActive }) =>
               cn(
-                'flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-bold transition-all duration-150 mb-2 border',
+                'flex items-center justify-between px-3.5 py-3 lg:py-2.5 min-h-[44px] rounded-xl text-sm font-bold transition-all duration-150 mb-2 border active:scale-[0.98]',
                 isActive || location.pathname.startsWith('/back') || location.pathname.startsWith('/admin')
                   ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/20'
                   : 'bg-indigo-50/70 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/50'
@@ -123,7 +124,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 if (onMobileClose) onMobileClose();
               }}
               className={cn(
-                'flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-150',
+                'flex items-center gap-3.5 px-3.5 py-3 lg:py-2.5 min-h-[44px] rounded-xl text-sm font-medium transition-all duration-150 active:scale-[0.98]',
                 isActive
                   ? 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400 font-semibold shadow-xs'
                   : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60'
@@ -141,9 +142,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
         })}
       </div>
 
-
       {/* Bottom CTA & Utilities */}
-      <div className="p-4 border-t border-slate-100 dark:border-slate-800/80 space-y-3">
+      <div className="p-4 pb-safe border-t border-slate-100 dark:border-slate-800/80 space-y-3 bg-white dark:bg-black">
         {/* New Assessment Primary Button */}
         <button
           onClick={() => {
@@ -151,7 +151,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             if (onOpenAssessmentModal) onOpenAssessmentModal();
           }}
           type="button"
-          className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-medium text-sm py-2.5 px-4 rounded-xl shadow-sm shadow-blue-500/10 transition-all duration-150 cursor-pointer"
+          className="w-full min-h-[44px] flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-semibold text-sm py-2.5 px-4 rounded-xl shadow-md shadow-blue-500/15 transition-all duration-150 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>New Assessment</span>
@@ -166,7 +166,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors',
+                'flex items-center gap-3 px-3 py-2.5 min-h-[40px] rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors active:scale-[0.98]',
                 isActive && 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/30'
               )
             }
@@ -181,7 +181,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors',
+                'flex items-center gap-3 px-3 py-2.5 min-h-[40px] rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors active:scale-[0.98]',
                 isActive && 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/30'
               )
             }

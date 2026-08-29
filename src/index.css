@@ -6,17 +6,57 @@
   :root {
     --brand-primary: #2563eb;
     --brand-dark: #000000;
+    --sat: env(safe-area-inset-top, 0px);
+    --sar: env(safe-area-inset-right, 0px);
+    --sab: env(safe-area-inset-bottom, 0px);
+    --sal: env(safe-area-inset-left, 0px);
+  }
+
+  html, body {
+    @apply h-full antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100 antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200;
+    @apply bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100 min-h-[100dvh];
+    overflow-x: hidden;
   }
 
   * {
     @apply border-slate-200/80 dark:border-neutral-800;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent iOS Safari from zooming in on inputs < 16px font size */
+  @media (max-width: 640px) {
+    input:not([type="checkbox"]):not([type="radio"]),
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
   }
 }
 
+/* Safe area utility classes for iOS notches and home indicators */
+.pt-safe {
+  padding-top: max(env(safe-area-inset-top, 0px), 0.75rem);
+}
+.pb-safe {
+  padding-bottom: max(env(safe-area-inset-bottom, 0px), 1rem);
+}
+.pl-safe {
+  padding-left: max(env(safe-area-inset-left, 0px), 1rem);
+}
+.pr-safe {
+  padding-right: max(env(safe-area-inset-right, 0px), 1rem);
+}
+.min-h-dvh {
+  min-height: 100dvh;
+}
+.h-dvh {
+  height: 100dvh;
+}
 
 /* Custom smooth scrollbar */
 ::-webkit-scrollbar {

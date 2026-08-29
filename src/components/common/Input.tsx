@@ -38,7 +38,7 @@ export const Input: React.FC<InputProps> = ({
         <input
           id={inputId}
           className={cn(
-            'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3.5 py-2 text-sm transition-all duration-150 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
+            'w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 rounded-xl px-3.5 py-2.5 sm:py-2 text-base sm:text-sm transition-all duration-150 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-h-[44px]',
             leftIcon && 'pl-10',
             rightIcon && 'pr-10',
             error && 'border-red-500 focus:ring-red-500',

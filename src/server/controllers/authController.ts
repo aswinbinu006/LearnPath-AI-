@@ -9,9 +9,34 @@ import { logger } from '../utils/logger.js';
 import { AuditService, AuditAction, AuditCategory } from '../services/auditService.js';
 import { StreakService } from '../services/streakService.js';
 
+// Helper to extract sanitized user agent string from request
+function extractUserAgent(req: Request): string {
+  const ua = req.headers['user-agent'];
+  if (Array.isArray(ua)) return ua[0] || '';
+  return ua || '';
+}
+
+// Helper to extract sanitized IP address from request
+function extractIpAddress(req: Request): string {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (forwarded) {
+    if (Array.isArray(forwarded)) {
+      return (forwarded[0]?.split(',')[0] || '127.0.0.1').trim();
+    }
+    if (typeof forwarded === 'string') {
+      return (forwarded.split(',')[0] || '127.0.0.1').trim();
+    }
+  }
+  const remoteAddr = req.ip || req.socket?.remoteAddress;
+  if (typeof remoteAddr === 'string') {
+    return remoteAddr.trim();
+  }
+  return '127.0.0.1';
+}
+
 // Helper to parse user agent for browser and OS detection
-function parseDeviceDetails(userAgentStr?: string) {
-  const ua = userAgentStr || '';
+function parseDeviceDetails(userAgentStr?: string | string[]) {
+  const ua = Array.isArray(userAgentStr) ? (userAgentStr[0] || '') : (userAgentStr || '');
   let browser = 'Chrome';
   let os = 'Windows';
 
@@ -33,8 +58,10 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { email, password, name, targetRole = 'Frontend Engineer', experienceLevel = 'Intermediate' } = req.body;
 
+    const normalizedEmail = (email || '').toLowerCase().trim();
+
     const existingUser = await prisma.user.findUnique({
-      where: { email: email.toLowerCase().trim() },
+      where: { email: normalizedEmail },
     });
 
     if (existingUser) {
@@ -45,16 +72,18 @@ export const register = async (req: Request, res: Response) => {
     }
 
     const passwordHash = await hashPassword(password);
+    const userRole = targetRole || 'Frontend Engineer';
+    const userExp = experienceLevel || 'Intermediate';
 
     const user = await prisma.user.create({
       data: {
-        email: email.toLowerCase().trim(),
+        email: normalizedEmail,
         passwordHash,
-        name,
-        targetRole,
-        experienceLevel,
+        name: (name || '').trim(),
+        targetRole: userRole,
+        experienceLevel: userExp,
         theme: 'light',
-        headline: `${targetRole} in Training`,
+        headline: `${userRole} in Training`,
         learningStreak: 0,
         dailyGoalMinutes: 45,
         totalHoursInvested: 0,
@@ -63,41 +92,49 @@ export const register = async (req: Request, res: Response) => {
     });
 
     // Auto-generate customized learning path for new user
-    await PathGenerator.generatePersonalizedPath(user.id, targetRole, experienceLevel);
+    try {
+      await PathGenerator.generatePersonalizedPath(user.id, userRole, userExp);
+    } catch (pathErr) {
+      logger.warn('Failed to auto-generate personalized path on registration, continuing...', { error: pathErr });
+    }
 
     // Initialize starter focus tasks tailored to the user's target role
-    const todayStr = new Date().toISOString().split('T')[0];
-    await prisma.dailyFocusTask.createMany({
-      data: [
-        {
-          userId: user.id,
-          title: `Take ${targetRole} Diagnostic Assessment`,
-          typeLabel: 'DIAGNOSTIC',
-          durationMinutes: 15,
-          isCompleted: false,
-          order: 1,
-          scheduledDate: todayStr,
-        },
-        {
-          userId: user.id,
-          title: 'Explore AI Pair Programmer & Code Studio',
-          typeLabel: 'PRACTICE',
-          durationMinutes: 20,
-          isCompleted: false,
-          order: 2,
-          scheduledDate: todayStr,
-        },
-        {
-          userId: user.id,
-          title: 'Consult AI Mentor for personalized milestone advice',
-          typeLabel: 'MENTOR',
-          durationMinutes: 10,
-          isCompleted: false,
-          order: 3,
-          scheduledDate: todayStr,
-        },
-      ],
-    });
+    try {
+      const todayStr = new Date().toISOString().split('T')[0];
+      await prisma.dailyFocusTask.createMany({
+        data: [
+          {
+            userId: user.id,
+            title: `Take ${userRole} Diagnostic Assessment`,
+            typeLabel: 'DIAGNOSTIC',
+            durationMinutes: 15,
+            isCompleted: false,
+            order: 1,
+            scheduledDate: todayStr,
+          },
+          {
+            userId: user.id,
+            title: 'Explore AI Pair Programmer & Code Studio',
+            typeLabel: 'PRACTICE',
+            durationMinutes: 20,
+            isCompleted: false,
+            order: 2,
+            scheduledDate: todayStr,
+          },
+          {
+            userId: user.id,
+            title: 'Consult AI Mentor for personalized milestone advice',
+            typeLabel: 'MENTOR',
+            durationMinutes: 10,
+            isCompleted: false,
+            order: 3,
+            scheduledDate: todayStr,
+          },
+        ],
+      });
+    } catch (taskErr) {
+      logger.warn('Failed to create initial daily focus tasks, continuing...', { error: taskErr });
+    }
 
     const token = generateToken({
       userId: user.id,
@@ -106,15 +143,16 @@ export const register = async (req: Request, res: Response) => {
     });
 
     const refreshToken = crypto.randomBytes(32).toString('hex');
-    const { browser, os } = parseDeviceDetails(req.headers['user-agent']);
-    const ipAddress = (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress || '127.0.0.1';
+    const userAgent = extractUserAgent(req);
+    const { browser, os } = parseDeviceDetails(userAgent);
+    const ipAddress = extractIpAddress(req);
 
     // Create session record
     const session = await prisma.session.create({
       data: {
         userId: user.id,
         refreshToken,
-        userAgent: req.headers['user-agent'] || '',
+        userAgent,
         browser,
         os,
         ipAddress,
@@ -123,15 +161,19 @@ export const register = async (req: Request, res: Response) => {
     });
 
     // Record login history
-    await prisma.loginHistory.create({
-      data: {
-        userId: user.id,
-        browser,
-        os,
-        ipAddress,
-        status: 'SUCCESS',
-      },
-    });
+    try {
+      await prisma.loginHistory.create({
+        data: {
+          userId: user.id,
+          browser,
+          os,
+          ipAddress,
+          status: 'SUCCESS',
+        },
+      });
+    } catch (histErr) {
+      logger.warn('Failed to record login history on register', { error: histErr });
+    }
 
     await AuditService.log({
       userId: user.id,
@@ -185,11 +227,12 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password, rememberMe = false } = req.body;
-    const { browser, os } = parseDeviceDetails(req.headers['user-agent']);
-    const ipAddress = (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress || '127.0.0.1';
+    const userAgent = extractUserAgent(req);
+    const { browser, os } = parseDeviceDetails(userAgent);
+    const ipAddress = extractIpAddress(req);
 
     const user = await prisma.user.findUnique({
-      where: { email: email.toLowerCase().trim() },
+      where: { email: (email || '').toLowerCase().trim() },
     });
 
     if (!user) {
@@ -202,15 +245,17 @@ export const login = async (req: Request, res: Response) => {
     const isMatch = await comparePassword(password, user.passwordHash);
     if (!isMatch) {
       // Record failed attempt
-      await prisma.loginHistory.create({
-        data: {
-          userId: user.id,
-          browser,
-          os,
-          ipAddress,
-          status: 'FAILED',
-        },
-      });
+      try {
+        await prisma.loginHistory.create({
+          data: {
+            userId: user.id,
+            browser,
+            os,
+            ipAddress,
+            status: 'FAILED',
+          },
+        });
+      } catch {}
 
       await AuditService.log({
         userId: user.id,
@@ -240,7 +285,7 @@ export const login = async (req: Request, res: Response) => {
       data: {
         userId: user.id,
         refreshToken,
-        userAgent: req.headers['user-agent'] || '',
+        userAgent,
         browser,
         os,
         ipAddress,
@@ -248,15 +293,17 @@ export const login = async (req: Request, res: Response) => {
       },
     });
 
-    await prisma.loginHistory.create({
-      data: {
-        userId: user.id,
-        browser,
-        os,
-        ipAddress,
-        status: 'SUCCESS',
-      },
-    });
+    try {
+      await prisma.loginHistory.create({
+        data: {
+          userId: user.id,
+          browser,
+          os,
+          ipAddress,
+          status: 'SUCCESS',
+        },
+      });
+    } catch {}
 
     await AuditService.log({
       userId: user.id,
@@ -434,7 +481,8 @@ export const getSessions = async (req: AuthRequest, res: Response) => {
       return res.status(401).json({ success: false, message: 'Unauthorized' });
     }
 
-    const currentRefreshToken = req.cookies?.refreshToken || req.headers['x-refresh-token'];
+    const rawToken = req.cookies?.refreshToken || req.headers['x-refresh-token'];
+    const currentRefreshToken = Array.isArray(rawToken) ? rawToken[0] : rawToken;
 
     const [activeSessions, loginHistory] = await Promise.all([
       prisma.session.findMany({

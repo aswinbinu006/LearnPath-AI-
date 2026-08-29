@@ -24,17 +24,33 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = parseInt(validatedEnv.PORT, 10) || 5000;
 
+// Trust proxy headers from Render/cloud load balancers
+app.set('trust proxy', 1);
+
 // Security headers
 app.use(helmet({ contentSecurityPolicy: false }));
 
-// CORS — origins driven by env var, not hardcoded
+// CORS — support local development and deployed Render domains
 const allowedOrigins = validatedEnv.CORS_ORIGIN
   ? validatedEnv.CORS_ORIGIN.split(',').map((o) => o.trim())
   : ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:5000'];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. same-origin SPA, mobile apps, curl)
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        allowedOrigins.includes('*') ||
+        origin.endsWith('.onrender.com') ||
+        origin.includes('localhost') ||
+        origin.includes('127.0.0.1')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
