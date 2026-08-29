@@ -120,13 +120,38 @@ if (distPath) {
 // Error handling middleware
 app.use(errorHandler);
 
-const server = app.listen(PORT, () => {
+// Automatic database schema & seed check on startup
+async function initDatabase() {
+  try {
+    await prisma.user.count();
+    logger.info('Database schema and tables verified.');
+  } catch (err: any) {
+    logger.warn('Database tables missing or uninitialized. Initializing schema...', { error: err?.message });
+    try {
+      const { execSync } = await import('child_process');
+      execSync('npx prisma db push --accept-data-loss', { stdio: 'inherit' });
+      logger.info('Database schema pushed successfully.');
+
+      const userCount = await prisma.user.count();
+      if (userCount === 0) {
+        logger.info('Database is empty. Seeding starter curriculum & demo accounts...');
+        execSync('npx tsx prisma/seed.ts', { stdio: 'inherit' });
+        logger.info('Database seeding completed successfully.');
+      }
+    } catch (pushErr) {
+      logger.error('Database schema auto-push failed, will continue...', pushErr);
+    }
+  }
+}
+
+const server = app.listen(PORT, async () => {
   logger.info(`LearnPath AI Server running on port ${PORT}`, {
     port: PORT,
     environment: validatedEnv.NODE_ENV,
     nodeVersion: process.version,
   });
   logger.info(`API endpoint: http://localhost:${PORT}/api`);
+  await initDatabase();
 });
 
 // Graceful shutdown handling
