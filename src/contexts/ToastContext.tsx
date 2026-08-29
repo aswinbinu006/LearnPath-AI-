@@ -81,13 +81,13 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             const getBorder = () => {
               switch (t.type) {
                 case 'success':
-                  return 'border-emerald-500/20 dark:border-emerald-500/30';
+                  return 'border-emerald-200 bg-emerald-50/90 text-emerald-950';
                 case 'error':
-                  return 'border-rose-500/20 dark:border-rose-500/30';
+                  return 'border-rose-200 bg-rose-50/90 text-rose-950';
                 case 'warning':
-                  return 'border-amber-500/20 dark:border-amber-500/30';
+                  return 'border-amber-200 bg-amber-50/90 text-amber-950';
                 case 'info':
-                  return 'border-blue-500/20 dark:border-blue-500/30';
+                  return 'border-blue-200 bg-blue-50/90 text-blue-950';
               }
             };
 
@@ -99,23 +99,23 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className={`pointer-events-auto flex items-start gap-3 p-3.5 rounded-2xl bg-white/95 dark:bg-neutral-950/95 backdrop-blur-md border ${getBorder()} shadow-2xl text-slate-900 dark:text-neutral-100`}
+                className={`pointer-events-auto flex items-start gap-3 p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border ${getBorder()} shadow-xl text-slate-900`}
               >
                 {getIcon()}
                 <div className="flex-1 min-w-0">
                   {t.title && (
-                    <h5 className="text-xs font-bold leading-tight text-slate-900 dark:text-neutral-100 mb-0.5">
+                    <h5 className="text-xs font-bold leading-tight text-slate-900 mb-0.5">
                       {t.title}
                     </h5>
                   )}
-                  <p className="text-xs text-slate-600 dark:text-neutral-300 leading-relaxed font-medium">
+                  <p className="text-xs text-slate-700 leading-relaxed font-medium">
                     {t.message}
                   </p>
                 </div>
                 <button
                   onClick={() => removeToast(t.id)}
                   type="button"
-                  className="text-slate-400 hover:text-slate-600 dark:text-neutral-500 dark:hover:text-neutral-200 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-neutral-800 transition-colors shrink-0 cursor-pointer"
+                  className="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition-colors shrink-0 cursor-pointer"
                   aria-label="Dismiss notification"
                 >
                   <X className="w-3.5 h-3.5" />

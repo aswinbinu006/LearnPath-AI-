@@ -111,25 +111,25 @@ export const SkillAnalysisPage: React.FC = () => {
               <Award className="w-7 h-7 text-white" />
             </div>
             <div>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider bg-blue-500/10 text-blue-500 dark:text-blue-400 border border-blue-500/20 rounded-full mb-1">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 rounded-full mb-1">
                 <Sparkles className="w-3 h-3" /> Baseline Assessment Required
               </span>
-              <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+              <h3 className="text-xl font-extrabold text-slate-900 tracking-tight">
                 Unlock Your Skill Competency Map
               </h3>
-              <p className="text-xs text-slate-500 dark:text-neutral-400 mt-0.5">
+              <p className="text-xs text-slate-500 mt-0.5">
                 Complete a 5-minute technical benchmark to calibrate your real-time skill graph.
               </p>
             </div>
           </div>
 
           {/* Checklist of what it provides */}
-          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-neutral-950/80 border border-slate-200 dark:border-neutral-800 text-left space-y-3">
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left space-y-3">
             <div className="flex items-start gap-3 text-xs">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-slate-900 dark:text-slate-100">Pinpoint Exact Skill Proficiencies:</span>
-                <span className="text-slate-500 dark:text-neutral-400 ml-1">
+                <span className="font-bold text-slate-900">Pinpoint Exact Skill Proficiencies:</span>
+                <span className="text-slate-600 ml-1">
                   Evaluates core concepts, syntax nuances, and advanced architectural patterns.
                 </span>
               </div>
@@ -138,8 +138,8 @@ export const SkillAnalysisPage: React.FC = () => {
             <div className="flex items-start gap-3 text-xs">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-slate-900 dark:text-slate-100">Detect Knowledge & Gap Areas:</span>
-                <span className="text-slate-500 dark:text-neutral-400 ml-1">
+                <span className="font-bold text-slate-900">Detect Knowledge & Gap Areas:</span>
+                <span className="text-slate-600 ml-1">
                   Find hidden blind spots and get AI-curated practice modules.
                 </span>
               </div>
@@ -148,8 +148,8 @@ export const SkillAnalysisPage: React.FC = () => {
             <div className="flex items-start gap-3 text-xs">
               <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
               <div>
-                <span className="font-bold text-slate-900 dark:text-slate-100">Earn Verified Engineering XP:</span>
-                <span className="text-slate-500 dark:text-neutral-400 ml-1">
+                <span className="font-bold text-slate-900">Earn Verified Engineering XP:</span>
+                <span className="text-slate-600 ml-1">
                   Score 70%+ to unlock official competency badges on your profile.
                 </span>
               </div>
@@ -171,7 +171,7 @@ export const SkillAnalysisPage: React.FC = () => {
               size="md"
               onClick={handleStartAssessmentFromPrompt}
               rightIcon={<ArrowRight className="w-4 h-4" />}
-              className="w-full sm:w-auto text-xs font-bold shadow-md shadow-blue-500/25"
+              className="w-full sm:w-auto text-xs font-bold shadow-sm bg-blue-600 hover:bg-blue-700"
             >
               Start Benchmark Quiz (5 min)
             </Button>
@@ -182,10 +182,10 @@ export const SkillAnalysisPage: React.FC = () => {
       {/* Top Header Row with Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Skill Analysis
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-600 mt-1">
             Career-oriented assessment and competency mapping.
           </p>
         </div>
@@ -195,7 +195,7 @@ export const SkillAnalysisPage: React.FC = () => {
           size="md"
           onClick={() => context?.openAssessmentModal && context.openAssessmentModal()}
           leftIcon={<Award className="w-4 h-4" />}
-          className="w-full sm:w-auto min-h-[44px] font-bold shadow-md shadow-blue-600/15 active:scale-[0.98]"
+          className="w-full sm:w-auto min-h-[44px] font-bold bg-blue-600 hover:bg-blue-700 shadow-sm active:scale-[0.98]"
         >
           {isUnassessed ? 'Start Baseline Assessment' : 'New Assessment'}
         </Button>
@@ -203,16 +203,16 @@ export const SkillAnalysisPage: React.FC = () => {
 
       {/* Hero Banner for Unassessed Users */}
       {isUnassessed && (
-        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-900/30 via-indigo-900/20 to-purple-900/10 border border-blue-500/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
+        <div className="p-4 sm:p-5 rounded-2xl bg-blue-50/70 border border-blue-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center shrink-0">
-              <Sparkles className="w-5 h-5 text-blue-400" />
+            <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 border border-blue-200 flex items-center justify-center shrink-0">
+              <Sparkles className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+              <h4 className="text-sm font-bold text-slate-900">
                 Initial Assessment Required
               </h4>
-              <p className="text-xs text-slate-600 dark:text-neutral-300 mt-0.5 max-w-xl leading-relaxed">
+              <p className="text-xs text-slate-600 mt-0.5 max-w-xl leading-relaxed">
                 Take a 5-minute technical diagnostic test to evaluate your competency levels and unlock your personalized skill gap radar.
               </p>
             </div>
@@ -222,7 +222,7 @@ export const SkillAnalysisPage: React.FC = () => {
             size="sm"
             onClick={() => context?.openAssessmentModal?.()}
             rightIcon={<ArrowRight className="w-4 h-4" />}
-            className="w-full sm:w-auto min-h-[42px] whitespace-nowrap font-bold shadow-md shadow-blue-500/20 text-xs active:scale-[0.98]"
+            className="w-full sm:w-auto min-h-[42px] whitespace-nowrap font-bold bg-blue-600 hover:bg-blue-700 shadow-sm text-xs active:scale-[0.98]"
           >
             Start Assessment Now
           </Button>
@@ -234,19 +234,19 @@ export const SkillAnalysisPage: React.FC = () => {
         {/* Left Column (2 Cols) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Primary Assessment Competency Card */}
-          <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-slate-800 shadow-sm space-y-6">
+          <Card className="p-4 sm:p-6 border-slate-200 bg-white shadow-sm space-y-6">
             {/* Header */}
             <div className="flex items-start justify-between gap-2">
               <div>
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
+                  <div className="w-6 h-6 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
                     {primaryAssessment.category.slice(0, 2).toUpperCase()}
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 truncate">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 truncate">
                     {primaryAssessment.category}
                   </h3>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                <p className="text-xs text-slate-500 mt-1">
                   Primary technical competency assessment
                 </p>
               </div>
@@ -259,22 +259,22 @@ export const SkillAnalysisPage: React.FC = () => {
             {/* Overall Proficiency Bar */}
             <div>
               <div className="flex justify-between items-baseline mb-2">
-                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
+                <span className="text-xs font-semibold text-slate-700">
                   Overall Proficiency
                 </span>
-                <span className="text-xl font-extrabold text-blue-600 dark:text-blue-400">
+                <span className="text-xl font-extrabold text-blue-600">
                   {primaryAssessment.overallProficiency}%
                 </span>
               </div>
               <ProgressBar value={primaryAssessment.overallProficiency} size="md" color="blue" />
-              <p className="text-right text-[11px] font-medium text-slate-400 dark:text-slate-500 mt-1">
+              <p className="text-right text-[11px] font-medium text-slate-500 mt-1">
                 {primaryAssessment.statusLabel}
               </p>
             </div>
 
             {/* Competency Breakdown Sub-bars */}
-            <div className="space-y-4 pt-2 border-t border-slate-100 dark:border-neutral-800">
-              <h4 className="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+            <div className="space-y-4 pt-2 border-t border-slate-100">
+              <h4 className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                 Competency Breakdown
               </h4>
 
@@ -418,11 +418,11 @@ export const SkillAnalysisPage: React.FC = () => {
                 );
               })
             ) : (
-              <div className="text-center py-6 px-3 rounded-xl bg-slate-50/50 dark:bg-neutral-900/40 border border-dashed border-slate-200 dark:border-neutral-800 space-y-1.5">
-                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
+              <div className="text-center py-6 px-3 rounded-xl bg-slate-50 border border-dashed border-slate-200 space-y-1.5">
+                <p className="text-xs font-bold text-slate-700">
                   No critical skill gaps detected
                 </p>
-                <p className="text-[11px] text-slate-500 dark:text-neutral-400">
+                <p className="text-[11px] text-slate-500">
                   Complete technical benchmarks to discover personalized growth opportunities.
                 </p>
               </div>

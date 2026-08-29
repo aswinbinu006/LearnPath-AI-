@@ -285,7 +285,7 @@ export const AIMentorPage: React.FC = () => {
     return parts.map((part, pIdx) => {
       if (part.startsWith('**') && part.endsWith('**')) {
         return (
-          <strong key={pIdx} className="font-bold text-slate-900 dark:text-slate-100">
+          <strong key={pIdx} className="font-bold text-slate-900">
             {part.slice(2, -2)}
           </strong>
         );
@@ -294,7 +294,7 @@ export const AIMentorPage: React.FC = () => {
         return (
           <code
             key={pIdx}
-            className="px-1.5 py-0.5 mx-0.5 rounded bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-mono text-xs font-semibold border border-blue-100 dark:border-neutral-800"
+            className="px-1.5 py-0.5 mx-0.5 rounded bg-blue-50 text-blue-700 font-mono text-xs font-semibold border border-blue-200"
           >
             {part.slice(1, -1)}
           </code>
@@ -319,7 +319,7 @@ export const AIMentorPage: React.FC = () => {
         return (
           <div
             key={bIdx}
-            className="my-3.5 rounded-xl overflow-hidden border border-slate-200/90 dark:border-neutral-800 bg-slate-950 text-slate-100 shadow-sm"
+            className="my-3.5 rounded-xl overflow-hidden border border-slate-800 bg-slate-950 text-slate-100 shadow-sm"
           >
             <div className="flex items-center justify-between px-3.5 py-2 bg-slate-900/90 border-b border-slate-800 text-[11px] font-mono text-slate-400 select-none">
               <div className="flex items-center gap-2">
@@ -366,7 +366,7 @@ export const AIMentorPage: React.FC = () => {
               return (
                 <h4
                   key={lIdx}
-                  className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 mt-3 mb-1"
+                  className="text-sm sm:text-base font-bold text-slate-900 mt-3 mb-1"
                 >
                   {renderInlineFormatted(trimmed.slice(4))}
                 </h4>
@@ -376,7 +376,7 @@ export const AIMentorPage: React.FC = () => {
               return (
                 <h5
                   key={lIdx}
-                  className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400 mt-2.5 mb-1"
+                  className="text-xs sm:text-sm font-bold text-blue-600 mt-2.5 mb-1"
                 >
                   {renderInlineFormatted(trimmed.slice(5))}
                 </h5>
@@ -403,33 +403,33 @@ export const AIMentorPage: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full flex-1 flex overflow-hidden bg-white dark:bg-black relative select-none">
+    <div className="h-full w-full flex-1 flex overflow-hidden bg-white relative select-none">
       {/* ── 1. Collapsible Left Sessions Sidebar (Desktop Sticky / Mobile Drawer) ── */}
       {showHistory && (
         <>
           {/* Mobile Backdrop */}
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 lg:hidden"
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 lg:hidden"
             onClick={() => setShowHistory(false)}
           />
 
-          <div className="fixed inset-y-0 left-0 z-50 lg:static w-72 max-w-[85vw] border-r border-slate-200/90 dark:border-neutral-800 flex flex-col bg-slate-50 dark:bg-neutral-950 shrink-0 animate-in slide-in-from-left duration-200 shadow-2xl lg:shadow-none">
+          <div className="fixed inset-y-0 left-0 z-50 lg:static w-72 max-w-[85vw] border-r border-slate-200 flex flex-col bg-slate-50 shrink-0 animate-in slide-in-from-left duration-200 shadow-2xl lg:shadow-none">
             {/* Sidebar Header */}
-            <div className="p-3.5 pt-safe border-b border-slate-200/80 dark:border-neutral-800 flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-neutral-300 flex items-center gap-1.5">
-                <History className="w-3.5 h-3.5 text-blue-500" />
+            <div className="p-3.5 pt-safe border-b border-slate-200 flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                <History className="w-3.5 h-3.5 text-blue-600" />
                 <span>Past Sessions</span>
               </span>
               <button
                 onClick={() => setShowHistory(false)}
-                className="p-1.5 rounded-xl text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-neutral-200 hover:bg-slate-200/60 dark:hover:bg-neutral-800 cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center"
+                className="p-1.5 rounded-xl text-slate-500 hover:text-slate-700 hover:bg-slate-200/60 cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center"
                 title="Close history"
               >
                 <PanelLeftClose className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="p-2.5 border-b border-slate-200/60 dark:border-neutral-800/80">
+            <div className="p-2.5 border-b border-slate-200">
               <button
                 onClick={() => {
                   handleCreateNewChat();
@@ -446,8 +446,8 @@ export const AIMentorPage: React.FC = () => {
             {/* Sessions List */}
             <div className="flex-1 overflow-y-auto p-3 space-y-4 text-xs overscroll-contain">
               {conversations.length === 0 ? (
-                <div className="text-center py-8 px-2 space-y-1.5 text-slate-400 dark:text-neutral-500">
-                  <MessageSquare className="w-6 h-6 mx-auto stroke-1 text-slate-300 dark:text-neutral-600" />
+                <div className="text-center py-8 px-2 space-y-1.5 text-slate-500">
+                  <MessageSquare className="w-6 h-6 mx-auto stroke-1 text-slate-400" />
                   <p className="text-xs font-medium">No previous sessions</p>
                   <p className="text-[10px]">Your chat conversations will be saved here automatically.</p>
                 </div>
@@ -456,7 +456,7 @@ export const AIMentorPage: React.FC = () => {
                   {/* Today Group */}
                   {todayList.length > 0 && (
                     <div className="space-y-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 block">
                         Today
                       </span>
                       {todayList.map((conv) => (
@@ -468,8 +468,8 @@ export const AIMentorPage: React.FC = () => {
                           }}
                           className={`group flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-xl cursor-pointer transition-all active:scale-[0.98] ${
                             activeConvId === conv.id
-                              ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
-                              : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
+                              ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                              : 'text-slate-700 hover:bg-slate-100'
                           }`}
                         >
                           <div className="flex items-center gap-2 truncate min-w-0">
@@ -479,7 +479,7 @@ export const AIMentorPage: React.FC = () => {
                           <button
                             onClick={(e) => handleDeleteConversation(e, conv.id)}
                             type="button"
-                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
+                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-rose-600 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
                             title="Delete session"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -492,7 +492,7 @@ export const AIMentorPage: React.FC = () => {
                   {/* Yesterday Group */}
                   {yesterdayList.length > 0 && (
                     <div className="space-y-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 block">
                         Yesterday
                       </span>
                       {yesterdayList.map((conv) => (
@@ -504,8 +504,8 @@ export const AIMentorPage: React.FC = () => {
                           }}
                           className={`group flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-xl cursor-pointer transition-all active:scale-[0.98] ${
                             activeConvId === conv.id
-                              ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
-                              : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
+                              ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                              : 'text-slate-700 hover:bg-slate-100'
                           }`}
                         >
                           <div className="flex items-center gap-2 truncate min-w-0">
@@ -515,7 +515,7 @@ export const AIMentorPage: React.FC = () => {
                           <button
                             onClick={(e) => handleDeleteConversation(e, conv.id)}
                             type="button"
-                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
+                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-rose-600 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -527,7 +527,7 @@ export const AIMentorPage: React.FC = () => {
                   {/* Previous Group */}
                   {previousList.length > 0 && (
                     <div className="space-y-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 px-2 block">
                         Previous Sessions
                       </span>
                       {previousList.map((conv) => (
@@ -539,8 +539,8 @@ export const AIMentorPage: React.FC = () => {
                           }}
                           className={`group flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-xl cursor-pointer transition-all active:scale-[0.98] ${
                             activeConvId === conv.id
-                              ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
-                              : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
+                              ? 'bg-blue-50 text-blue-700 font-semibold border border-blue-200'
+                              : 'text-slate-700 hover:bg-slate-100'
                           }`}
                         >
                           <div className="flex items-center gap-2 truncate min-w-0">
@@ -550,7 +550,7 @@ export const AIMentorPage: React.FC = () => {
                           <button
                             onClick={(e) => handleDeleteConversation(e, conv.id)}
                             type="button"
-                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
+                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-rose-600 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -566,39 +566,39 @@ export const AIMentorPage: React.FC = () => {
       )}
 
       {/* ── 2. Center Chat Thread Area (Full-Width Clean Layout) ─── */}
-      <div className="flex-1 flex flex-col min-w-0 bg-white dark:bg-black h-full">
+      <div className="flex-1 flex flex-col min-w-0 bg-white h-full">
         {/* Chat Header Bar */}
-        <div className="h-14 px-3 sm:px-6 border-b border-slate-200/90 dark:border-neutral-800 flex items-center justify-between bg-white dark:bg-black shrink-0">
+        <div className="h-14 px-3 sm:px-6 border-b border-slate-200 flex items-center justify-between bg-white shrink-0">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             {/* Toggle History Button */}
             <button
               onClick={() => setShowHistory(!showHistory)}
               className={`p-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer min-h-[38px] ${
                 showHistory
-                  ? 'bg-blue-50 dark:bg-neutral-900 border-blue-200 dark:border-neutral-700 text-blue-600 dark:text-blue-400'
-                  : 'bg-slate-50 dark:bg-neutral-950 border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-blue-50 border-blue-200 text-blue-700'
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:text-slate-900'
               }`}
               title={showHistory ? 'Hide history sidebar' : 'Show chat history'}
             >
               {showHistory ? <PanelLeftClose className="w-4 h-4" /> : <PanelLeftOpen className="w-4 h-4" />}
               <span className="hidden sm:inline">Sessions</span>
               {conversations.length > 0 && (
-                <span className="px-1.5 py-0.2 rounded-full bg-slate-200 dark:bg-neutral-800 text-[10px] font-mono">
+                <span className="px-1.5 py-0.2 rounded-full bg-slate-200 text-[10px] font-mono">
                   {conversations.length}
                 </span>
               )}
             </button>
 
-            <div className="h-4 w-px bg-slate-200 dark:border-neutral-800" />
+            <div className="h-4 w-px bg-slate-200" />
 
-            <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-neutral-900 border border-blue-100 dark:border-neutral-800 flex items-center justify-center text-blue-600 shrink-0">
+            <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 shrink-0">
               <Bot className="w-4 h-4" />
             </div>
             <div className="min-w-0">
-              <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900 truncate">
                 {activeConv?.title || 'AI Engineering Mentor'}
               </h3>
-              <p className="text-[10px] text-slate-400 dark:text-neutral-500 truncate flex items-center gap-1.5">
+              <p className="text-[10px] text-slate-500 truncate flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
                 <span className="truncate">Track: {mentorContext?.targetRole || user?.targetRole || 'Software Engineer'}</span>
               </p>
@@ -620,8 +620,8 @@ export const AIMentorPage: React.FC = () => {
               type="button"
               className={`p-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border ${
                 showContextPanel
-                  ? 'bg-blue-50 dark:bg-neutral-900 border-blue-200 dark:border-neutral-700 text-blue-600 dark:text-blue-400'
-                  : 'bg-slate-50 dark:bg-neutral-950 border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
+                  ? 'bg-blue-50 border-blue-200 text-blue-700'
+                  : 'bg-slate-50 border-slate-200 text-slate-700 hover:text-slate-900'
               }`}
               title="Toggle Learning Context Panel"
             >
@@ -645,16 +645,16 @@ export const AIMentorPage: React.FC = () => {
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center text-white shadow-xl shadow-blue-500/25 border border-blue-400/30">
                     <Bot className="w-7 h-7 sm:w-8 h-8 text-white" />
                   </div>
-                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white dark:border-black flex items-center justify-center shadow-xs">
+                  <div className="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow-xs">
                     <Sparkles className="w-2.5 h-2.5 text-white" />
                   </div>
                 </div>
 
                 {/* Welcoming Greeting */}
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                   How can I assist your {mentorContext?.targetRole || user?.targetRole || 'Engineering'} journey?
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-500 dark:text-neutral-400 mt-1.5 max-w-md mx-auto leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 mt-1.5 max-w-md mx-auto leading-relaxed">
                   I am your context-aware technical mentor. Ask me to break down concepts, debug code, review architecture, or conduct interview practice.
                 </p>
 
@@ -667,17 +667,17 @@ export const AIMentorPage: React.FC = () => {
                         `What are the most critical milestones and skills I should focus on next to advance as a ${mentorContext?.targetRole || user?.targetRole || 'Software Engineer'}?`
                       )
                     }
-                    className="p-3.5 rounded-2xl border border-slate-200/90 dark:border-neutral-800 bg-slate-50/60 dark:bg-neutral-950/70 hover:bg-blue-50/50 dark:hover:bg-neutral-900 hover:border-blue-300 dark:hover:border-neutral-700 transition-all cursor-pointer group shadow-2xs"
+                    className="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 transition-all cursor-pointer group shadow-xs"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-lg bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xs">
+                      <div className="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center text-xs">
                         <GraduationCap className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">
                         Curriculum Guidance
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+                    <p className="text-[11px] text-slate-600 leading-relaxed">
                       Explore top milestones and next steps tailored to your track.
                     </p>
                   </button>
@@ -689,17 +689,17 @@ export const AIMentorPage: React.FC = () => {
                         `Can you review code with me? I will paste a snippet and you can analyze time/space complexity and suggest clean-code improvements.`
                       )
                     }
-                    className="p-3.5 rounded-2xl border border-slate-200/90 dark:border-neutral-800 bg-slate-50/60 dark:bg-neutral-950/70 hover:bg-blue-50/50 dark:hover:bg-neutral-900 hover:border-blue-300 dark:hover:border-neutral-700 transition-all cursor-pointer group shadow-2xs"
+                    className="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 transition-all cursor-pointer group shadow-xs"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-lg bg-emerald-100 dark:bg-emerald-950/80 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xs">
+                      <div className="w-6 h-6 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs">
                         <Code className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">
                         Code Review & Refactor
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+                    <p className="text-[11px] text-slate-600 leading-relaxed">
                       Optimize algorithms, check for bugs, and enforce clean architecture.
                     </p>
                   </button>
@@ -711,17 +711,17 @@ export const AIMentorPage: React.FC = () => {
                         `Explain key system design & architecture patterns used in modern production ${mentorContext?.targetRole || user?.targetRole || 'applications'}.`
                       )
                     }
-                    className="p-3.5 rounded-2xl border border-slate-200/90 dark:border-neutral-800 bg-slate-50/60 dark:bg-neutral-950/70 hover:bg-blue-50/50 dark:hover:bg-neutral-900 hover:border-blue-300 dark:hover:border-neutral-700 transition-all cursor-pointer group shadow-2xs"
+                    className="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 transition-all cursor-pointer group shadow-xs"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-lg bg-purple-100 dark:bg-purple-950/80 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xs">
+                      <div className="w-6 h-6 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs">
                         <Layers className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">
                         System Architecture
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+                    <p className="text-[11px] text-slate-600 leading-relaxed">
                       Scalable patterns, caching, concurrency, and decoupling trade-offs.
                     </p>
                   </button>
@@ -733,17 +733,17 @@ export const AIMentorPage: React.FC = () => {
                         `Give me a realistic technical interview question for a ${mentorContext?.experienceLevel || user?.experienceLevel || 'Intermediate'} ${mentorContext?.targetRole || user?.targetRole || 'Software Engineer'}.`
                       )
                     }
-                    className="p-3.5 rounded-2xl border border-slate-200/90 dark:border-neutral-800 bg-slate-50/60 dark:bg-neutral-950/70 hover:bg-blue-50/50 dark:hover:bg-neutral-900 hover:border-blue-300 dark:hover:border-neutral-700 transition-all cursor-pointer group shadow-2xs"
+                    className="p-3.5 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-blue-50 hover:border-blue-200 transition-all cursor-pointer group shadow-xs"
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <div className="w-6 h-6 rounded-lg bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xs">
+                      <div className="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-xs">
                         <Zap className="w-3.5 h-3.5" />
                       </div>
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                      <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">
                         Mock Interview Simulation
                       </span>
                     </div>
-                    <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+                    <p className="text-[11px] text-slate-600 leading-relaxed">
                       Practice answering real questions and receive constructive feedback.
                     </p>
                   </button>
@@ -757,14 +757,14 @@ export const AIMentorPage: React.FC = () => {
               if (isBot) {
                 return (
                   <div key={msg.id} className="flex items-start gap-3 w-full">
-                    <div className="w-7 h-7 sm:w-8 h-8 rounded-xl bg-blue-50 dark:bg-neutral-900 border border-blue-100 dark:border-neutral-800 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                    <div className="w-7 h-7 sm:w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                       <Bot className="w-4 h-4" />
                     </div>
                     <div className="space-y-1 flex-1 min-w-0">
-                      <span className="text-[10px] font-semibold text-slate-400 dark:text-neutral-500 block">
+                      <span className="text-[10px] font-semibold text-slate-500 block">
                         AI Mentor
                       </span>
-                      <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-neutral-950 border border-slate-200/80 dark:border-neutral-800 text-slate-900 dark:text-neutral-100 shadow-xs leading-relaxed">
+                      <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 text-slate-900 shadow-sm leading-relaxed">
                         {renderFormattedMessage(msg.content)}
                       </div>
                     </div>
@@ -774,7 +774,7 @@ export const AIMentorPage: React.FC = () => {
 
               return (
                 <div key={msg.id} className="flex flex-col items-end space-y-1 w-full">
-                  <span className="text-[10px] font-semibold text-slate-400 dark:text-neutral-500 pr-1">
+                  <span className="text-[10px] font-semibold text-slate-500 pr-1">
                     You
                   </span>
                   <div className="max-w-xl p-3.5 sm:p-4 rounded-2xl bg-blue-600 text-white text-xs sm:text-sm leading-relaxed shadow-sm font-medium">
@@ -787,18 +787,18 @@ export const AIMentorPage: React.FC = () => {
             {/* Live Streaming Message Bubble */}
             {streamingText && (
               <div className="flex items-start gap-3 w-full">
-                <div className="w-7 h-7 sm:w-8 h-8 rounded-xl bg-blue-50 dark:bg-neutral-900 border border-blue-100 dark:border-neutral-800 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
+                <div className="w-7 h-7 sm:w-8 h-8 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center shrink-0 mt-0.5 shadow-xs">
                   <Bot className="w-4 h-4" />
                 </div>
                 <div className="space-y-1 flex-1 min-w-0">
-                  <span className="text-[10px] font-semibold text-slate-400 dark:text-neutral-500 flex items-center gap-1.5">
+                  <span className="text-[10px] font-semibold text-slate-500 flex items-center gap-1.5">
                     <span>AI Mentor</span>
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-                    <span className="text-[9px] text-blue-500 font-mono">Streaming response...</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+                    <span className="text-[9px] text-blue-600 font-mono">Streaming response...</span>
                   </span>
-                  <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-neutral-950 border border-blue-500/30 text-slate-900 dark:text-neutral-100 shadow-xs relative leading-relaxed">
+                  <div className="p-4 sm:p-5 rounded-2xl bg-white border border-blue-200 text-slate-900 shadow-sm relative leading-relaxed">
                     {renderFormattedMessage(streamingText)}
-                    <span className="inline-block w-2 h-4 ml-1 bg-blue-500 animate-pulse align-middle" />
+                    <span className="inline-block w-2 h-4 ml-1 bg-blue-600 animate-pulse align-middle" />
                   </div>
                 </div>
               </div>
@@ -806,10 +806,10 @@ export const AIMentorPage: React.FC = () => {
 
             {isSending && !streamingText && (
               <div className="flex items-start gap-3 max-w-xl">
-                <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-neutral-900 text-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                   <Bot className="w-4 h-4 animate-pulse" />
                 </div>
-                <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 flex items-center gap-1.5">
+                <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce" />
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce [animation-delay:0.2s]" />
                   <span className="w-1.5 h-1.5 bg-blue-600 rounded-full animate-bounce [animation-delay:0.4s]" />
@@ -822,7 +822,7 @@ export const AIMentorPage: React.FC = () => {
         </div>
 
         {/* ── Input Composer (Centered Floating Column with Safe Area) ─── */}
-        <div className="px-3 sm:px-4 pb-3 sm:pb-4 pt-1 bg-gradient-to-t from-white via-white/95 to-transparent dark:from-black dark:via-black/95 dark:to-transparent shrink-0 pb-safe">
+        <div className="px-3 sm:px-4 pb-3 sm:pb-4 pt-1 bg-gradient-to-t from-white via-white/95 to-transparent shrink-0 pb-safe">
           <div className="max-w-3xl mx-auto w-full space-y-2">
             {/* Dynamic Suggested Prompt Chips — Touch Carousel */}
             {mentorContext?.suggestedQuestions && mentorContext.suggestedQuestions.length > 0 && (
@@ -835,7 +835,7 @@ export const AIMentorPage: React.FC = () => {
                     key={idx}
                     onClick={() => handleSendMessage(q)}
                     type="button"
-                    className="flex items-center gap-1 px-3 py-1.5 min-h-[34px] rounded-full border border-slate-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-950/90 text-xs font-medium text-slate-700 dark:text-neutral-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 whitespace-nowrap cursor-pointer transition-all shrink-0 active:scale-95 shadow-2xs"
+                    className="flex items-center gap-1 px-3 py-1.5 min-h-[34px] rounded-full border border-slate-200 bg-white text-xs font-medium text-slate-700 hover:border-blue-500 hover:text-blue-600 whitespace-nowrap cursor-pointer transition-all shrink-0 active:scale-95 shadow-2xs"
                   >
                     <span>{q}</span>
                   </button>
@@ -850,14 +850,14 @@ export const AIMentorPage: React.FC = () => {
                 handleSendMessage();
               }}
             >
-              <div className="flex items-center gap-2 p-1.5 sm:p-2 rounded-2xl border border-slate-200/90 dark:border-neutral-800 bg-slate-50/95 dark:bg-neutral-950/95 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 shadow-lg shadow-black/5 transition-all">
+              <div className="flex items-center gap-2 p-1.5 sm:p-2 rounded-2xl border border-slate-200 bg-slate-50 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 shadow-sm transition-all">
                 <input
                   type="text"
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   placeholder="Ask AI Mentor anything about your roadmap, code, or architecture..."
                   disabled={isSending}
-                  className="flex-1 bg-transparent border-0 px-3 py-1.5 text-base sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none min-h-[42px]"
+                  className="flex-1 bg-transparent border-0 px-3 py-1.5 text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none min-h-[42px]"
                 />
 
                 {isSending ? (

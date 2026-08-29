@@ -28,16 +28,16 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   };
 
   const colorStyles = {
-    blue: 'bg-blue-600 dark:bg-blue-500',
-    green: 'bg-emerald-600 dark:bg-emerald-500',
-    amber: 'bg-amber-500 dark:bg-amber-400',
-    red: 'bg-rose-500 dark:bg-rose-500',
+    blue: 'bg-blue-600',
+    green: 'bg-emerald-600',
+    amber: 'bg-amber-500',
+    red: 'bg-rose-500',
   };
 
   return (
     <div className={cn('w-full flex flex-col gap-1.5', className)}>
       {showLabel && (
-        <div className="flex justify-between items-center text-xs font-semibold text-slate-700 dark:text-slate-300">
+        <div className="flex justify-between items-center text-xs font-semibold text-slate-700">
           <span>Progress</span>
           <span className="font-mono">
             <AnimatedNumber value={clampedValue} suffix="%" />
@@ -46,7 +46,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       )}
       <div
         className={cn(
-          'w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden',
+          'w-full bg-slate-100 rounded-full overflow-hidden',
           heightStyles[size]
         )}
       >

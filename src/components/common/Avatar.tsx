@@ -37,7 +37,7 @@ export const Avatar: React.FC<AvatarProps> = memo(({
         alt={`${name}'s avatar`}
         loading="lazy"
         decoding="async"
-        className={cn('rounded-full object-cover border border-slate-200 dark:border-slate-700', sizeStyles[size], className)}
+        className={cn('rounded-full object-cover border border-slate-200', sizeStyles[size], className)}
       />
     );
   }

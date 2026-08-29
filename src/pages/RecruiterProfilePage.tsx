@@ -168,7 +168,7 @@ export const RecruiterProfilePage: React.FC = () => {
 
       {/* ── Right Main Recruiter Portfolio Card ─────────────── */}
       <div className="flex-1 min-w-0 w-full">
-        <Card className="p-4 sm:p-10 border-slate-200 dark:border-neutral-800 bg-white dark:bg-black shadow-xl space-y-6 sm:space-y-8 rounded-2xl sm:rounded-3xl relative overflow-hidden">
+        <Card className="p-4 sm:p-10 border-slate-200 bg-white shadow-xl space-y-6 sm:space-y-8 rounded-2xl sm:rounded-3xl relative overflow-hidden">
           {/* Verification Ribbon */}
           <div className="sm:absolute top-0 right-0 bg-gradient-to-l from-emerald-600 to-teal-600 text-white text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest px-3 sm:px-6 py-1.5 rounded-xl sm:rounded-bl-2xl sm:rounded-tr-none shadow-md flex items-center justify-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5" />
@@ -176,19 +176,19 @@ export const RecruiterProfilePage: React.FC = () => {
           </div>
 
         {/* Live Recruiter View Metric Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-100/70 dark:bg-neutral-900/60 border border-slate-200/60 dark:border-neutral-800 text-[11px] text-slate-600 dark:text-neutral-400 font-mono">
+        <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-[11px] text-slate-700 font-mono">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
             <span>👁️ <strong>Authenticated Profile</strong> • Live Recruiter Verification</span>
           </div>
           <div className="flex items-center gap-3">
             <span>Verified Candidate Token: <strong>{candidateToken}</strong></span>
-            <span className="text-emerald-500 font-bold">100% Authenticated</span>
+            <span className="text-emerald-600 font-bold">100% Authenticated</span>
           </div>
         </div>
 
         {/* Profile Header */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-2 pb-6 border-b border-slate-100 dark:border-neutral-800">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-2 pb-6 border-b border-slate-100">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Badge variant="blue" size="sm">
@@ -196,35 +196,35 @@ export const RecruiterProfilePage: React.FC = () => {
               </Badge>
               <span className="text-xs text-slate-400 font-mono">ID: {candidateToken}</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
               {displayName}
             </h1>
-            <p className="text-base font-semibold text-blue-600 dark:text-blue-400">
+            <p className="text-base font-semibold text-blue-600">
               {role} • {experience} Level
             </p>
-            <p className="text-xs text-slate-500 dark:text-neutral-400 max-w-xl leading-relaxed">
+            <p className="text-xs text-slate-600 max-w-xl leading-relaxed">
               {user?.bio || user?.headline || 'Specialized in scalable software architectures, real-time concurrent runtimes, state machines, and modern cloud deployment.'}
             </p>
           </div>
 
           {/* KPI Mini-Grid */}
           <div className="grid grid-cols-2 gap-3 shrink-0 w-full sm:w-auto">
-            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-neutral-950 border border-slate-200/80 dark:border-neutral-800 text-center space-y-1">
-              <span className="text-[10px] text-slate-400 uppercase font-bold flex items-center justify-center gap-1">
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
+              <span className="text-[10px] text-slate-500 uppercase font-bold flex items-center justify-center gap-1">
                 <Flame className="w-3 h-3 text-amber-500" />
                 Streak
               </span>
-              <span className="text-xl font-extrabold text-slate-900 dark:text-slate-100 font-mono block">
+              <span className="text-xl font-extrabold text-slate-900 font-mono block">
                 <AnimatedNumber value={streak} /> Days
               </span>
             </div>
 
-            <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-neutral-950 border border-slate-200/80 dark:border-neutral-800 text-center space-y-1">
-              <span className="text-[10px] text-slate-400 uppercase font-bold flex items-center justify-center gap-1">
-                <Clock className="w-3 h-3 text-blue-500" />
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center space-y-1">
+              <span className="text-[10px] text-slate-500 uppercase font-bold flex items-center justify-center gap-1">
+                <Clock className="w-3 h-3 text-blue-600" />
                 Invested
               </span>
-              <span className="text-xl font-extrabold text-slate-900 dark:text-slate-100 font-mono block">
+              <span className="text-xl font-extrabold text-slate-900 font-mono block">
                 <AnimatedNumber value={hours} decimals={1} /> hrs
               </span>
             </div>
@@ -232,12 +232,12 @@ export const RecruiterProfilePage: React.FC = () => {
         </div>
 
         {/* AI Competency Assessment Endorsement */}
-        <div className="p-5 rounded-2xl bg-gradient-to-r from-blue-50/60 to-indigo-50/60 dark:from-neutral-900 dark:to-neutral-900/60 border border-blue-200/60 dark:border-neutral-800 space-y-2">
-          <div className="flex items-center gap-2 text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wider">
-            <Sparkles className="w-4 h-4 text-blue-500" />
+        <div className="p-5 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-2">
+          <div className="flex items-center gap-2 text-xs font-bold text-blue-700 uppercase tracking-wider">
+            <Sparkles className="w-4 h-4 text-blue-600" />
             <span>AI Mentor & Automated Evaluation Summary</span>
           </div>
-          <p className="text-xs text-slate-700 dark:text-neutral-300 leading-relaxed font-medium">
+          <p className="text-xs text-slate-700 leading-relaxed font-medium">
             {verifiedSkills.length > 0 ? (
               <>
                 Candidate exhibits verified technical competencies across <strong>{verifiedSkills.length} core domains</strong> with an overall proficiency rating of <strong>{skillAnalysis?.primaryAssessment?.overallProficiency || 0}%</strong>. Evaluated on real-world coding benchmarks, algorithmic cleanliness, and automated Socratic debugging.
@@ -252,11 +252,11 @@ export const RecruiterProfilePage: React.FC = () => {
 
         {/* ── Verified Skills & Proficiency Radar ───────────── */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-neutral-800">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
               Verified Technical Competency Matrix
             </h3>
-            <span className="text-xs text-slate-400 font-mono">
+            <span className="text-xs text-slate-500 font-mono">
               {verifiedSkills.length > 0 ? `${verifiedSkills.length} Evaluated Skills` : 'Pending Assessment'}
             </span>
           </div>
@@ -266,25 +266,25 @@ export const RecruiterProfilePage: React.FC = () => {
               {verifiedSkills.map((sk, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-2xl border border-slate-200/80 dark:border-neutral-800 bg-slate-50/50 dark:bg-neutral-950 space-y-2"
+                  className="p-4 rounded-2xl border border-slate-200 bg-slate-50 space-y-2"
                 >
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block">
+                      <span className="text-xs font-bold text-slate-900 block">
                         {sk.name}
                       </span>
-                      <span className="text-[10px] text-slate-400 uppercase font-semibold">
+                      <span className="text-[10px] text-slate-500 uppercase font-semibold">
                         {sk.status === 'MASTERED' ? 'Mastered' : sk.targetLevel || 'Proficient'}
                       </span>
                     </div>
-                    <span className="text-xs font-mono font-extrabold text-blue-600 dark:text-blue-400">
+                    <span className="text-xs font-mono font-extrabold text-blue-600">
                       {sk.proficiencyScore}%
                     </span>
                   </div>
 
-                  <div className="w-full h-2 rounded-full bg-slate-200 dark:bg-neutral-800 overflow-hidden">
+                  <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full"
+                      className="h-full bg-blue-600 rounded-full"
                       style={{ width: `${sk.proficiencyScore}%` }}
                     />
                   </div>
@@ -292,13 +292,13 @@ export const RecruiterProfilePage: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="p-6 rounded-2xl border border-dashed border-slate-300 dark:border-neutral-800 text-center space-y-3 bg-slate-50/30 dark:bg-neutral-950/40">
-              <Cpu className="w-8 h-8 text-blue-500 mx-auto opacity-70" />
+            <div className="p-6 rounded-2xl border border-dashed border-slate-300 text-center space-y-3 bg-slate-50">
+              <Cpu className="w-8 h-8 text-blue-600 mx-auto opacity-70" />
               <div className="space-y-1">
-                <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
+                <p className="text-xs sm:text-sm font-bold text-slate-900">
                   No Verified Skill Benchmarks Yet
                 </p>
-                <p className="text-xs text-slate-500 dark:text-neutral-400 max-w-md mx-auto">
+                <p className="text-xs text-slate-500 max-w-md mx-auto">
                   Complete your first diagnostic test or pair-programming challenge to generate authenticated competency ratings.
                 </p>
               </div>
@@ -317,11 +317,11 @@ export const RecruiterProfilePage: React.FC = () => {
 
         {/* ── Verified Course Milestones & Badges ────────────── */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-neutral-800">
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900">
               Verified Certifications & Milestones
             </h3>
-            <span className="text-xs text-slate-400 font-mono">
+            <span className="text-xs text-slate-500 font-mono">
               {completedSteps.length} Credentials Mastered
             </span>
           </div>
@@ -331,17 +331,17 @@ export const RecruiterProfilePage: React.FC = () => {
               {completedSteps.map((ms, idx) => (
                 <div
                   key={idx}
-                  className="p-4 rounded-2xl border border-slate-200/80 dark:border-neutral-800 bg-white dark:bg-black flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-4 rounded-2xl border border-slate-200 bg-white flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200/60 dark:border-emerald-900 flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-200 flex items-center justify-center shrink-0 mt-0.5">
                       <CheckCircle className="w-4 h-4" />
                     </div>
                     <div>
-                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900">
                         {ms.title}
                       </h4>
-                      <p className="text-[11px] text-slate-400 font-medium">
+                      <p className="text-[11px] text-slate-500 font-medium">
                         Verified Milestone • Credential 0{idx + 1}
                       </p>
                     </div>
@@ -354,15 +354,15 @@ export const RecruiterProfilePage: React.FC = () => {
               ))}
             </div>
           ) : (
-            <div className="p-6 rounded-2xl border border-dashed border-slate-300 dark:border-neutral-800 text-center space-y-3 bg-slate-50/30 dark:bg-neutral-950/40">
+            <div className="p-6 rounded-2xl border border-dashed border-slate-300 text-center space-y-3 bg-slate-50">
               <Award className="w-8 h-8 text-amber-500 mx-auto opacity-70" />
               <div className="space-y-1">
-                <p className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
+                <p className="text-xs sm:text-sm font-bold text-slate-900">
                   {inProgressSteps.length > 0
                     ? `Curriculum in Progress: ${inProgressSteps[0]?.title || 'Core Foundations'}`
                     : 'Curriculum Enrolled'}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-neutral-400 max-w-md mx-auto">
+                <p className="text-xs text-slate-500 max-w-md mx-auto">
                   Complete milestone projects and course modules to unlock cryptographically verified certifications.
                 </p>
               </div>
@@ -380,7 +380,7 @@ export const RecruiterProfilePage: React.FC = () => {
         </div>
 
         {/* Footer Authenticity Token */}
-        <div className="pt-6 border-t border-slate-100 dark:border-neutral-800 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 font-mono gap-2">
+        <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 font-mono gap-2">
           <span>Digital Signature: e2e-learnpath-ai-sha256-verified</span>
           <span>learnpath.ai/profile/{user?.email?.split('@')[0] || 'candidate'}</span>
         </div>

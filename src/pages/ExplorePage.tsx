@@ -53,10 +53,10 @@ export const ExplorePage: React.FC = () => {
     <div className="space-y-8 max-w-6xl mx-auto pb-12">
       {/* Header */}
       <div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           Explore Courses & Tracks
         </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-sm text-slate-600 mt-1">
           Industry-aligned curricula to accelerate your technical skills.
         </p>
       </div>
@@ -71,8 +71,8 @@ export const ExplorePage: React.FC = () => {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3.5 py-1.5 min-h-[38px] rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer shrink-0 active:scale-95 flex items-center justify-center ${
                 selectedCategory === cat
-                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
-                  : 'bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-neutral-700'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300'
               }`}
             >
               {cat === 'ALL' ? 'All Tracks' : cat}
@@ -88,7 +88,7 @@ export const ExplorePage: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search catalog..."
-            className="w-full pl-10 pr-4 py-2.5 min-h-[44px] bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-base sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
+            className="w-full pl-10 pr-4 py-2.5 min-h-[44px] bg-white border border-slate-200 rounded-xl text-base sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
           />
         </form>
       </div>
@@ -97,15 +97,15 @@ export const ExplorePage: React.FC = () => {
       {isLoading ? (
         <CourseGridSkeleton count={6} />
       ) : courses.length === 0 ? (
-        <div className="text-center py-16 bg-white dark:bg-black rounded-2xl border border-slate-200 dark:border-neutral-800 p-8 space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-neutral-900 flex items-center justify-center mx-auto text-slate-400">
+        <div className="text-center py-16 bg-white rounded-2xl border border-slate-200 p-8 space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
             <BookOpen className="w-6 h-6" />
           </div>
           <div>
-            <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
+            <h4 className="text-base font-bold text-slate-900">
               No courses match your filter
             </h4>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+            <p className="text-xs text-slate-500 mt-1">
               Try adjusting your search criteria or resetting the category filter.
             </p>
           </div>
@@ -127,7 +127,7 @@ export const ExplorePage: React.FC = () => {
             <Card
               key={course.id}
               hoverable
-              className="p-5 sm:p-6 flex flex-col justify-between border-slate-200/90 dark:border-slate-800 shadow-sm"
+              className="p-5 sm:p-6 flex flex-col justify-between border-slate-200 bg-white shadow-sm"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
@@ -136,30 +136,30 @@ export const ExplorePage: React.FC = () => {
                       {course.category}
                     </Badge>
                     {(course as any).isCompleted && (
-                      <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded-md flex items-center gap-1">
-                        <Check className="w-3 h-3" /> Completed
+                      <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <Check className="w-3 h-3 text-emerald-600" /> Completed
                       </span>
                     )}
                   </div>
                   {course.isRecommended && (
-                    <div className="flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 shrink-0">
+                    <div className="flex items-center gap-1 text-[11px] font-semibold text-blue-600 shrink-0">
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Recommended</span>
                     </div>
                   )}
                 </div>
 
-                <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 line-clamp-1">
+                <h3 className="text-base font-bold text-slate-900 line-clamp-1">
                   {course.title}
                 </h3>
 
-                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed">
                   {course.description}
                 </p>
               </div>
 
-              <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
-                <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium">
+              <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
                   <Clock className="w-3.5 h-3.5" />
                   <span>{Math.round(course.durationMinutes / 60)} hrs total</span>
                 </div>
@@ -168,7 +168,7 @@ export const ExplorePage: React.FC = () => {
                   variant={(course as any).isCompleted ? 'outline' : 'primary'}
                   size="sm"
                   onClick={() => navigate(`/courses/${course.slug}`)}
-                  className="font-bold text-xs cursor-pointer min-h-[38px] px-3.5 active:scale-95"
+                  className="font-bold text-xs cursor-pointer min-h-[38px] px-3.5 active:scale-95 bg-blue-600 hover:bg-blue-700 text-white"
                 >
                   {(course as any).isCompleted ? 'Review Course' : 'View Course'}
                 </Button>

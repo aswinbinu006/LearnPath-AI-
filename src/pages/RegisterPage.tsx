@@ -58,10 +58,10 @@ export const RegisterPage: React.FC = () => {
   }, [passwordCriteria]);
 
   const strengthLabel = useMemo(() => {
-    if (!password) return { text: '', color: 'bg-neutral-800', textColor: 'text-neutral-500' };
-    if (strengthScore <= 1) return { text: 'Weak', color: 'bg-red-500', textColor: 'text-red-400' };
-    if (strengthScore <= 3) return { text: 'Medium', color: 'bg-amber-500', textColor: 'text-amber-400' };
-    return { text: 'Strong', color: 'bg-emerald-500', textColor: 'text-emerald-400' };
+    if (!password) return { text: '', color: 'bg-slate-200', textColor: 'text-slate-400' };
+    if (strengthScore <= 1) return { text: 'Weak', color: 'bg-rose-500', textColor: 'text-rose-600' };
+    if (strengthScore <= 3) return { text: 'Medium', color: 'bg-amber-500', textColor: 'text-amber-600' };
+    return { text: 'Strong', color: 'bg-emerald-500', textColor: 'text-emerald-600' };
   }, [password, strengthScore]);
 
   const isPasswordMatch = useMemo(() => {

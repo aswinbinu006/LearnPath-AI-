@@ -136,7 +136,7 @@ export const SettingsPage: React.FC = () => {
     <div className="space-y-8 max-w-4xl mx-auto pb-12 select-none">
       {/* Header */}
       <div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
           Settings & Security
         </h2>
         <p className="text-sm text-slate-600 mt-1">
