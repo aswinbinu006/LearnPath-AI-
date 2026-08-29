@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ShieldCheck, KeyRound, Lock, Mail, AlertCircle, ArrowRight, Sparkles, Building2 } from 'lucide-react';
 import { adminService } from '../services/adminService.js';
-import { useAuth } from '../contexts/AuthContext.js';
 
 export const AdminLoginPage: React.FC = () => {
   const navigate = useNavigate();
-  const { refreshUser, user, isAuthenticated } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,10 +14,10 @@ export const AdminLoginPage: React.FC = () => {
 
   // If already logged in as admin, redirect to admin dashboard
   React.useEffect(() => {
-    if (isAuthenticated && (user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN')) {
+    if (adminService.isAuthenticated()) {
       navigate('/back/dashboard', { replace: true });
     }
-  }, [isAuthenticated, user, navigate]);
+  }, [navigate]);
 
   const handleFillDemo = () => {
     setEmail('admin@learnpath.ai');
@@ -46,7 +44,6 @@ export const AdminLoginPage: React.FC = () => {
       });
 
       if (res.success) {
-        await refreshUser();
         navigate('/back/dashboard', { replace: true });
       } else {
         setError(res.message || 'Authentication failed.');

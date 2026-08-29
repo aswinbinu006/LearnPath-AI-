@@ -18,8 +18,8 @@ export const authenticate = async (req: AuthRequest, res: Response, next: NextFu
     const authHeader = req.headers.authorization;
     if (authHeader && authHeader.startsWith('Bearer ')) {
       token = authHeader.substring(7);
-    } else if (req.cookies && req.cookies.token) {
-      token = req.cookies.token;
+    } else if (req.cookies && (req.cookies.token || req.cookies.admin_token)) {
+      token = req.cookies.token || req.cookies.admin_token;
     }
 
     if (!token) {

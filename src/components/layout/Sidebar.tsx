@@ -84,32 +84,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Navigation Links */}
       <div className="flex-1 px-3 py-3 space-y-1 overflow-y-auto overscroll-contain">
-        {/* Admin Governance Portal Link for Admins */}
-        {(user?.role === 'ADMIN' || user?.role === 'SUPER_ADMIN') && (
-          <NavLink
-            to="/back/dashboard"
-            onClick={() => {
-              if (onMobileClose) onMobileClose();
-            }}
-            className={({ isActive }) =>
-              cn(
-                'flex items-center justify-between px-3.5 py-3 lg:py-2.5 min-h-[44px] rounded-xl text-sm font-bold transition-all duration-150 mb-2 border active:scale-[0.98]',
-                isActive || location.pathname.startsWith('/back') || location.pathname.startsWith('/admin')
-                  ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/20'
-                  : 'bg-indigo-50/70 text-indigo-700 border-indigo-200 hover:bg-indigo-100'
-              )
-            }
-          >
-            <div className="flex items-center gap-3">
-              <Shield className="w-5 h-5 flex-shrink-0" />
-              <span>Admin Console</span>
-            </div>
-            <span className="px-1.5 py-0.5 text-[10px] font-extrabold uppercase rounded-md bg-indigo-500/20 text-indigo-600 border border-indigo-400/30">
-              Admin
-            </span>
-          </NavLink>
-        )}
-
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive =

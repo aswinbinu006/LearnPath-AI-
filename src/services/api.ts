@@ -13,7 +13,11 @@ interface ApiOptions {
 
 async function apiRequest<T>(endpoint: string, options: ApiOptions = {}): Promise<T> {
   const method = (options.method || 'GET').toUpperCase();
-  const token = localStorage.getItem('learnpath_token');
+  const adminToken = sessionStorage.getItem('admin_auth_token') || localStorage.getItem('admin_auth_token');
+  const userToken = localStorage.getItem('learnpath_token');
+  
+  // Use admin token for admin routes, user token for user routes
+  const token = endpoint.startsWith('/admin') ? (adminToken || userToken) : userToken;
 
   // Check cache for GET requests
   if (method === 'GET' && !options.skipCache && options.cacheTtlMs && options.cacheTtlMs > 0) {
@@ -44,24 +48,34 @@ async function apiRequest<T>(endpoint: string, options: ApiOptions = {}): Promis
     const errorData = await response.json().catch(() => null);
     const serverMessage = errorData?.message;
 
-    const isAuthAttempt =
-      endpoint.startsWith('/auth/login') ||
-      endpoint.startsWith('/auth/register') ||
-      endpoint.startsWith('/auth/admin-login');
+    const isAdminRoute = endpoint.startsWith('/admin') || window.location.pathname.startsWith('/back') || window.location.pathname.startsWith('/admin');
 
-    if (!isAuthAttempt) {
-      localStorage.removeItem('learnpath_token');
-      apiCache.clear();
-      if (
-        window.location.pathname !== '/login' &&
-        window.location.pathname !== '/register' &&
-        !window.location.pathname.startsWith('/back')
-      ) {
-        window.location.href = '/login';
+    if (isAdminRoute) {
+      sessionStorage.removeItem('admin_auth_token');
+      localStorage.removeItem('admin_auth_token');
+      sessionStorage.removeItem('admin_user');
+      localStorage.removeItem('admin_user');
+      if (window.location.pathname.startsWith('/back/dashboard') || window.location.pathname.startsWith('/admin/dashboard')) {
+        window.location.href = '/back';
+      }
+    } else {
+      const isAuthAttempt =
+        endpoint.startsWith('/auth/login') ||
+        endpoint.startsWith('/auth/register');
+
+      if (!isAuthAttempt) {
+        localStorage.removeItem('learnpath_token');
+        apiCache.clear();
+        if (
+          window.location.pathname !== '/login' &&
+          window.location.pathname !== '/register'
+        ) {
+          window.location.href = '/login';
+        }
       }
     }
 
-    throw new Error(serverMessage || 'Invalid email or password.');
+    throw new Error(serverMessage || 'Authentication required.');
   }
 
   if (!response.ok) {

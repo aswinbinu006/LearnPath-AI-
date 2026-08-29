@@ -113,7 +113,7 @@ export const adminLogin = async (req: Request, res: Response) => {
       details: { email: user.email, role: user.role },
     });
 
-    res.cookie('token', token, {
+    res.cookie('admin_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

@@ -31,7 +31,6 @@ import {
 } from 'lucide-react';
 import { adminService } from '../services/adminService.js';
 import { AdminAnalytics, AdminUserItem, AuditLog } from '../types/index.js';
-import { useAuth } from '../contexts/AuthContext.js';
 import { useNavigate } from 'react-router-dom';
 import { AnimatedNumber } from '../components/common/AnimatedNumber.js';
 
@@ -39,8 +38,14 @@ type TabType = 'analytics' | 'users' | 'audit-logs';
 
 
 export const AdminDashboardPage: React.FC = () => {
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  // Protect route - ensure admin is authenticated via adminService
+  useEffect(() => {
+    if (!adminService.isAuthenticated()) {
+      navigate('/back', { replace: true });
+    }
+  }, [navigate]);
 
   const [activeTab, setActiveTab] = useState<TabType>('analytics');
 
@@ -294,9 +299,9 @@ export const AdminDashboardPage: React.FC = () => {
 
             {/* Logout */}
             <button
-              onClick={async () => {
-                await logout();
-                navigate('/back');
+              onClick={() => {
+                adminService.logout();
+                navigate('/back', { replace: true });
               }}
               className="px-3.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
             >

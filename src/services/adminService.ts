@@ -46,9 +46,34 @@ export const adminService = {
   async login(payload: AdminLoginPayload): Promise<AdminLoginResponse> {
     const response = await api.post<AdminLoginResponse>('/admin/login', payload);
     if (response.success && response.token) {
-      localStorage.setItem('learnpath_token', response.token);
+      sessionStorage.setItem('admin_auth_token', response.token);
+      localStorage.setItem('admin_auth_token', response.token);
+      if (response.user) {
+        sessionStorage.setItem('admin_user', JSON.stringify(response.user));
+        localStorage.setItem('admin_user', JSON.stringify(response.user));
+      }
     }
     return response;
+  },
+
+  getStoredAdmin() {
+    try {
+      const stored = sessionStorage.getItem('admin_user') || localStorage.getItem('admin_user');
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  },
+
+  isAuthenticated(): boolean {
+    return !!(sessionStorage.getItem('admin_auth_token') || localStorage.getItem('admin_auth_token'));
+  },
+
+  logout() {
+    sessionStorage.removeItem('admin_auth_token');
+    localStorage.removeItem('admin_auth_token');
+    sessionStorage.removeItem('admin_user');
+    localStorage.removeItem('admin_user');
   },
 
   async getUsers(params: {
