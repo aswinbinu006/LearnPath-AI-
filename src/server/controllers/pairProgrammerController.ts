@@ -12,8 +12,8 @@ export const analyzeCode = async (req: AuthRequest, res: Response) => {
     const { code, lessonPrompt, hintLevel = 'MEDIUM' } = req.body;
     const userId = req.user?.id;
 
-    if (typeof code !== 'string') {
-      return res.status(400).json({ success: false, message: 'Code content must be a string.' });
+    if (typeof code !== 'string' || code.length > 50000) {
+      return res.status(400).json({ success: false, message: 'Code content must be a string and not exceed 50KB.' });
     }
 
     const analysis = await PairProgrammerService.analyzeCode(

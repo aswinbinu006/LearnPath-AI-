@@ -16,6 +16,13 @@ export const sendChatMessage = async (req: AuthRequest, res: Response) => {
 
     const { conversationId, message } = req.body;
 
+    if (!message || typeof message !== 'string' || message.trim().length === 0) {
+      return res.status(400).json({ success: false, message: 'Message content is required and cannot be empty.' });
+    }
+    if (message.length > 4000) {
+      return res.status(400).json({ success: false, message: 'Message exceeds maximum allowed length of 4,000 characters.' });
+    }
+
     let activeConversationId = conversationId;
 
     // If conversationId provided, verify it belongs to this user
