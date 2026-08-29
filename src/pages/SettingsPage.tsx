@@ -162,19 +162,19 @@ export const SettingsPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pt-2">
           {/* Light Mode Option */}
           <button
             type="button"
             onClick={() => handleThemeChange('light')}
-            className={`p-4 rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
+            className={`p-3.5 sm:p-4 min-h-[48px] rounded-xl border flex items-center justify-between transition-all cursor-pointer active:scale-[0.98] ${
               theme === 'light'
                 ? 'border-blue-600 bg-blue-50/50 ring-2 ring-blue-600/30'
                 : 'border-slate-200 dark:border-neutral-800 hover:border-slate-300 bg-white dark:bg-black'
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600">
+              <div className="w-9 h-9 rounded-lg bg-amber-100 flex items-center justify-center text-amber-600 shrink-0">
                 <Sun className="w-5 h-5" />
               </div>
               <div className="text-left">
@@ -182,21 +182,21 @@ export const SettingsPage: React.FC = () => {
                 <p className="text-[11px] text-slate-500">Clean & crisp daylight interface</p>
               </div>
             </div>
-            {theme === 'light' && <Check className="w-4 h-4 text-blue-600 font-bold" />}
+            {theme === 'light' && <Check className="w-4 h-4 text-blue-600 font-bold shrink-0" />}
           </button>
 
           {/* Dark Mode Option */}
           <button
             type="button"
             onClick={() => handleThemeChange('dark')}
-            className={`p-4 rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
+            className={`p-3.5 sm:p-4 min-h-[48px] rounded-xl border flex items-center justify-between transition-all cursor-pointer active:scale-[0.98] ${
               theme === 'dark'
                 ? 'border-blue-500 bg-blue-950/30 ring-2 ring-blue-500/30'
                 : 'border-slate-200 dark:border-neutral-800 hover:border-slate-300 bg-white dark:bg-black'
             }`}
           >
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-neutral-900 flex items-center justify-center text-blue-400">
+              <div className="w-9 h-9 rounded-lg bg-neutral-900 flex items-center justify-center text-blue-400 shrink-0">
                 <Moon className="w-5 h-5" />
               </div>
               <div className="text-left">
@@ -204,16 +204,16 @@ export const SettingsPage: React.FC = () => {
                 <p className="text-[11px] text-slate-500">High-contrast OLED True Black</p>
               </div>
             </div>
-            {theme === 'dark' && <Check className="w-4 h-4 text-blue-400 font-bold" />}
+            {theme === 'dark' && <Check className="w-4 h-4 text-blue-400 font-bold shrink-0" />}
           </button>
         </div>
       </Card>
 
       {/* Profile & Target Role Settings Form */}
       <form onSubmit={handleSaveProfile}>
-        <Card className="p-6 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-6">
+        <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-6">
           <div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">
+            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">
               Personal Information & Learning Goals
             </h3>
             <p className="text-xs text-slate-500 dark:text-neutral-400 mt-0.5">
@@ -227,12 +227,14 @@ export const SettingsPage: React.FC = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Your Name"
+              className="text-base sm:text-sm min-h-[44px]"
             />
             <Input
               label="Headline / Subtitle"
               value={headline}
               onChange={(e) => setHeadline(e.target.value)}
               placeholder="e.g. Professional Learner"
+              className="text-base sm:text-sm min-h-[44px]"
             />
           </div>
 
@@ -244,7 +246,7 @@ export const SettingsPage: React.FC = () => {
               <select
                 value={targetRole}
                 onChange={(e) => setTargetRole(e.target.value)}
-                className="w-full bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 text-slate-900 dark:text-slate-100 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full min-h-[44px] bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 text-slate-900 dark:text-slate-100 rounded-xl px-3.5 py-2 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
                 <option value="Frontend Engineer">Frontend Engineer</option>
                 <option value="Full Stack Engineer">Full Stack Engineer</option>
@@ -264,7 +266,7 @@ export const SettingsPage: React.FC = () => {
                 step="5"
                 value={dailyGoalMinutes}
                 onChange={(e) => setDailyGoalMinutes(Number(e.target.value))}
-                className="w-full bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 text-slate-900 dark:text-slate-100 rounded-lg px-3.5 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full min-h-[44px] bg-white dark:bg-neutral-950 border border-slate-200 dark:border-neutral-800 text-slate-900 dark:text-slate-100 rounded-xl px-3.5 py-2 text-base sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
@@ -276,6 +278,7 @@ export const SettingsPage: React.FC = () => {
               size="md"
               isLoading={isSaving}
               leftIcon={<Save className="w-4 h-4" />}
+              className="w-full sm:w-auto min-h-[44px] font-bold shadow-md shadow-blue-500/20 active:scale-[0.98]"
             >
               Save Changes
             </Button>

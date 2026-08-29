@@ -310,30 +310,30 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         {/* Navigation Tabs */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-8 overflow-x-auto">
-          <div className="flex items-center gap-2 p-1.5 bg-slate-900/90 rounded-2xl border border-slate-800">
+        <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-8 overflow-x-auto no-scrollbar touch-pan-x">
+          <div className="flex items-center gap-2 p-1.5 bg-slate-900/90 rounded-2xl border border-slate-800 shrink-0">
             <button
               onClick={() => setActiveTab('analytics')}
-              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 min-h-[40px] rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 activeTab === 'analytics'
                   ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-600/20'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
               <BarChart3 className="w-4 h-4" />
-              <span>Executive Analytics</span>
+              <span>Analytics</span>
             </button>
 
             <button
               onClick={() => setActiveTab('users')}
-              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 min-h-[40px] rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 activeTab === 'users'
                   ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-600/20'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
               <Users className="w-4 h-4" />
-              <span>User Management</span>
+              <span>Users</span>
               {userTotal > 0 && (
                 <span className="px-2 py-0.5 rounded-full text-[10px] bg-indigo-500/30 text-indigo-300">
                   {userTotal}
@@ -343,16 +343,16 @@ export const AdminDashboardPage: React.FC = () => {
 
             <button
               onClick={() => setActiveTab('audit-logs')}
-              className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+              className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 min-h-[40px] rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 activeTab === 'audit-logs'
                   ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-600/20'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
               <FileText className="w-4 h-4" />
-              <span>PostgreSQL Audit Logs</span>
+              <span>Audit Logs</span>
               {auditTotal > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] bg-blue-500/30 text-blue-300">
+                <span className="px-2 py-0.5 rounded-full text-[10px] bg-indigo-500/30 text-indigo-300">
                   {auditTotal}
                 </span>
               )}

@@ -94,52 +94,52 @@ export const RecruiterProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-6 pb-16 select-none print:m-0 print:p-0 print:max-w-full">
-      {/* ── Left Sidebar Action Dock (Vertically Centered on Left) ────────────────── */}
-      <div className="w-full lg:w-56 shrink-0 flex flex-col gap-2.5 lg:sticky lg:top-1/3 lg:-translate-y-1/4 print:hidden p-3 rounded-3xl bg-slate-900/50 dark:bg-neutral-950/70 border border-slate-200/80 dark:border-neutral-800/80 shadow-xl backdrop-blur-md">
+    <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-4 sm:gap-6 pb-16 select-none print:m-0 print:p-0 print:max-w-full">
+      {/* ── Left Sidebar Action Dock (Responsive Grid on Mobile, Sticky on Desktop) ── */}
+      <div className="w-full lg:w-56 shrink-0 grid grid-cols-2 sm:grid-cols-4 lg:flex lg:flex-col gap-2 print:hidden p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl bg-slate-900/50 dark:bg-neutral-950/70 border border-slate-200/80 dark:border-neutral-800/80 shadow-xl backdrop-blur-md lg:sticky lg:top-24">
         <Button
           variant="outline"
           size="sm"
           onClick={() => navigate('/dashboard')}
-          leftIcon={<ArrowLeft className="w-4 h-4" />}
-          className="text-xs font-semibold w-full justify-start"
+          leftIcon={<ArrowLeft className="w-4 h-4 shrink-0" />}
+          className="text-xs font-semibold w-full justify-center lg:justify-start min-h-[44px]"
         >
-          Back to Dashboard
+          <span className="truncate">Dashboard</span>
         </Button>
 
         <Button
           variant="outline"
           size="sm"
           onClick={() => setShowQr(!showQr)}
-          leftIcon={<QrCode className="w-3.5 h-3.5" />}
-          className="text-xs font-semibold w-full justify-start"
+          leftIcon={<QrCode className="w-3.5 h-3.5 shrink-0" />}
+          className="text-xs font-semibold w-full justify-center lg:justify-start min-h-[44px]"
         >
-          {showQr ? 'Hide QR Code' : 'Recruiter QR'}
+          <span className="truncate">{showQr ? 'Hide QR' : 'Recruiter QR'}</span>
         </Button>
 
         <Button
           variant="outline"
           size="sm"
           onClick={handleCopyLink}
-          leftIcon={copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-          className="text-xs font-semibold w-full justify-start"
+          leftIcon={copied ? <Check className="w-3.5 h-3.5 text-emerald-500 shrink-0" /> : <Copy className="w-3.5 h-3.5 shrink-0" />}
+          className="text-xs font-semibold w-full justify-center lg:justify-start min-h-[44px]"
         >
-          {copied ? 'Link Copied' : 'Share Profile'}
+          <span className="truncate">{copied ? 'Copied' : 'Share Profile'}</span>
         </Button>
 
         <Button
           variant="primary"
           size="sm"
           onClick={handlePrint}
-          leftIcon={<Download className="w-3.5 h-3.5" />}
-          className="text-xs font-bold bg-blue-600 hover:bg-blue-700 shadow-sm w-full justify-start"
+          leftIcon={<Download className="w-3.5 h-3.5 shrink-0" />}
+          className="text-xs font-bold bg-blue-600 hover:bg-blue-700 shadow-sm w-full justify-center lg:justify-start min-h-[44px] col-span-2 sm:col-span-1"
         >
-          Download Verified PDF
+          <span className="truncate">Download PDF</span>
         </Button>
 
         {/* Recruiter QR Modal in Left Sidebar */}
         {showQr && (
-          <Card className="p-4 bg-slate-900 border border-indigo-500/40 text-center space-y-2 w-full shadow-2xl animate-in zoom-in-95 mt-1">
+          <Card className="p-4 bg-slate-900 border border-indigo-500/40 text-center space-y-2 w-full shadow-2xl animate-in zoom-in-95 mt-1 col-span-2 sm:col-span-4 lg:col-span-1">
             <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 text-[11px]">
               <span className="font-bold text-white flex items-center gap-1">
                 <QrCode className="w-3.5 h-3.5 text-indigo-400" />
@@ -168,9 +168,9 @@ export const RecruiterProfilePage: React.FC = () => {
 
       {/* ── Right Main Recruiter Portfolio Card ─────────────── */}
       <div className="flex-1 min-w-0 w-full">
-        <Card className="p-8 sm:p-10 border-slate-200 dark:border-neutral-800 bg-white dark:bg-black shadow-xl space-y-8 rounded-3xl relative overflow-hidden">
+        <Card className="p-4 sm:p-10 border-slate-200 dark:border-neutral-800 bg-white dark:bg-black shadow-xl space-y-6 sm:space-y-8 rounded-2xl sm:rounded-3xl relative overflow-hidden">
           {/* Verification Ribbon */}
-          <div className="absolute top-0 right-0 bg-gradient-to-l from-emerald-600 to-teal-600 text-white text-[10px] font-extrabold uppercase tracking-widest px-6 py-1.5 rounded-bl-2xl shadow-md flex items-center gap-1.5">
+          <div className="sm:absolute top-0 right-0 bg-gradient-to-l from-emerald-600 to-teal-600 text-white text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest px-3 sm:px-6 py-1.5 rounded-xl sm:rounded-bl-2xl sm:rounded-tr-none shadow-md flex items-center justify-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>LearnPath AI Verified Candidate</span>
           </div>
