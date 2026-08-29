@@ -17,46 +17,10 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
   const menuRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
 
-  // Dynamic notifications state based on actual user context
+  // Dynamic notifications state (starts empty for new accounts)
   const [notifications, setNotifications] = useState<
     Array<{ id: string; title: string; desc: string; icon: 'sparkles' | 'flame' | 'check'; read: boolean; time: string }>
-  >(() => {
-    const streak = user?.learningStreak || 0;
-    const initialList = [];
-
-    if (user?.targetRole) {
-      initialList.push({
-        id: 'n-roadmap',
-        title: 'Roadmap Activated 🎯',
-        desc: `Your personalized ${user.targetRole} career roadmap is configured and ready.`,
-        icon: 'sparkles' as const,
-        read: false,
-        time: 'Just now',
-      });
-    }
-
-    if (streak > 0) {
-      initialList.push({
-        id: 'n-streak',
-        title: 'Streak Active 🔥',
-        desc: `You are on a ${streak}-day learning streak! Keep up the momentum.`,
-        icon: 'flame' as const,
-        read: false,
-        time: 'Today',
-      });
-    } else {
-      initialList.push({
-        id: 'n-start',
-        title: 'Start Your Journey 🚀',
-        desc: 'Complete your first lesson or practice task today to start your streak.',
-        icon: 'check' as const,
-        read: false,
-        time: 'Today',
-      });
-    }
-
-    return initialList;
-  });
+  >([]);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
@@ -130,7 +94,7 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
           </button>
 
           {showNotifications && (
-            <div className="absolute right-0 mt-2 w-[calc(100vw-1.5rem)] max-w-sm sm:w-80 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
+            <div className="fixed sm:absolute top-16 sm:top-full left-3 right-3 sm:left-auto sm:right-0 mt-2 sm:w-80 max-w-sm bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-neutral-800">
                 <div className="flex items-center gap-2">
                   <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Notifications</h4>
@@ -174,8 +138,12 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
                     </div>
                   ))
                 ) : (
-                  <div className="py-6 text-center text-xs text-slate-400">
-                    <p>No new notifications 🎉</p>
+                  <div className="py-8 text-center space-y-2">
+                    <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-neutral-800/80 flex items-center justify-center mx-auto text-slate-400">
+                      <Bell className="w-4 h-4" />
+                    </div>
+                    <p className="text-xs font-semibold text-slate-700 dark:text-neutral-200">No new notifications</p>
+                    <p className="text-[11px] text-slate-400 dark:text-neutral-500">You're completely up to date!</p>
                   </div>
                 )}
               </div>
