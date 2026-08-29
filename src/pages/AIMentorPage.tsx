@@ -403,159 +403,177 @@ export const AIMentorPage: React.FC = () => {
   };
 
   return (
-    <div className="h-full w-full flex-1 flex overflow-hidden bg-white dark:bg-black relative">
-      {/* ── 1. Collapsible Left Sessions Sidebar ────────────────────── */}
+    <div className="h-full w-full flex-1 flex overflow-hidden bg-white dark:bg-black relative select-none">
+      {/* ── 1. Collapsible Left Sessions Sidebar (Desktop Sticky / Mobile Drawer) ── */}
       {showHistory && (
-        <div className="w-72 border-r border-slate-200/90 dark:border-neutral-800 flex flex-col bg-slate-50/90 dark:bg-neutral-950 shrink-0 z-20 animate-in slide-in-from-left-4 duration-200">
-          {/* Sidebar Header */}
-          <div className="p-3.5 border-b border-slate-200/80 dark:border-neutral-800 flex items-center justify-between">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-neutral-300 flex items-center gap-1.5">
-              <History className="w-3.5 h-3.5 text-blue-500" />
-              <span>Past Sessions</span>
-            </span>
-            <button
-              onClick={() => setShowHistory(false)}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200 hover:bg-slate-200/60 dark:hover:bg-neutral-800 cursor-pointer"
-              title="Close history"
-            >
-              <PanelLeftClose className="w-4 h-4" />
-            </button>
-          </div>
+        <>
+          {/* Mobile Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 lg:hidden"
+            onClick={() => setShowHistory(false)}
+          />
 
-          <div className="p-2 border-b border-slate-200/60 dark:border-neutral-800/80">
-            <button
-              onClick={handleCreateNewChat}
-              type="button"
-              className="w-full flex items-center justify-center gap-2 p-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-semibold text-xs transition-all shadow-xs cursor-pointer"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>New Session</span>
-            </button>
-          </div>
+          <div className="fixed inset-y-0 left-0 z-50 lg:static w-72 max-w-[85vw] border-r border-slate-200/90 dark:border-neutral-800 flex flex-col bg-slate-50 dark:bg-neutral-950 shrink-0 animate-in slide-in-from-left duration-200 shadow-2xl lg:shadow-none">
+            {/* Sidebar Header */}
+            <div className="p-3.5 pt-safe border-b border-slate-200/80 dark:border-neutral-800 flex items-center justify-between">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-neutral-300 flex items-center gap-1.5">
+                <History className="w-3.5 h-3.5 text-blue-500" />
+                <span>Past Sessions</span>
+              </span>
+              <button
+                onClick={() => setShowHistory(false)}
+                className="p-1.5 rounded-xl text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-neutral-200 hover:bg-slate-200/60 dark:hover:bg-neutral-800 cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center"
+                title="Close history"
+              >
+                <PanelLeftClose className="w-4 h-4" />
+              </button>
+            </div>
 
-          {/* Sessions List */}
-          <div className="flex-1 overflow-y-auto p-3 space-y-4 text-xs">
-            {conversations.length === 0 ? (
-              <div className="text-center py-8 px-2 space-y-1.5 text-slate-400 dark:text-neutral-500">
-                <MessageSquare className="w-6 h-6 mx-auto stroke-1 text-slate-300 dark:text-neutral-600" />
-                <p className="text-xs font-medium">No previous sessions</p>
-                <p className="text-[10px]">Your chat conversations will be saved here automatically.</p>
-              </div>
-            ) : (
-              <>
-                {/* Today Group */}
-                {todayList.length > 0 && (
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
-                      Today
-                    </span>
-                    {todayList.map((conv) => (
-                      <div
-                        key={conv.id}
-                        onClick={() => {
-                          setActiveConvId(conv.id);
-                        }}
-                        className={`group flex items-center justify-between px-2.5 py-2 rounded-xl cursor-pointer transition-all ${
-                          activeConvId === conv.id
-                            ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
-                            : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 truncate min-w-0">
-                          <MessageSquare className="w-3.5 h-3.5 shrink-0 text-slate-400" />
-                          <span className="truncate">{conv.title}</span>
-                        </div>
-                        <button
-                          onClick={(e) => handleDeleteConversation(e, conv.id)}
-                          type="button"
-                          className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-500 transition-opacity cursor-pointer"
-                          title="Delete session"
+            <div className="p-2.5 border-b border-slate-200/60 dark:border-neutral-800/80">
+              <button
+                onClick={() => {
+                  handleCreateNewChat();
+                  setShowHistory(false);
+                }}
+                type="button"
+                className="w-full min-h-[44px] flex items-center justify-center gap-2 p-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-[0.98] text-white font-semibold text-xs transition-all shadow-sm cursor-pointer"
+              >
+                <Plus className="w-4 h-4" />
+                <span>New Session</span>
+              </button>
+            </div>
+
+            {/* Sessions List */}
+            <div className="flex-1 overflow-y-auto p-3 space-y-4 text-xs overscroll-contain">
+              {conversations.length === 0 ? (
+                <div className="text-center py-8 px-2 space-y-1.5 text-slate-400 dark:text-neutral-500">
+                  <MessageSquare className="w-6 h-6 mx-auto stroke-1 text-slate-300 dark:text-neutral-600" />
+                  <p className="text-xs font-medium">No previous sessions</p>
+                  <p className="text-[10px]">Your chat conversations will be saved here automatically.</p>
+                </div>
+              ) : (
+                <>
+                  {/* Today Group */}
+                  {todayList.length > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
+                        Today
+                      </span>
+                      {todayList.map((conv) => (
+                        <div
+                          key={conv.id}
+                          onClick={() => {
+                            setActiveConvId(conv.id);
+                            setShowHistory(false);
+                          }}
+                          className={`group flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-xl cursor-pointer transition-all active:scale-[0.98] ${
+                            activeConvId === conv.id
+                              ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
+                              : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
+                          }`}
                         >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Yesterday Group */}
-                {yesterdayList.length > 0 && (
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
-                      Yesterday
-                    </span>
-                    {yesterdayList.map((conv) => (
-                      <div
-                        key={conv.id}
-                        onClick={() => setActiveConvId(conv.id)}
-                        className={`group flex items-center justify-between px-2.5 py-2 rounded-xl cursor-pointer transition-all ${
-                          activeConvId === conv.id
-                            ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
-                            : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 truncate min-w-0">
-                          <MessageSquare className="w-3.5 h-3.5 shrink-0 text-slate-400" />
-                          <span className="truncate">{conv.title}</span>
+                          <div className="flex items-center gap-2 truncate min-w-0">
+                            <MessageSquare className="w-3.5 h-3.5 shrink-0 text-slate-400" />
+                            <span className="truncate">{conv.title}</span>
+                          </div>
+                          <button
+                            onClick={(e) => handleDeleteConversation(e, conv.id)}
+                            type="button"
+                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
+                            title="Delete session"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
                         </div>
-                        <button
-                          onClick={(e) => handleDeleteConversation(e, conv.id)}
-                          type="button"
-                          className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-500 transition-opacity cursor-pointer"
-                        >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                      ))}
+                    </div>
+                  )}
 
-                {/* Previous Group */}
-                {previousList.length > 0 && (
-                  <div className="space-y-1">
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
-                      Previous Sessions
-                    </span>
-                    {previousList.map((conv) => (
-                      <div
-                        key={conv.id}
-                        onClick={() => setActiveConvId(conv.id)}
-                        className={`group flex items-center justify-between px-2.5 py-2 rounded-xl cursor-pointer transition-all ${
-                          activeConvId === conv.id
-                            ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
-                            : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2 truncate min-w-0">
-                          <MessageSquare className="w-3.5 h-3.5 shrink-0 text-slate-400" />
-                          <span className="truncate">{conv.title}</span>
-                        </div>
-                        <button
-                          onClick={(e) => handleDeleteConversation(e, conv.id)}
-                          type="button"
-                          className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-500 transition-opacity cursor-pointer"
+                  {/* Yesterday Group */}
+                  {yesterdayList.length > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
+                        Yesterday
+                      </span>
+                      {yesterdayList.map((conv) => (
+                        <div
+                          key={conv.id}
+                          onClick={() => {
+                            setActiveConvId(conv.id);
+                            setShowHistory(false);
+                          }}
+                          className={`group flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-xl cursor-pointer transition-all active:scale-[0.98] ${
+                            activeConvId === conv.id
+                              ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
+                              : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
+                          }`}
                         >
-                          <Trash2 className="w-3 h-3" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </>
-            )}
+                          <div className="flex items-center gap-2 truncate min-w-0">
+                            <MessageSquare className="w-3.5 h-3.5 shrink-0 text-slate-400" />
+                            <span className="truncate">{conv.title}</span>
+                          </div>
+                          <button
+                            onClick={(e) => handleDeleteConversation(e, conv.id)}
+                            type="button"
+                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Previous Group */}
+                  {previousList.length > 0 && (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500 px-2 block">
+                        Previous Sessions
+                      </span>
+                      {previousList.map((conv) => (
+                        <div
+                          key={conv.id}
+                          onClick={() => {
+                            setActiveConvId(conv.id);
+                            setShowHistory(false);
+                          }}
+                          className={`group flex items-center justify-between px-3 py-2.5 min-h-[40px] rounded-xl cursor-pointer transition-all active:scale-[0.98] ${
+                            activeConvId === conv.id
+                              ? 'bg-blue-50 dark:bg-neutral-900 text-blue-600 dark:text-blue-400 font-semibold border border-blue-200/60 dark:border-neutral-800'
+                              : 'text-slate-600 dark:text-neutral-400 hover:bg-slate-100/80 dark:hover:bg-neutral-900/60'
+                          }`}
+                        >
+                          <div className="flex items-center gap-2 truncate min-w-0">
+                            <MessageSquare className="w-3.5 h-3.5 shrink-0 text-slate-400" />
+                            <span className="truncate">{conv.title}</span>
+                          </div>
+                          <button
+                            onClick={(e) => handleDeleteConversation(e, conv.id)}
+                            type="button"
+                            className="opacity-0 group-hover:opacity-100 p-1.5 hover:text-red-500 transition-opacity cursor-pointer min-h-[32px] min-w-[32px] flex items-center justify-center"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       {/* ── 2. Center Chat Thread Area (Full-Width Clean Layout) ─── */}
       <div className="flex-1 flex flex-col min-w-0 bg-white dark:bg-black h-full">
         {/* Chat Header Bar */}
-        <div className="h-14 px-4 sm:px-6 border-b border-slate-200/90 dark:border-neutral-800 flex items-center justify-between bg-white dark:bg-black shrink-0">
-          <div className="flex items-center gap-3 min-w-0">
+        <div className="h-14 px-3 sm:px-6 border-b border-slate-200/90 dark:border-neutral-800 flex items-center justify-between bg-white dark:bg-black shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             {/* Toggle History Button */}
             <button
               onClick={() => setShowHistory(!showHistory)}
-              className={`p-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
+              className={`p-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer min-h-[38px] ${
                 showHistory
                   ? 'bg-blue-50 dark:bg-neutral-900 border-blue-200 dark:border-neutral-700 text-blue-600 dark:text-blue-400'
                   : 'bg-slate-50 dark:bg-neutral-950 border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-neutral-400 hover:text-slate-900 dark:hover:text-white'
@@ -581,17 +599,17 @@ export const AIMentorPage: React.FC = () => {
                 {activeConv?.title || 'AI Engineering Mentor'}
               </h3>
               <p className="text-[10px] text-slate-400 dark:text-neutral-500 truncate flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                <span>Active Track: {mentorContext?.targetRole || user?.targetRole || 'Software Engineer'}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                <span className="truncate">Track: {mentorContext?.targetRole || user?.targetRole || 'Software Engineer'}</span>
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <button
               onClick={handleCreateNewChat}
               type="button"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors cursor-pointer shadow-xs"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors cursor-pointer shadow-xs min-h-[36px]"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>New Session</span>
@@ -803,21 +821,21 @@ export const AIMentorPage: React.FC = () => {
           </div>
         </div>
 
-        {/* ── Input Composer (Centered Floating Column) ───────── */}
-        <div className="px-4 pb-4 pt-1 bg-gradient-to-t from-white via-white/95 to-transparent dark:from-black dark:via-black/95 dark:to-transparent shrink-0">
+        {/* ── Input Composer (Centered Floating Column with Safe Area) ─── */}
+        <div className="px-3 sm:px-4 pb-3 sm:pb-4 pt-1 bg-gradient-to-t from-white via-white/95 to-transparent dark:from-black dark:via-black/95 dark:to-transparent shrink-0 pb-safe">
           <div className="max-w-3xl mx-auto w-full space-y-2">
-            {/* Dynamic Suggested Prompt Chips */}
+            {/* Dynamic Suggested Prompt Chips — Touch Carousel */}
             {mentorContext?.suggestedQuestions && mentorContext.suggestedQuestions.length > 0 && (
-              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 -mx-1 px-1 touch-pan-x">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 shrink-0 flex items-center gap-1">
-                  <Sparkles className="w-3 h-3 text-amber-500" />
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 </span>
                 {mentorContext.suggestedQuestions.map((q, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleSendMessage(q)}
                     type="button"
-                    className="flex items-center gap-1 px-2.5 py-1 rounded-full border border-slate-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-950/80 text-[11px] font-medium text-slate-600 dark:text-neutral-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 whitespace-nowrap cursor-pointer transition-colors shrink-0 shadow-2xs"
+                    className="flex items-center gap-1 px-3 py-1.5 min-h-[34px] rounded-full border border-slate-200 dark:border-neutral-800 bg-white/90 dark:bg-neutral-950/90 text-xs font-medium text-slate-700 dark:text-neutral-300 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 whitespace-nowrap cursor-pointer transition-all shrink-0 active:scale-95 shadow-2xs"
                   >
                     <span>{q}</span>
                   </button>
@@ -832,21 +850,21 @@ export const AIMentorPage: React.FC = () => {
                 handleSendMessage();
               }}
             >
-              <div className="flex items-center gap-2 p-1.5 sm:p-2 rounded-2xl border border-slate-200/90 dark:border-neutral-800 bg-slate-50/90 dark:bg-neutral-950/90 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 shadow-lg shadow-black/5 transition-all">
+              <div className="flex items-center gap-2 p-1.5 sm:p-2 rounded-2xl border border-slate-200/90 dark:border-neutral-800 bg-slate-50/95 dark:bg-neutral-950/95 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 shadow-lg shadow-black/5 transition-all">
                 <input
                   type="text"
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
-                  placeholder="Ask AI Mentor anything about your course, code challenge, or architecture..."
+                  placeholder="Ask AI Mentor anything about your roadmap, code, or architecture..."
                   disabled={isSending}
-                  className="flex-1 bg-transparent border-0 px-3 py-1 text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none"
+                  className="flex-1 bg-transparent border-0 px-3 py-1.5 text-base sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none min-h-[42px]"
                 />
 
                 {isSending ? (
                   <button
                     type="button"
                     onClick={handleStopGeneration}
-                    className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl flex items-center gap-1.5 text-xs font-bold transition-all cursor-pointer shadow-xs shrink-0"
+                    className="px-3.5 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl flex items-center gap-1.5 text-xs font-bold transition-all cursor-pointer shadow-xs shrink-0 min-h-[44px]"
                   >
                     <Square className="w-3.5 h-3.5 fill-current" />
                     <span>Stop</span>
@@ -855,7 +873,7 @@ export const AIMentorPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={!inputMessage.trim()}
-                    className="w-9 h-9 bg-blue-600 hover:bg-blue-700 active:scale-95 disabled:opacity-30 disabled:hover:bg-blue-600 text-white rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs shrink-0"
+                    className="w-11 h-11 bg-blue-600 hover:bg-blue-700 active:scale-95 disabled:opacity-30 disabled:hover:bg-blue-600 text-white rounded-xl flex items-center justify-center transition-all cursor-pointer shadow-xs shrink-0"
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -867,176 +885,198 @@ export const AIMentorPage: React.FC = () => {
 
       </div>
 
-      {/* ── 3. Right Context Panel (Cursor AI / Copilot Style) ─── */}
+      {/* ── 3. Right Context Panel (Desktop Sticky / Mobile Drawer) ─── */}
       {showContextPanel && (
-        <div className="w-80 border-l border-slate-200/90 dark:border-neutral-800 bg-slate-50/70 dark:bg-neutral-950 p-4 space-y-4 overflow-y-auto shrink-0 hidden lg:block animate-in slide-in-from-right-4 duration-200">
-          <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-neutral-800">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-neutral-100 flex items-center gap-1.5">
-              <Cpu className="w-4 h-4 text-blue-500" />
-              <span>Learning Context</span>
-            </h4>
-            <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded-full">
-              Live Sync
-            </span>
-          </div>
+        <>
+          {/* Mobile Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 lg:hidden"
+            onClick={() => setShowContextPanel(false)}
+          />
 
-          {/* Active Target Role */}
-          <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-1.5">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Target Engineering Role
-            </span>
-            <div className="flex items-center justify-between">
-              <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100">
-                {mentorContext?.targetRole || user?.targetRole || 'Frontend Engineer'}
-              </h5>
-              <Badge variant="blue" size="sm">
-                {mentorContext?.experienceLevel || user?.experienceLevel || 'Intermediate'}
-              </Badge>
-            </div>
-            <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
-              Focus: {mentorContext?.currentFocus || 'Engineering Mastery'}
-            </p>
-          </div>
-
-          {/* Current Active Course & Lesson / Completed Track */}
-          {mentorContext?.currentCourse && (
-            <div className={`p-3.5 rounded-xl border space-y-2 ${
-              mentorContext.currentCourse.isCompleted
-                ? 'border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/40 dark:bg-emerald-950/20'
-                : 'border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20'
-            }`}>
-              <div className="flex items-center justify-between">
-                <span className={`text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 ${
-                  mentorContext.currentCourse.isCompleted
-                    ? 'text-emerald-600 dark:text-emerald-400'
-                    : 'text-blue-600 dark:text-blue-400'
-                }`}>
-                  {mentorContext.currentCourse.isCompleted ? (
-                    <>
-                      <CheckCircle2 className="w-3 h-3 text-emerald-500" />
-                      <span>Curriculum Status</span>
-                    </>
-                  ) : (
-                    <>
-                      <BookOpen className="w-3 h-3" />
-                      <span>Current Milestone</span>
-                    </>
-                  )}
+          <div className="fixed inset-y-0 right-0 z-50 lg:static w-80 max-w-[85vw] border-l border-slate-200/90 dark:border-neutral-800 bg-slate-50 dark:bg-neutral-950 p-4 space-y-4 overflow-y-auto shrink-0 animate-in slide-in-from-right duration-200 shadow-2xl lg:shadow-none pb-safe">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-neutral-800">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-neutral-100 flex items-center gap-1.5">
+                <Cpu className="w-4 h-4 text-blue-500" />
+                <span>Learning Context</span>
+              </h4>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded-full">
+                  Live Sync
                 </span>
-                <span className={`text-[10px] font-semibold ${
-                  mentorContext.currentCourse.isCompleted ? 'text-emerald-500' : 'text-slate-400'
-                }`}>
-                  {mentorContext.currentCourse.isCompleted ? 'Mastered 🎉' : 'In Progress'}
-                </span>
+                <button
+                  onClick={() => setShowContextPanel(false)}
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200 hover:bg-slate-200/60 dark:hover:bg-neutral-800 cursor-pointer lg:hidden min-h-[32px] min-w-[32px] flex items-center justify-center"
+                >
+                  <PanelRightClose className="w-4 h-4" />
+                </button>
               </div>
-              <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100">
-                {mentorContext.currentCourse.isCompleted
-                  ? 'All Roadmap Phases Completed!'
-                  : mentorContext.currentCourse.title}
-              </h5>
-              {mentorContext.currentLesson && !mentorContext.currentCourse.isCompleted && (
-                <div className="p-2 rounded-lg bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 text-[11px]">
-                  <span className="text-[10px] text-slate-400 block">Current Milestone:</span>
-                  <span className="font-semibold text-slate-800 dark:text-neutral-200 truncate block">
-                    {mentorContext.currentLesson.title}
+            </div>
+
+            {/* Active Target Role */}
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                Target Engineering Role
+              </span>
+              <div className="flex items-center justify-between">
+                <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                  {mentorContext?.targetRole || user?.targetRole || 'Frontend Engineer'}
+                </h5>
+                <Badge variant="blue" size="sm">
+                  {mentorContext?.experienceLevel || user?.experienceLevel || 'Intermediate'}
+                </Badge>
+              </div>
+              <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+                Focus: {mentorContext?.currentFocus || 'Engineering Mastery'}
+              </p>
+            </div>
+
+            {/* Current Active Course & Lesson / Completed Track */}
+            {mentorContext?.currentCourse && (
+              <div className={`p-3.5 rounded-xl border space-y-2 ${
+                mentorContext.currentCourse.isCompleted
+                  ? 'border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/40 dark:bg-emerald-950/20'
+                  : 'border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20'
+              }`}>
+                <div className="flex items-center justify-between">
+                  <span className={`text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 ${
+                    mentorContext.currentCourse.isCompleted
+                      ? 'text-emerald-600 dark:text-emerald-400'
+                      : 'text-blue-600 dark:text-blue-400'
+                  }`}>
+                    {mentorContext.currentCourse.isCompleted ? (
+                      <>
+                        <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                        <span>Curriculum Status</span>
+                      </>
+                    ) : (
+                      <>
+                        <BookOpen className="w-3 h-3" />
+                        <span>Current Milestone</span>
+                      </>
+                    )}
+                  </span>
+                  <span className={`text-[10px] font-semibold ${
+                    mentorContext.currentCourse.isCompleted ? 'text-emerald-500' : 'text-slate-400'
+                  }`}>
+                    {mentorContext.currentCourse.isCompleted ? 'Mastered 🎉' : 'In Progress'}
                   </span>
                 </div>
-              )}
-              {mentorContext.currentCourse.isCompleted && (
-                <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
-                  Your competencies are verified and ready to share with hiring managers.
-                </p>
-              )}
-              <Button
-                variant={mentorContext.currentCourse.isCompleted ? 'primary' : 'primary'}
-                size="sm"
-                className="w-full text-xs font-semibold mt-1 cursor-pointer"
-                onClick={() => navigate(mentorContext.currentCourse?.isCompleted ? '/recruiter-portfolio' : `/courses/${mentorContext.currentCourse?.slug}`)}
-                rightIcon={<ArrowRight className="w-3.5 h-3.5" />}
-              >
-                {mentorContext.currentCourse.isCompleted ? 'View Recruiter Portfolio' : 'Resume Course'}
-              </Button>
-            </div>
-          )}
-
-          {/* Diagnosed Weak Skills / Skill Gaps */}
-          <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
-              <AlertTriangle className="w-3 h-3 text-amber-500" />
-              <span>Diagnosed Skill Gaps</span>
-            </span>
-            <div className="space-y-1.5">
-              {mentorContext?.weakSkills && mentorContext.weakSkills.length > 0 ? (
-                mentorContext.weakSkills.map((gap, gIdx) => (
-                  <div
-                    key={gIdx}
-                    onClick={() =>
-                      handleSendMessage(
-                        `Can you coach me on ${gap.name}? Explain key concepts and test my knowledge with a code exercise.`
-                      )
-                    }
-                    className="p-2 rounded-lg bg-slate-50 dark:bg-neutral-900 hover:border-blue-500 border border-slate-200 dark:border-neutral-800 transition-colors cursor-pointer group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-800 dark:text-neutral-200 group-hover:text-blue-500">
-                        {gap.name}
-                      </span>
-                      <span
-                        className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
-                          gap.severity === 'Critical'
-                            ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300'
-                            : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
-                        }`}
-                      >
-                        {gap.severity}
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-slate-500 dark:text-neutral-400 mt-0.5">
-                      {gap.description}
-                    </p>
+                <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                  {mentorContext.currentCourse.isCompleted
+                    ? 'All Roadmap Phases Completed!'
+                    : mentorContext.currentCourse.title}
+                </h5>
+                {mentorContext.currentLesson && !mentorContext.currentCourse.isCompleted && (
+                  <div className="p-2 rounded-lg bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 text-[11px]">
+                    <span className="text-[10px] text-slate-400 block">Current Milestone:</span>
+                    <span className="font-semibold text-slate-800 dark:text-neutral-200 truncate block">
+                      {mentorContext.currentLesson.title}
+                    </span>
                   </div>
-                ))
-              ) : (
-                <p className="text-xs text-slate-400 dark:text-neutral-500 text-center py-2">
-                  No critical skill gaps diagnosed yet. Take an assessment to calibrate your radar.
-                </p>
-              )}
-            </div>
-          </div>
+                )}
+                {mentorContext.currentCourse.isCompleted && (
+                  <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+                    Your competencies are verified and ready to share with hiring managers.
+                  </p>
+                )}
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="w-full text-xs font-semibold mt-1 cursor-pointer min-h-[40px]"
+                  onClick={() => {
+                    setShowContextPanel(false);
+                    navigate(mentorContext.currentCourse?.isCompleted ? '/recruiter-portfolio' : `/courses/${mentorContext.currentCourse?.slug}`);
+                  }}
+                  rightIcon={<ArrowRight className="w-3.5 h-3.5" />}
+                >
+                  {mentorContext.currentCourse.isCompleted ? 'View Recruiter Portfolio' : 'Resume Course'}
+                </Button>
+              </div>
+            )}
 
-          {/* Quick Context Action Prompts */}
-          <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              Coaching Actions
-            </span>
-            <div className="space-y-1.5">
-              <button
-                type="button"
-                onClick={() =>
-                  handleSendMessage(
-                    `Give me a 5-question technical quiz on my target role (${mentorContext?.targetRole || user?.targetRole || 'Engineer'})`
-                  )
-                }
-                className="w-full text-left p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-[11px] font-medium text-slate-700 dark:text-neutral-300 transition-colors cursor-pointer flex items-center justify-between"
-              >
-                <span>🎯 Generate Mock Interview Quiz</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-              </button>
-              <button
-                type="button"
-                onClick={() =>
-                  handleSendMessage(
-                    'Analyze the most common system design pitfalls and performance bottlenecks in web applications.'
-                  )
-                }
-                className="w-full text-left p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-[11px] font-medium text-slate-700 dark:text-neutral-300 transition-colors cursor-pointer flex items-center justify-between"
-              >
-                <span>⚡ System Design Architecture Guide</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-              </button>
+            {/* Diagnosed Weak Skills / Skill Gaps */}
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3 text-amber-500" />
+                <span>Diagnosed Skill Gaps</span>
+              </span>
+              <div className="space-y-1.5">
+                {mentorContext?.weakSkills && mentorContext.weakSkills.length > 0 ? (
+                  mentorContext.weakSkills.map((gap, gIdx) => (
+                    <div
+                      key={gIdx}
+                      onClick={() => {
+                        setShowContextPanel(false);
+                        handleSendMessage(
+                          `Can you coach me on ${gap.name}? Explain key concepts and test my knowledge with a code exercise.`
+                        );
+                      }}
+                      className="p-2 rounded-lg bg-slate-50 dark:bg-neutral-900 hover:border-blue-500 border border-slate-200 dark:border-neutral-800 transition-colors cursor-pointer group active:scale-[0.98]"
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-slate-800 dark:text-neutral-200 group-hover:text-blue-500">
+                          {gap.name}
+                        </span>
+                        <span
+                          className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
+                            gap.severity === 'Critical'
+                              ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300'
+                              : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
+                          }`}
+                        >
+                          {gap.severity}
+                        </span>
+                      </div>
+                      <p className="text-[10px] text-slate-500 dark:text-neutral-400 mt-0.5">
+                        {gap.description}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-xs text-slate-400 dark:text-neutral-500 text-center py-2">
+                    No critical skill gaps diagnosed yet. Take an assessment to calibrate your radar.
+                  </p>
+                )}
+              </div>
+            </div>
+
+            {/* Quick Context Action Prompts */}
+            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                Coaching Actions
+              </span>
+              <div className="space-y-1.5">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowContextPanel(false);
+                    handleSendMessage(
+                      `Give me a 5-question technical quiz on my target role (${mentorContext?.targetRole || user?.targetRole || 'Engineer'})`
+                    );
+                  }}
+                  className="w-full text-left p-2.5 rounded-lg hover:bg-blue-50 dark:hover:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-[11px] font-medium text-slate-700 dark:text-neutral-300 transition-colors cursor-pointer flex items-center justify-between min-h-[40px] active:scale-[0.98]"
+                >
+                  <span>🎯 Generate Mock Interview Quiz</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowContextPanel(false);
+                    handleSendMessage(
+                      `What are the highest-impact architectural patterns I should master for a ${mentorContext?.targetRole || user?.targetRole || 'Software Engineer'} role?`
+                    );
+                  }}
+                  className="w-full text-left p-2.5 rounded-lg hover:bg-blue-50 dark:hover:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-[11px] font-medium text-slate-700 dark:text-neutral-300 transition-colors cursor-pointer flex items-center justify-between min-h-[40px] active:scale-[0.98]"
+                >
+                  <span>🏗️ High-Yield Architecture Patterns</span>
+                  <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
