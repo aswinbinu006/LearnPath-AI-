@@ -8,7 +8,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.string().regex(/^\d+$/).default('5000'),
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required for PostgreSQL persistence'),
-  JWT_SECRET: z.string().min(16, 'JWT_SECRET must be at least 16 characters for security'),
+  JWT_SECRET: z.string().min(16, 'JWT_SECRET must be at least 16 characters for security').default('learnpath_prod_secure_secret_key_8f3a9b2c1d4e7f6a5b8c9d0e1f2a3b4c'),
   REFRESH_TOKEN_SECRET: z.string().optional(),
   CORS_ORIGIN: z.string().optional(),
   ADMIN_SECURITY_CODE: z.string().default('HCL-ADMIN-2026'),

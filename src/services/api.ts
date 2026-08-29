@@ -39,18 +39,29 @@ async function apiRequest<T>(endpoint: string, options: ApiOptions = {}): Promis
 
   const response = await fetch(`${API_BASE}${endpoint}`, config);
 
-  // Handle authentication failures — redirect to login
+  // Handle authentication failures — redirect to login only for non-auth requests
   if (response.status === 401) {
-    localStorage.removeItem('learnpath_token');
-    apiCache.clear();
-    if (
-      window.location.pathname !== '/login' &&
-      window.location.pathname !== '/register' &&
-      !window.location.pathname.startsWith('/back')
-    ) {
-      window.location.href = '/login';
+    const errorData = await response.json().catch(() => null);
+    const serverMessage = errorData?.message;
+
+    const isAuthAttempt =
+      endpoint.startsWith('/auth/login') ||
+      endpoint.startsWith('/auth/register') ||
+      endpoint.startsWith('/auth/admin-login');
+
+    if (!isAuthAttempt) {
+      localStorage.removeItem('learnpath_token');
+      apiCache.clear();
+      if (
+        window.location.pathname !== '/login' &&
+        window.location.pathname !== '/register' &&
+        !window.location.pathname.startsWith('/back')
+      ) {
+        window.location.href = '/login';
+      }
     }
-    throw new Error('Authentication required. Please log in.');
+
+    throw new Error(serverMessage || 'Invalid email or password.');
   }
 
   if (!response.ok) {
