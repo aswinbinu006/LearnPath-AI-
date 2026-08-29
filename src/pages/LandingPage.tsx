@@ -313,16 +313,16 @@ export const LandingPage: React.FC = () => {
             <div className="lg:col-span-7 space-y-6 text-left">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700">
                 <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                <span>Next-Generation Socratic Engineering Education</span>
+                <span>Personalized AI-Powered Learning Roadmaps</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
-                Engineering Mastery Built for the{' '}
-                <span className="text-blue-600">AI Era.</span>
+                Master Modern Engineering with{' '}
+                <span className="text-blue-600">AI Mentorship.</span>
               </h1>
 
               <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
-                Stop watching passive video tutorials. Learn by coding with an adaptive Socratic pair mentor, continuous skill gap diagnostics, and cryptographically verified recruiter portfolios.
+                Skip passive video tutorials. Learn faster by solving real coding challenges with an intelligent AI mentor that guides your problem solving, identifies skill gaps, and prepares you for top engineering roles.
               </p>
 
               <div className="flex flex-wrap items-center gap-3.5 pt-2">
@@ -344,19 +344,19 @@ export const LandingPage: React.FC = () => {
                 </a>
               </div>
 
-              {/* Verified Trust Stats */}
+              {/* User-Centric Stats */}
               <div className="pt-6 border-t border-slate-200 grid grid-cols-3 gap-4 text-left">
                 <div>
-                  <span className="text-xl sm:text-2xl font-extrabold text-slate-900 font-mono block">42+</span>
-                  <span className="text-[11px] font-medium text-slate-500">Adaptive Modules</span>
+                  <span className="text-xl sm:text-2xl font-extrabold text-slate-900 font-mono block">50+</span>
+                  <span className="text-[11px] font-medium text-slate-500">Curated Tracks</span>
                 </div>
                 <div>
-                  <span className="text-xl sm:text-2xl font-extrabold text-blue-600 font-mono block">&lt; 10ms</span>
-                  <span className="text-[11px] font-medium text-slate-500">AST Analysis Latency</span>
+                  <span className="text-xl sm:text-2xl font-extrabold text-blue-600 font-mono block">24/7</span>
+                  <span className="text-[11px] font-medium text-slate-500">Instant AI Mentorship</span>
                 </div>
                 <div>
                   <span className="text-xl sm:text-2xl font-extrabold text-slate-900 font-mono block">100%</span>
-                  <span className="text-[11px] font-medium text-slate-500">Postgres Verified</span>
+                  <span className="text-[11px] font-medium text-slate-500">Practical & Hands-On</span>
                 </div>
               </div>
             </div>
@@ -368,7 +368,7 @@ export const LandingPage: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <GitFork className="w-4 h-4 text-blue-600" />
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
-                      Live Curriculum Explorer
+                      Curriculum Explorer
                     </span>
                   </div>
                   <span className="text-[11px] font-mono text-slate-400">Interactive Preview</span>
@@ -401,7 +401,7 @@ export const LandingPage: React.FC = () => {
 
                   {/* Skills Pills */}
                   <div className="space-y-1.5">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase">Core Competencies:</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase">Key Skills You Will Learn:</span>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedRole.skills.map((skill, i) => (
                         <span key={i} className="px-2 py-1 rounded-md text-[11px] font-medium bg-slate-50 border border-slate-200 text-slate-700">
@@ -411,11 +411,11 @@ export const LandingPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Sample Capstone Box */}
+                  {/* Sample Project Box */}
                   <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1 text-xs">
                     <span className="text-[10px] font-bold text-blue-600 uppercase flex items-center gap-1">
                       <Code2 className="w-3.5 h-3.5" />
-                      <span>Live Capstone Challenge:</span>
+                      <span>Featured Practice Project:</span>
                     </span>
                     <p className="font-bold text-slate-900">{selectedRole.sampleChallenge.title}</p>
                     <p className="text-[11px] text-slate-600">{selectedRole.sampleChallenge.desc}</p>
@@ -426,7 +426,7 @@ export const LandingPage: React.FC = () => {
                     onClick={() => navigate('/register')}
                     className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/20 cursor-pointer"
                   >
-                    <span>Launch This Track</span>
+                    <span>Start This Track</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -441,13 +441,13 @@ export const LandingPage: React.FC = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
-              Interactive Workbench
+              Hands-On Practice
             </span>
             <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-              Experience the Socratic Pair Programmer
+              Code with Your AI Mentor in Real Time
             </h2>
             <p className="text-sm text-slate-600 max-w-xl mx-auto">
-              Real-time AST code inspection watches your logic, flags runtime anomalies, and guides you to reason through solutions.
+              Write code in our interactive editor. Your AI mentor spots bugs, asks clarifying questions, and helps you learn how to solve problems on your own.
             </p>
           </div>
 
@@ -457,22 +457,22 @@ export const LandingPage: React.FC = () => {
               <div className="flex items-center justify-between pb-2 border-b border-slate-100 text-slate-600">
                 <span className="flex items-center gap-2 font-bold text-slate-900">
                   <Code2 className="w-4 h-4 text-blue-600" />
-                  <span>taskQueueProcessor.ts</span>
+                  <span>taskProcessor.ts</span>
                 </span>
-                <span className="text-[11px] text-slate-400">TypeScript 5.4</span>
+                <span className="text-[11px] text-slate-400">TypeScript Editor</span>
               </div>
 
               <div className="p-4 rounded-2xl bg-slate-950 text-slate-200 leading-relaxed overflow-x-auto border border-slate-800 shadow-inner">
                 {sandboxCodeState === 'fixed' ? (
                   <div className="text-emerald-400">
-                    <p>// ✅ Clean, immutable array mapping with strict equality</p>
+                    <p>// ✅ Clean, bug-free implementation</p>
                     <p>const queue = ["CRITICAL", "BACKGROUND"];</p>
                     <p>const processed = queue.map((task) =&gt; task === "CRITICAL" ? "[URGENT] " + task : task);</p>
                     <p>console.log("Results:", processed);</p>
                   </div>
                 ) : (
                   <div>
-                    <p className="text-rose-400">// ⚠️ Line 2: Legacy var & off-by-one boundary</p>
+                    <p className="text-rose-400">// ⚠️ Bug detected: Loop counter exceeds array length</p>
                     <p className="text-rose-400">var queue = ["CRITICAL", "BACKGROUND"];</p>
                     <p className="text-amber-400">for (var i = 0; i &lt;= queue.length; i++) &#123;</p>
                     <p className="pl-4">if (queue[i] == "CRITICAL") &#123; dispatch(queue[i]); &#125;</p>
@@ -489,7 +489,7 @@ export const LandingPage: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-1.5"
                 >
                   <Play className="w-3 h-3 fill-current" />
-                  <span>Run Sandbox</span>
+                  <span>Run Code</span>
                 </button>
 
                 <button
@@ -501,7 +501,7 @@ export const LandingPage: React.FC = () => {
                   className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
                 >
                   <RotateCcw className="w-3 h-3" />
-                  <span>{sandboxCodeState === 'buggy' ? 'Apply Socratic Quick Fix' : 'Reset Buggy Code'}</span>
+                  <span>{sandboxCodeState === 'buggy' ? 'Apply AI Quick Fix' : 'Reset Buggy Code'}</span>
                 </button>
               </div>
 
@@ -515,27 +515,27 @@ export const LandingPage: React.FC = () => {
               )}
             </div>
 
-            {/* Right: Socratic Mentor Guidance */}
+            {/* Right: AI Mentor Guidance */}
             <div className="lg:col-span-5 space-y-4 text-xs">
               <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-2">
                 <div className="flex items-center gap-2 text-blue-900 font-bold">
                   <Sparkles className="w-4 h-4 text-blue-600" />
-                  <span>Socratic Pair Mentor</span>
+                  <span>AI Mentor Guidance</span>
                 </div>
                 <p className="text-slate-700 leading-relaxed font-medium">
-                  Why does traversing an array with `i &lt;= queue.length` cause runtime anomalies in modern runtimes?
+                  Why does looping with `i &lt;= queue.length` cause an error on the last iteration?
                 </p>
                 <p className="text-[11px] text-blue-700 font-semibold">
-                  💡 Hint: In 0-indexed systems, the last valid element exists at index `length - 1`.
+                  💡 Hint: In arrays, indices start at 0, so the last item is at index `length - 1`.
                 </p>
               </div>
 
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <span className="text-[10px] font-bold text-slate-500 uppercase block">AST Watcher Telemetry</span>
+                <span className="text-[10px] font-bold text-slate-500 uppercase block">Code Analysis</span>
                 <div className="flex items-center justify-between text-xs font-bold text-slate-900">
                   <span>Code Health Score:</span>
                   <span className={sandboxCodeState === 'fixed' ? 'text-emerald-600 font-mono' : 'text-amber-600 font-mono'}>
-                    {sandboxCodeState === 'fixed' ? '100% (Optimal)' : '72% (Requires Attention)'}
+                    {sandboxCodeState === 'fixed' ? '100% (Clean)' : '70% (Fix Needed)'}
                   </span>
                 </div>
                 <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
@@ -554,54 +554,54 @@ export const LandingPage: React.FC = () => {
       <section id="comparison" className="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
-            Architectural Differentiation
+            Why It Works
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-            Why LearnPath AI Outperforms Video Tutorials
+            Why LearnPath AI Works Better than Video Courses
           </h2>
         </div>
 
         <div className="rounded-3xl border border-slate-200 bg-white shadow-xl overflow-hidden">
           <div className="grid grid-cols-12 bg-slate-50 p-4 border-b border-slate-200 font-bold text-xs text-slate-700 uppercase tracking-wider">
-            <div className="col-span-4">Capability Dimension</div>
-            <div className="col-span-4 text-slate-500">Traditional Video Courses</div>
-            <div className="col-span-4 text-blue-700 font-extrabold">LearnPath AI Platform</div>
+            <div className="col-span-4">Feature</div>
+            <div className="col-span-4 text-slate-500">Traditional Video Tutorials</div>
+            <div className="col-span-4 text-blue-700 font-extrabold">LearnPath AI</div>
           </div>
 
           <div className="divide-y divide-slate-100 text-xs">
             <div className="grid grid-cols-12 p-4 items-center">
-              <div className="col-span-4 font-bold text-slate-900">Feedback Loop</div>
-              <div className="col-span-4 text-slate-500">Delayed (Forums, Comments)</div>
+              <div className="col-span-4 font-bold text-slate-900">Mentor Feedback</div>
+              <div className="col-span-4 text-slate-500">None or slow forum replies</div>
               <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
                 <Check className="w-4 h-4 text-emerald-600" />
-                <span>Real-Time AST & Socratic Streaming</span>
+                <span>Instant AI guidance while you code</span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 p-4 items-center bg-slate-50/50">
-              <div className="col-span-4 font-bold text-slate-900">Curriculum Personalization</div>
-              <div className="col-span-4 text-slate-500">Static, one-size-fits-all playlists</div>
+              <div className="col-span-4 font-bold text-slate-900">Personalization</div>
+              <div className="col-span-4 text-slate-500">Same playlist for everyone</div>
               <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
                 <Check className="w-4 h-4 text-emerald-600" />
-                <span>Dynamic Skill Gap Restructuring</span>
+                <span>Roadmaps tailored to your skill gaps</span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 p-4 items-center">
-              <div className="col-span-4 font-bold text-slate-900">Hiring Credential Verification</div>
-              <div className="col-span-4 text-slate-500">Unverifiable PDF certificates</div>
+              <div className="col-span-4 font-bold text-slate-900">Learning Method</div>
+              <div className="col-span-4 text-slate-500">Passive video watching</div>
               <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
                 <Check className="w-4 h-4 text-emerald-600" />
-                <span>Cryptographic SHA-256 Recruiter Tokens</span>
+                <span>Interactive hands-on challenges</span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 p-4 items-center bg-slate-50/50">
-              <div className="col-span-4 font-bold text-slate-900">Offline Resilience</div>
-              <div className="col-span-4 text-slate-500">Requires continuous internet streaming</div>
+              <div className="col-span-4 font-bold text-slate-900">Proof of Skills</div>
+              <div className="col-span-4 text-slate-500">Generic completion certificate</div>
               <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
                 <Check className="w-4 h-4 text-emerald-600" />
-                <span>Cached In-Browser Sandbox & Sync Queue</span>
+                <span>Verified portfolio with completed code milestones</span>
               </div>
             </div>
           </div>
@@ -821,32 +821,32 @@ export const LandingPage: React.FC = () => {
       <section id="recruiter" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
         <div className="space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
-            Recruiter Mode
+            Shareable Credentials
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-            Share Cryptographically Verified Credentials
+            Showcase Your Verified Skills to Employers
           </h2>
           <p className="text-sm text-slate-600 max-w-xl mx-auto">
-            Hiring managers don't need to guess your competency. Give them authenticated skill radars, real-time code health scores, and instant mobile QR code scanning.
+            Give hiring managers proof of your engineering skills. Your public profile displays real completed projects, code challenge scores, and verified skill badges.
           </p>
         </div>
 
         <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl max-w-xl mx-auto space-y-5 text-left text-xs">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-            <span className="font-bold text-slate-900">Candidate ID: LP-2026-VERIFIED</span>
+            <span className="font-bold text-slate-900">Candidate Profile: LP-VERIFIED</span>
             <span className="text-emerald-600 font-bold flex items-center gap-1">
               <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>SHA-256 Authenticated</span>
+              <span>Verified Certificate</span>
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-[10px] text-slate-500 font-bold uppercase block">TypeScript Architecture</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase block">Frontend Architecture</span>
               <span className="text-xl font-bold text-slate-900 font-mono">94%</span>
             </div>
             <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-              <span className="text-[10px] text-slate-500 font-bold uppercase block">Async Concurrency</span>
+              <span className="text-[10px] text-slate-500 font-bold uppercase block">Backend Systems</span>
               <span className="text-xl font-bold text-slate-900 font-mono">92%</span>
             </div>
           </div>
@@ -856,7 +856,7 @@ export const LandingPage: React.FC = () => {
             onClick={() => navigate('/profile')}
             className="w-full py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold transition cursor-pointer shadow-xs flex items-center justify-center gap-1.5"
           >
-            <span>Open Public Recruiter View</span>
+            <span>Preview Public Portfolio</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -915,7 +915,7 @@ export const LandingPage: React.FC = () => {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700">
             <Sparkles className="w-3.5 h-3.5 text-blue-600" />
-            <span>Start Building Real Engineering Mastery</span>
+            <span>Start Building Real Engineering Skills</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
@@ -923,7 +923,7 @@ export const LandingPage: React.FC = () => {
           </h2>
 
           <p className="text-base text-slate-600 max-w-lg mx-auto leading-relaxed">
-            Join thousands of developers advancing their technical growth with structured roadmaps, live Socratic mentorship, and verified credentials.
+            Join thousands of developers advancing their technical growth with structured roadmaps, live AI mentorship, and verified credentials.
           </p>
 
           <div className="pt-2">
@@ -952,30 +952,17 @@ export const LandingPage: React.FC = () => {
               <span className="text-slate-400 text-xs font-medium">© 2026</span>
             </div>
 
-            {/* Navigation links centered on mobile, right-aligned on desktop */}
+            {/* Clean User-Facing Navigation Links */}
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 font-semibold text-xs sm:text-sm text-center">
-              <a href="#tracks" className="hover:text-blue-600 transition-colors">Tracks</a>
-              <a href="#studio" className="hover:text-blue-600 transition-colors">Pair Studio</a>
-              <a href="#comparison" className="hover:text-blue-600 transition-colors">Why LearnPath</a>
+              <a href="#tracks" className="hover:text-blue-600 transition-colors">Courses</a>
+              <a href="#studio" className="hover:text-blue-600 transition-colors">Code Studio</a>
+              <a href="#comparison" className="hover:text-blue-600 transition-colors">Features</a>
+              <a href="#diagnostic" className="hover:text-blue-600 transition-colors">Skill Quiz</a>
               <span
                 onClick={() => navigate('/help')}
                 className="hover:text-blue-600 transition-colors cursor-pointer"
               >
                 Help & FAQ
-              </span>
-              <span
-                onClick={() => navigate('/back')}
-                className="hover:text-blue-600 transition-colors cursor-pointer"
-              >
-                Admin Portal
-              </span>
-              <span
-                onClick={() => {
-                  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
-                }}
-                className="hover:text-blue-600 transition-colors cursor-pointer font-mono px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 text-xs inline-flex items-center"
-              >
-                ⌘K Search
               </span>
             </div>
           </div>
@@ -987,24 +974,24 @@ export const LandingPage: React.FC = () => {
 
 const faqs = [
   {
-    q: 'How does LearnPath AI personalize my learning pathway?',
-    a: 'LearnPath AI assesses your baseline knowledge through interactive diagnostic evaluations and coding submissions. Rather than presenting generic video playlists, it constructs a structured curriculum focusing exclusively on the skills and concepts you need to reach your target engineering role.',
+    q: 'How does LearnPath AI personalize my learning roadmap?',
+    a: 'LearnPath AI assesses your current skill level through interactive coding challenges and quick quizzes. Instead of generic video playlists, it builds a personalized step-by-step curriculum focused on exactly what you need to learn next.',
   },
   {
-    q: 'How does the Socratic Pair Programmer help me learn?',
-    a: 'Instead of simply writing the solution for you, the Pair Programmer monitors your code syntax and logic in real time. When it detects a mistake—such as an unclosed event listener or off-by-one loop—it asks guiding questions and explains the underlying runtime behavior.',
+    q: 'How does the AI Mentor help me learn?',
+    a: 'Your AI mentor works alongside you in the code editor. When you make a mistake or get stuck, it provides helpful hints, explains underlying principles, and guides you to the solution without just giving away the answer.',
   },
   {
-    q: 'Can I use LearnPath AI without an active internet connection?',
-    a: 'Yes. The application includes client-side caching and an offline resilience banner. You can review cached lessons and run the in-browser sandbox runner offline, with telemetry events syncing automatically upon reconnection.',
+    q: 'Can I learn offline or on low connectivity?',
+    a: 'Yes. Course lessons and the in-browser coding practice runner are cached locally in your browser, allowing you to review materials and practice coding even when your internet connection is unstable.',
   },
   {
-    q: 'What makes the Recruiter Profile verified?',
-    a: 'Every assessment milestone, code pass rate, and study hour is recorded in our database. The generated public profile displays an authenticated candidate token, SHA-256 digital signature, and mobile QR code that recruiters can inspect directly.',
+    q: 'How do the verified certificates and portfolios work?',
+    a: 'Every assessment milestone, coding challenge, and module you complete is recorded and verified on your public profile. You can share your custom profile link directly with recruiters and hiring managers.',
   },
   {
-    q: 'How is learner data protected and secured?',
-    a: 'All authentication utilizes bcrypt password hashing, signed JWT sessions with cookie rotation, rate-limiting lockout protection on administrative routes, and comprehensive audit trail logging.',
+    q: 'How is my account and data protected?',
+    a: 'Your privacy and data security are our top priority. All personal information and learning records are securely encrypted and protected following industry best practices.',
   },
 ];
 
