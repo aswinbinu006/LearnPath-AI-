@@ -66,12 +66,33 @@ export const getSkillAnalysis = async (req: AuthRequest, res: Response) => {
     let recommendedNextStep = null;
     if (skillGaps.length > 0) {
       const criticalGap = skillGaps.find((g) => g.severity === 'Critical') || skillGaps[0];
+      let slug = '';
+      if (criticalGap.recommendedCourseId) {
+        const course = await prisma.course.findFirst({
+          where: {
+            OR: [
+              { id: criticalGap.recommendedCourseId },
+              { slug: criticalGap.recommendedCourseId },
+              { title: criticalGap.recommendedCourseTitle || '' },
+            ],
+          },
+        });
+        slug = course?.slug || '';
+      }
+      if (!slug) {
+        const role = (user?.targetRole || '').toLowerCase();
+        if (role.includes('ai') || role.includes('systems') || role.includes('data')) slug = 'python-ai-foundations';
+        else if (role.includes('backend') || role.includes('api')) slug = 'high-concurrency-backend';
+        else if (role.includes('fullstack') || role.includes('full stack')) slug = 'fullstack-nextjs-systems';
+        else slug = 'js-async-programming';
+      }
+
       recommendedNextStep = {
         title: criticalGap.recommendedCourseTitle || `Improve ${criticalGap.skillName}`,
         description: criticalGap.description,
         estimatedHours: 'Est. 4 hours',
         typeLabel: 'Targeted Practice',
-        courseSlug: criticalGap.recommendedCourseId || '',
+        courseSlug: slug,
       };
     } else if (userSkills.length > 0) {
       // Suggest improving the weakest skill

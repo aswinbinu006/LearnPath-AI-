@@ -134,13 +134,88 @@ console.log("Cache Size:", cache.cache.size);
 `,
   },
   {
-    id: 'react-state',
-    topic: 'React State & Reconciliation',
-    title: 'Immutable State Machine & Reconciliation',
-    prompt: 'Fix direct React state mutations and ensure pure immutability for fast component reconciliation.',
-    initialCode: `// ⚡ React State Handler
+    id: 'ai-vector',
+    topic: 'AI & Systems: Vector Similarity',
+    title: 'Vector Cosine Distance & Embedding Search',
+    prompt: 'Implement a vectorized cosine similarity function to compare document embedding tensors.',
+    initialCode: `// ⚡ AI & Systems: Vector Similarity Challenge
+function cosineSimilarity(vecA: number[], vecB: number[]): number {
+  var dotProduct = 0;
+  var normA = 0;
+  var normB = 0;
+  // Bug: index out of bounds on loop condition
+  for (var i = 0; i <= vecA.length; i++) {
+    dotProduct += vecA[i] * vecB[i];
+    normA += vecA[i] * vecA[i];
+    normB += vecB[i] * vecB[i];
+  }
+  return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+
+const embedding1 = [0.2, 0.8, 0.5];
+const embedding2 = [0.3, 0.7, 0.6];
+console.log("Vector Similarity:", cosineSimilarity(embedding1, embedding2));
+`,
+    solutionCode: `function cosineSimilarity(vecA: readonly number[], vecB: readonly number[]): number {
+  if (vecA.length !== vecB.length || vecA.length === 0) return 0;
+  let dotProduct = 0;
+  let normA = 0;
+  let normB = 0;
+  for (let i = 0; i < vecA.length; i++) {
+    dotProduct += vecA[i] * vecB[i];
+    normA += vecA[i] * vecA[i];
+    normB += vecB[i] * vecB[i];
+  }
+  const magnitude = Math.sqrt(normA) * Math.sqrt(normB);
+  return magnitude === 0 ? 0 : dotProduct / magnitude;
+}
+
+const embedding1 = [0.2, 0.8, 0.5] as const;
+const embedding2 = [0.3, 0.7, 0.6] as const;
+console.log("Vector Similarity:", cosineSimilarity(embedding1, embedding2));
+`,
+  },
+  {
+    id: 'backend-queue',
+    topic: 'Backend: Async Concurrency & Workers',
+    title: 'High-Concurrency Task Queue with Rate Limiting',
+    prompt: 'Fix the asynchronous queue dispatcher to handle high-throughput worker tasks cleanly.',
+    initialCode: `// ⚡ Backend Task Dispatcher
+function dispatchTasks(queue: string[]) {
+  var results = [];
+  for (var i = 0; i <= queue.length; i++) {
+    const task = queue[i];
+    if (task == "CRITICAL") {
+      results.push(\`[HIGH_PRIORITY] \${task}\`);
+    } else {
+      results.push(task);
+    }
+  }
+  return results;
+}
+
+const sampleBatch = ["STANDARD", "CRITICAL", "BACKGROUND"];
+console.log("Processed Batch:", dispatchTasks(sampleBatch));
+`,
+    solutionCode: `function dispatchTasks(queue: readonly string[]): string[] {
+  return queue.map((task) => {
+    return task === 'CRITICAL' 
+      ? \`[HIGH_PRIORITY] \${task}\` 
+      : task;
+  });
+}
+
+const sampleBatch = ["STANDARD", "CRITICAL", "BACKGROUND"] as const;
+console.log("Processed Batch:", dispatchTasks(sampleBatch));
+`,
+  },
+  {
+    id: 'fullstack-action',
+    topic: 'Full Stack: Type-Safe Mutations',
+    title: 'Server Action Validation & Optimistic State',
+    prompt: 'Implement immutable payload processing with zero mutation of the incoming state.',
+    initialCode: `// ⚡ Full Stack State Mutation
 function updateLearnerProgress(state: any, milestoneId: string) {
-  // Direct state mutation anti-pattern
   state.completedMilestones.push(milestoneId);
   state.lastActive = new Date();
   return state;

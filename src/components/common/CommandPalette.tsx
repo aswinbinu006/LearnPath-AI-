@@ -152,32 +152,32 @@ export const CommandPalette: React.FC = () => {
 
       // Courses & Lessons
       {
-        id: 'course-ts',
-        title: 'Course: TypeScript Pro — Advanced Type Systems',
+        id: 'course-ai',
+        title: 'Course: Python for AI & Vector Mathematics',
         category: 'Actions',
         icon: Sparkles,
-        onSelect: () => navigate('/courses/typescript-pro'),
+        onSelect: () => navigate('/courses/python-ai-foundations'),
       },
       {
-        id: 'lesson-generics',
-        title: 'Lesson: Advanced TypeScript Generics & Conditional Types',
+        id: 'course-backend',
+        title: 'Course: High-Concurrency Backend Architecture',
+        category: 'Actions',
+        icon: Cpu,
+        onSelect: () => navigate('/courses/high-concurrency-backend'),
+      },
+      {
+        id: 'course-fullstack',
+        title: 'Course: Full-Stack Next.js & Server Architecture',
+        category: 'Actions',
+        icon: Code2,
+        onSelect: () => navigate('/courses/fullstack-nextjs-systems'),
+      },
+      {
+        id: 'course-frontend',
+        title: 'Course: React Fundamentals & Modern Architecture',
         category: 'Actions',
         icon: Sparkles,
-        onSelect: () => navigate('/courses/typescript-pro'),
-      },
-      {
-        id: 'lesson-event-loop',
-        title: 'Lesson: JavaScript Event Loop & Microtask Queues',
-        category: 'Actions',
-        icon: Cpu,
-        onSelect: () => navigate('/pair-programmer'),
-      },
-      {
-        id: 'lesson-state',
-        title: 'Lesson: React 18 Concurrent State & Memory Cleanup',
-        category: 'Actions',
-        icon: Cpu,
-        onSelect: () => navigate('/pair-programmer'),
+        onSelect: () => navigate('/courses/react-fundamentals'),
       },
 
       // Diagnostics & Assessments
