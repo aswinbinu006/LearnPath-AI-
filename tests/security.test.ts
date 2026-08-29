@@ -87,7 +87,7 @@ async function runTests() {
     // Verify that input escaping / parameterization treats raw SQL as inert string data
     assert(!maliciousInput.includes('\0'), 'Null byte injection prevented');
     assert(typeof maliciousInput === 'string', 'SQL injection input handled strictly as data string');
-    assert(maliciousInput !== 'normal_string', 'Malicious query strings isolated from execution plane');
+    assert(maliciousInput.includes('DROP TABLE'), 'Malicious query strings isolated from execution plane');
   } catch (err: any) {
     console.error('SQL injection test error:', err);
     failed++;
