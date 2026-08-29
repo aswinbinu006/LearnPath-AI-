@@ -85,7 +85,11 @@ export const validateParams = (schema: ZodSchema) => {
 export const registerSchema = z.object({
   email: z.string().email('Valid email is required.'),
   password: z.string().min(8, 'Password must be at least 8 characters.'),
-  name: z.string().min(1, 'Name is required.').max(100),
+  name: z
+    .string()
+    .min(1, 'Name is required.')
+    .max(100)
+    .regex(/^[A-Za-z\s]+$/, 'Name must contain only alphabets (letters and spaces).'),
   targetRole: z.string().max(100).optional(),
   experienceLevel: z.enum(['Beginner', 'Intermediate', 'Advanced']).optional(),
 });
@@ -105,7 +109,12 @@ export const updatePreferencesSchema = z.object({
 
 // User profile
 export const updateProfileSchema = z.object({
-  name: z.string().min(1).max(100).optional(),
+  name: z
+    .string()
+    .min(1)
+    .max(100)
+    .regex(/^[A-Za-z\s]+$/, 'Name must contain only alphabets (letters and spaces).')
+    .optional(),
   headline: z.string().max(200).optional(),
   bio: z.string().max(2000).optional(),
   avatarUrl: z.string().url().max(500).optional().nullable(),

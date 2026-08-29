@@ -71,7 +71,16 @@ export const RegisterPage: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    const trimmedName = name.trim();
+    if (!trimmedName) {
+      setError('Please enter your full name.');
+      return;
+    }
+
+    if (!/^[A-Za-z\s]+$/.test(trimmedName)) {
+      setError('Name must contain only alphabetic characters (letters and spaces).');
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError('Passwords do not match. Please verify and try again.');
@@ -269,7 +278,13 @@ export const RegisterPage: React.FC = () => {
                 label="Full Name"
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (/^[a-zA-Z\s]*$/.test(val)) {
+                    setName(val);
+                    if (error) setError('');
+                  }
+                }}
                 placeholder="e.g. Alex Johnson"
                 leftIcon={<User className="w-4 h-4 text-slate-400" />}
                 className="bg-white border-slate-200 focus:border-blue-600 focus:ring-blue-500/20 text-slate-900 placeholder:text-slate-400 py-2.5 rounded-xl text-sm"

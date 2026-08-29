@@ -91,6 +91,11 @@ export const SettingsPage: React.FC = () => {
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
+    const trimmedName = name.trim();
+    if (trimmedName && !/^[A-Za-z\s]+$/.test(trimmedName)) {
+      toast.error('Name must contain only alphabetic characters (letters and spaces).', 'Invalid Name');
+      return;
+    }
     setIsSaving(true);
     try {
       await updateUserProfile({
@@ -167,7 +172,12 @@ export const SettingsPage: React.FC = () => {
             <Input
               label="Full Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (/^[a-zA-Z\s]*$/.test(val)) {
+                  setName(val);
+                }
+              }}
               placeholder="e.g. Your Name"
               className="text-base sm:text-sm min-h-[44px]"
             />

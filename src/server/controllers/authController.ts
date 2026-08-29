@@ -75,6 +75,13 @@ export const register = async (req: Request, res: Response) => {
     const normalizedEmail = email.toLowerCase().trim();
     const sanitizedName = (name && typeof name === 'string' ? name : normalizedEmail.split('@')[0] || 'Learner').trim();
 
+    if (!/^[A-Za-z\s]+$/.test(sanitizedName)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name must contain only alphabets (letters and spaces).',
+      });
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: { email: normalizedEmail },
     });
