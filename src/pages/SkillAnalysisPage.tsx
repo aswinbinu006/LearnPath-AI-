@@ -185,7 +185,7 @@ export const SkillAnalysisPage: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
             Skill Analysis
           </h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
             Career-oriented assessment and competency mapping.
           </p>
         </div>
@@ -195,7 +195,7 @@ export const SkillAnalysisPage: React.FC = () => {
           size="md"
           onClick={() => context?.openAssessmentModal && context.openAssessmentModal()}
           leftIcon={<Award className="w-4 h-4" />}
-          className="font-semibold shadow-sm"
+          className="w-full sm:w-auto min-h-[44px] font-bold shadow-md shadow-blue-600/15 active:scale-[0.98]"
         >
           {isUnassessed ? 'Start Baseline Assessment' : 'New Assessment'}
         </Button>
@@ -222,7 +222,7 @@ export const SkillAnalysisPage: React.FC = () => {
             size="sm"
             onClick={() => context?.openAssessmentModal?.()}
             rightIcon={<ArrowRight className="w-4 h-4" />}
-            className="whitespace-nowrap font-bold shadow-md shadow-blue-500/20 text-xs"
+            className="w-full sm:w-auto min-h-[42px] whitespace-nowrap font-bold shadow-md shadow-blue-500/20 text-xs active:scale-[0.98]"
           >
             Start Assessment Now
           </Button>
@@ -234,15 +234,15 @@ export const SkillAnalysisPage: React.FC = () => {
         {/* Left Column (2 Cols) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Primary Assessment Competency Card */}
-          <Card className="p-6 border-slate-200/90 dark:border-slate-800 shadow-sm space-y-6">
+          <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-slate-800 shadow-sm space-y-6">
             {/* Header */}
-            <div className="flex items-start justify-between">
+            <div className="flex items-start justify-between gap-2">
               <div>
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center font-bold text-xs shrink-0">
                     {primaryAssessment.category.slice(0, 2).toUpperCase()}
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100 truncate">
                     {primaryAssessment.category}
                   </h3>
                 </div>
@@ -251,7 +251,7 @@ export const SkillAnalysisPage: React.FC = () => {
                 </p>
               </div>
 
-              <Badge variant="blue" size="sm">
+              <Badge variant="blue" size="sm" className="shrink-0">
                 Target: {primaryAssessment.targetLevel}
               </Badge>
             </div>
@@ -279,34 +279,39 @@ export const SkillAnalysisPage: React.FC = () => {
               </h4>
 
               {primaryAssessment.competencies && primaryAssessment.competencies.length > 0 ? (
-                <div className="space-y-3.5">
+                <div className="space-y-4">
                   {primaryAssessment.competencies.map((comp) => (
-                    <div key={comp.id} className="flex items-center gap-4 text-xs font-medium">
-                      <span className="w-36 text-slate-700 dark:text-slate-300 truncate">
-                        {comp.name}
-                      </span>
+                    <div key={comp.id} className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4 text-xs font-medium">
+                      <div className="flex items-center justify-between sm:w-44 shrink-0">
+                        <span className="text-slate-800 dark:text-slate-200 truncate font-semibold">
+                          {comp.name}
+                        </span>
+                        <span className="sm:hidden font-bold text-blue-600 dark:text-blue-400 font-mono text-xs">
+                          {comp.proficiencyScore}%
+                        </span>
+                      </div>
                       <div className="flex-1">
-                        <div className="w-full bg-slate-100 dark:bg-neutral-800 h-2 rounded-full overflow-hidden">
+                        <div className="w-full bg-slate-100 dark:bg-neutral-800 h-2.5 rounded-full overflow-hidden">
                           <div
-                            className="bg-blue-500 dark:bg-blue-400 h-full rounded-full"
+                            className="bg-blue-500 dark:bg-blue-400 h-full rounded-full transition-all duration-500"
                             style={{ width: `${comp.proficiencyScore}%` }}
                           />
                         </div>
                       </div>
-                      <span className="w-10 text-right font-bold text-slate-700 dark:text-slate-300 font-mono">
+                      <span className="hidden sm:inline-block w-10 text-right font-bold text-slate-700 dark:text-slate-300 font-mono">
                         {comp.proficiencyScore}%
                       </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="py-4 text-center rounded-xl bg-slate-50/50 dark:bg-neutral-900/40 border border-dashed border-slate-200 dark:border-neutral-800">
+                <div className="py-6 px-3 text-center rounded-xl bg-slate-50/50 dark:bg-neutral-900/40 border border-dashed border-slate-200 dark:border-neutral-800">
                   <p className="text-xs text-slate-500 dark:text-neutral-400">
                     No individual competencies tracked yet.
                   </p>
                   <button
                     onClick={() => context?.openAssessmentModal?.()}
-                    className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline mt-1 cursor-pointer"
+                    className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline mt-2 inline-block min-h-[36px] py-1 cursor-pointer"
                   >
                     Take your first baseline assessment →
                   </button>
@@ -317,7 +322,7 @@ export const SkillAnalysisPage: React.FC = () => {
 
           {/* Recommended Next Step Card */}
           {recommendedNextStep && (
-            <Card className="p-6 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs">
+            <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs">
               <span className="text-[11px] font-bold tracking-wider text-slate-500 dark:text-neutral-400 uppercase">
                 RECOMMENDED NEXT STEP
               </span>
@@ -328,7 +333,7 @@ export const SkillAnalysisPage: React.FC = () => {
                     <GraduationCap className="w-6 h-6" />
                   </div>
                   <div>
-                    <h4 className="text-base font-bold text-slate-900 dark:text-slate-100">
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
                       {recommendedNextStep.title}
                     </h4>
                     <p className="text-xs text-slate-500 dark:text-neutral-400 mt-1 max-w-md leading-relaxed">
@@ -346,7 +351,7 @@ export const SkillAnalysisPage: React.FC = () => {
                 </div>
 
                 <Button
-                  variant="outline"
+                  variant="primary"
                   size="md"
                   onClick={() => {
                     if (recommendedNextStep.courseSlug) {
@@ -355,7 +360,7 @@ export const SkillAnalysisPage: React.FC = () => {
                       context.openAssessmentModal();
                     }
                   }}
-                  className="w-full sm:w-auto font-semibold border-slate-300 dark:border-neutral-700 hover:bg-slate-50 dark:hover:bg-neutral-800 whitespace-nowrap"
+                  className="w-full sm:w-auto min-h-[44px] font-bold whitespace-nowrap active:scale-[0.98]"
                 >
                   {recommendedNextStep.courseSlug ? 'Start Course' : 'Start Assessment'}
                 </Button>
@@ -365,7 +370,7 @@ export const SkillAnalysisPage: React.FC = () => {
         </div>
 
         {/* Right Column: Identified Gap Areas (1 Col) */}
-        <Card className="p-6 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-6">
+        <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-6">
           <div className="flex items-center gap-2">
             <Activity className="w-5 h-5 text-red-500" />
             <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
@@ -377,19 +382,21 @@ export const SkillAnalysisPage: React.FC = () => {
             Based on your recent assessments and code reviews, these areas require focus to reach your target level.
           </p>
 
-          <div className="space-y-5">
+          <div className="space-y-4">
             {gapAreas && gapAreas.length > 0 ? (
               gapAreas.map((gap) => {
                 const isCritical = gap.severity === 'Critical';
                 return (
-                  <div key={gap.id} className="space-y-1.5">
+                  <div key={gap.id} className="p-3 rounded-xl bg-slate-50/70 dark:bg-neutral-900/60 border border-slate-200/80 dark:border-neutral-800/80 space-y-1.5">
                     <div className="flex items-center justify-between text-xs">
                       <span className="font-bold text-slate-900 dark:text-slate-100">
                         {gap.skillName}
                       </span>
                       <span
-                        className={`text-[11px] font-bold ${
-                          isCritical ? 'text-red-500' : 'text-slate-400 dark:text-slate-500'
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                          isCritical
+                            ? 'bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800'
+                            : 'bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800'
                         }`}
                       >
                         {gap.severity}
@@ -400,10 +407,10 @@ export const SkillAnalysisPage: React.FC = () => {
                       {gap.description}
                     </p>
 
-                    <div className="w-full bg-slate-100 dark:bg-neutral-800 h-1.5 rounded-full overflow-hidden mt-2">
+                    <div className="w-full bg-slate-200 dark:bg-neutral-800 h-1.5 rounded-full overflow-hidden mt-2">
                       <div
                         className={`h-full rounded-full ${
-                          isCritical ? 'bg-red-500 w-1/4' : 'bg-slate-400 dark:bg-slate-600 w-1/2'
+                          isCritical ? 'bg-red-500 w-1/4' : 'bg-amber-500 w-1/2'
                         }`}
                       />
                     </div>
