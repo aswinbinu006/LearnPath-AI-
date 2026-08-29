@@ -305,7 +305,7 @@ export const RecruiterProfilePage: React.FC = () => {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => navigate('/assessments')}
+                onClick={() => navigate('/skills')}
                 leftIcon={<Sparkles className="w-3.5 h-3.5" />}
                 className="text-xs font-bold"
               >
@@ -369,7 +369,7 @@ export const RecruiterProfilePage: React.FC = () => {
               <Button
                 variant="primary"
                 size="sm"
-                onClick={() => navigate('/courses')}
+                onClick={() => navigate('/explore')}
                 leftIcon={<BookOpen className="w-3.5 h-3.5" />}
                 className="text-xs font-bold bg-blue-600 hover:bg-blue-700"
               >

@@ -182,5 +182,14 @@ const handleShutdown = async (signal: string) => {
 process.on('SIGTERM', () => handleShutdown('SIGTERM'));
 process.on('SIGINT', () => handleShutdown('SIGINT'));
 
+process.on('unhandledRejection', (reason: any) => {
+  logger.error('Unhandled Promise Rejection', reason);
+});
+
+process.on('uncaughtException', (err: Error) => {
+  logger.error('Uncaught Exception — shutting down', err);
+  handleShutdown('uncaughtException');
+});
+
 export default app;
 

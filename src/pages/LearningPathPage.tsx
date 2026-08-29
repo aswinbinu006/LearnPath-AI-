@@ -272,7 +272,7 @@ export const LearningPathPage: React.FC = () => {
                               </div>
                               <div className="grid grid-cols-2 sm:flex items-center gap-2 pt-1 sm:pt-0">
                                 <button
-                                  onClick={() => navigate(`/ai/pair-programmer?topic=${encodeURIComponent(mod.title)}`)}
+                                  onClick={() => navigate(`/pair-programmer?topic=${encodeURIComponent(mod.title)}`)}
                                   className="min-h-[40px] px-3 py-2 rounded-xl border border-blue-200 bg-blue-50 text-xs font-bold text-blue-700 hover:bg-blue-100 flex items-center justify-center gap-1 active:scale-95 transition-all cursor-pointer"
                                 >
                                   <span>AI Studio</span>
@@ -370,7 +370,7 @@ export const LearningPathPage: React.FC = () => {
                 <Button
                   variant="primary"
                   size="md"
-                  onClick={() => navigate('/recruiter-portfolio')}
+                  onClick={() => navigate('/profile')}
                   rightIcon={<ArrowRight className="w-4 h-4" />}
                   className="font-semibold cursor-pointer w-full sm:w-auto min-h-[44px] bg-blue-600 hover:bg-blue-700"
                 >
