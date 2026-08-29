@@ -155,6 +155,15 @@ export const DashboardPage: React.FC = () => {
   const animatedProgress = useAnimatedCounter(data?.stats.overallProgress || 0);
   const animatedStreak = useAnimatedCounter(data?.stats.learningStreak || 0);
 
+  const categories = ['ALL', 'Completed', 'Frontend', 'Backend', 'Full Stack', 'Data Structures'];
+  const filteredCourses = useMemo(() => {
+    if (selectedCategory === 'ALL') return courses;
+    if (selectedCategory === 'Completed') {
+      return courses.filter((c) => (c as any).isCompleted || (c as any).progressPercent > 0);
+    }
+    return courses.filter((c) => c.category === selectedCategory);
+  }, [courses, selectedCategory]);
+
   if (isLoading || !data) {
     return (
       <div className="space-y-8 max-w-7xl mx-auto pb-12">
@@ -179,15 +188,6 @@ export const DashboardPage: React.FC = () => {
 
   const { user, heroCourse, todayFocus, stats, activityFeed } = data;
   const displayName = authUser?.name || user.name || 'Learner';
-
-  const categories = ['ALL', 'Completed', 'Frontend', 'Backend', 'Full Stack', 'Data Structures'];
-  const filteredCourses = useMemo(() => {
-    if (selectedCategory === 'ALL') return courses;
-    if (selectedCategory === 'Completed') {
-      return courses.filter((c) => (c as any).isCompleted || (c as any).progressPercent > 0);
-    }
-    return courses.filter((c) => c.category === selectedCategory);
-  }, [courses, selectedCategory]);
 
   return (
     <div className="space-y-6 sm:space-y-8 max-w-7xl mx-auto pb-12 select-none">
