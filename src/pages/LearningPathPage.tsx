@@ -145,7 +145,14 @@ export const LearningPathPage: React.FC = () => {
               {stats.currentFocus}
             </h3>
             <button
-              onClick={() => navigate('/courses/js-async-programming')}
+              onClick={() => {
+                const role = (user?.targetRole || '').toLowerCase();
+                let trackSlug = 'js-async-programming';
+                if (role.includes('ai') || role.includes('systems') || role.includes('data')) trackSlug = 'python-ai-foundations';
+                else if (role.includes('backend') || role.includes('api')) trackSlug = 'high-concurrency-backend';
+                else if (role.includes('fullstack') || role.includes('full stack')) trackSlug = 'fullstack-nextjs-systems';
+                navigate(`/courses/${trackSlug}`);
+              }}
               className="inline-flex items-center gap-1 text-xs font-semibold text-blue-600 hover:text-blue-700 mt-1 cursor-pointer min-h-[36px]"
             >
               <span>Resume Module</span>
@@ -272,7 +279,14 @@ export const LearningPathPage: React.FC = () => {
                                   <ArrowRight className="w-3 h-3" />
                                 </button>
                                 <button
-                                  onClick={() => navigate('/courses/js-async-programming')}
+                                  onClick={() => {
+                                    const role = (user?.targetRole || '').toLowerCase();
+                                    let trackSlug = 'js-async-programming';
+                                    if (role.includes('ai') || role.includes('systems') || role.includes('data')) trackSlug = 'python-ai-foundations';
+                                    else if (role.includes('backend') || role.includes('api')) trackSlug = 'high-concurrency-backend';
+                                    else if (role.includes('fullstack') || role.includes('full stack')) trackSlug = 'fullstack-nextjs-systems';
+                                    navigate(`/courses/${trackSlug}`);
+                                  }}
                                   className="min-h-[40px] px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center shadow-xs"
                                 >
                                   Continue

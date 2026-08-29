@@ -12,6 +12,7 @@ import { globalRateLimiter } from './middleware/rateLimiter.js';
 import { logger } from './utils/logger.js';
 import { validateEnv } from './config/envValidator.js';
 import { prisma } from './services/prismaClient.js';
+import { ensureCourseCatalogSeeded } from './services/courseCatalogService.js';
 
 dotenv.config();
 
@@ -125,6 +126,7 @@ async function initDatabase() {
   try {
     await prisma.user.count();
     logger.info('Database schema and tables verified.');
+    await ensureCourseCatalogSeeded();
   } catch (err: any) {
     logger.warn('Database tables missing or uninitialized. Initializing schema...', { error: err?.message });
     try {
@@ -138,6 +140,7 @@ async function initDatabase() {
         execSync('npx tsx prisma/seed.ts', { stdio: 'inherit' });
         logger.info('Database seeding completed successfully.');
       }
+      await ensureCourseCatalogSeeded();
     } catch (pushErr) {
       logger.error('Database schema auto-push failed, will continue...', pushErr);
     }

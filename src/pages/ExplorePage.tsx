@@ -21,7 +21,7 @@ export const ExplorePage: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [isLoading, setIsLoading] = useState(true);
 
-  const categories = ['ALL', 'Completed', 'Frontend', 'Backend', 'Full Stack', 'Data Structures'];
+  const categories = ['ALL', 'AI / ML', 'Backend', 'Full Stack', 'Frontend', 'Completed'];
 
   const fetchCourses = async () => {
     try {

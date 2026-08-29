@@ -328,10 +328,16 @@ export const getMentorContext = async (req: AuthRequest, res: Response) => {
     const activeModule = activePhase?.modules.find((m) => m.isCurrent || m.status === 'IN_PROGRESS') ||
       activePhase?.modules[0];
 
+    const roleLower = (user.targetRole || '').toLowerCase();
+    let trackSlug = 'js-async-programming';
+    if (roleLower.includes('ai') || roleLower.includes('systems') || roleLower.includes('data')) trackSlug = 'python-ai-foundations';
+    else if (roleLower.includes('backend') || roleLower.includes('api')) trackSlug = 'high-concurrency-backend';
+    else if (roleLower.includes('fullstack') || roleLower.includes('full stack')) trackSlug = 'fullstack-nextjs-systems';
+
     const currentCourse = activePhase
       ? {
           title: isRoadmapMastered ? 'Curriculum Roadmap Mastered' : activePhase.title,
-          slug: 'js-async-programming',
+          slug: trackSlug,
           category: user.targetRole,
           isCompleted: isRoadmapMastered,
           description: isRoadmapMastered

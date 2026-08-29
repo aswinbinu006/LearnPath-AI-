@@ -155,7 +155,7 @@ export const DashboardPage: React.FC = () => {
   const animatedProgress = useAnimatedCounter(data?.stats.overallProgress || 0);
   const animatedStreak = useAnimatedCounter(Math.max(1, data?.stats.learningStreak ?? authUser?.learningStreak ?? 1));
 
-  const categories = ['ALL', 'Completed', 'Frontend', 'Backend', 'Full Stack', 'Data Structures'];
+  const categories = ['ALL', 'AI / ML', 'Backend', 'Full Stack', 'Frontend', 'Completed'];
   const filteredCourses = useMemo(() => {
     if (selectedCategory === 'ALL') return courses;
     if (selectedCategory === 'Completed') {

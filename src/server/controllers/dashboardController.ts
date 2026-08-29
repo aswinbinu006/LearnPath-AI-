@@ -62,11 +62,41 @@ export const getDashboardData = async (req: AuthRequest, res: Response) => {
     const activeModule = activePhase?.modules.find((m) => m.isCurrent || m.status === 'IN_PROGRESS') ||
       activePhase?.modules[0];
 
+    let trackCategory = 'Frontend';
+    let defaultSlug = 'js-async-programming';
+    const roleLower = (user.targetRole || '').toLowerCase();
+
+    if (roleLower.includes('ai') || roleLower.includes('systems') || roleLower.includes('machine learning') || roleLower.includes('data')) {
+      trackCategory = 'AI / ML';
+      defaultSlug = 'python-ai-foundations';
+    } else if (roleLower.includes('backend') || roleLower.includes('api') || roleLower.includes('server')) {
+      trackCategory = 'Backend';
+      defaultSlug = 'high-concurrency-backend';
+    } else if (roleLower.includes('fullstack') || roleLower.includes('full stack') || roleLower.includes('full-stack')) {
+      trackCategory = 'Full Stack';
+      defaultSlug = 'fullstack-nextjs-systems';
+    } else {
+      trackCategory = 'Frontend';
+      defaultSlug = 'js-async-programming';
+    }
+
+    const matchedCourse = await prisma.course.findFirst({
+      where: {
+        OR: [
+          { slug: defaultSlug },
+          { category: trackCategory },
+        ],
+      },
+      orderBy: { isFeatured: 'desc' },
+    });
+
+    const activeSlug = matchedCourse?.slug || defaultSlug;
+
     let heroCourse = null;
     if (activePhase && activeModule) {
       heroCourse = {
         title: activePhase.title,
-        slug: 'js-async-programming',
+        slug: activeSlug,
         description: activePhase.description || activeModule.summary || 'Master advanced principles and modern engineering practices.',
         currentModuleTitle: activeModule.title,
         currentModuleNumber: activePhase.order,
@@ -112,22 +142,19 @@ export const getDashboardData = async (req: AuthRequest, res: Response) => {
       xpPoints: 0,
     };
 
-    // 5. Query recommendation strictly excluding completed courses
+    // 5. Query recommendation strictly aligned to user's track excluding completed courses
     const recommendedCourse = await prisma.course.findFirst({
       where: {
         id: { notIn: Array.from(completedCourseIds) },
-        isRecommended: true,
+        category: trackCategory,
       },
-      orderBy: { createdAt: 'asc' },
+      orderBy: { isRecommended: 'desc' },
+    }) || await prisma.course.findFirst({
+      where: { id: { notIn: Array.from(completedCourseIds) } },
+      orderBy: { isRecommended: 'desc' },
     });
 
-    const fallbackCourse = !recommendedCourse
-      ? await prisma.course.findFirst({
-          where: { id: { notIn: Array.from(completedCourseIds) } },
-        })
-      : null;
-
-    const targetCourse = recommendedCourse || fallbackCourse;
+    const targetCourse = recommendedCourse;
 
     const recommendation = targetCourse
       ? {
