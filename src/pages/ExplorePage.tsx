@@ -62,17 +62,17 @@ export const ExplorePage: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center">
-        {/* Category Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-between items-stretch sm:items-center">
+        {/* Category Pills — Touch Swipeable */}
+        <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 pt-1 -mx-1 px-1 touch-pan-x shrink-0">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+              className={`px-3.5 py-1.5 min-h-[38px] rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer shrink-0 active:scale-95 flex items-center justify-center ${
                 selectedCategory === cat
-                  ? 'bg-blue-600 text-white shadow-sm'
-                  : 'bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-neutral-700'
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-600/20'
+                  : 'bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-neutral-700'
               }`}
             >
               {cat === 'ALL' ? 'All Tracks' : cat}
@@ -88,7 +88,7 @@ export const ExplorePage: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search catalog..."
-            className="w-full pl-10 pr-4 py-2 bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2.5 min-h-[44px] bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 rounded-xl text-base sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-2xs"
           />
         </form>
       </div>
@@ -116,20 +116,21 @@ export const ExplorePage: React.FC = () => {
               setSelectedCategory('ALL');
               setSearch('');
             }}
+            className="min-h-[40px] px-4 font-semibold"
           >
             Reset Filters
           </Button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {courses.map((course) => (
             <Card
               key={course.id}
               hoverable
-              className="p-6 flex flex-col justify-between border-slate-200/90 dark:border-slate-800 shadow-sm"
+              className="p-5 sm:p-6 flex flex-col justify-between border-slate-200/90 dark:border-slate-800 shadow-sm"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5">
                     <Badge variant={course.isRecommended ? 'blue' : 'slate'} size="sm">
                       {course.category}
@@ -141,7 +142,7 @@ export const ExplorePage: React.FC = () => {
                     )}
                   </div>
                   {course.isRecommended && (
-                    <div className="flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400">
+                    <div className="flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 shrink-0">
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Recommended</span>
                     </div>
@@ -157,7 +158,7 @@ export const ExplorePage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+              <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 font-medium">
                   <Clock className="w-3.5 h-3.5" />
                   <span>{Math.round(course.durationMinutes / 60)} hrs total</span>
@@ -167,7 +168,7 @@ export const ExplorePage: React.FC = () => {
                   variant={(course as any).isCompleted ? 'outline' : 'primary'}
                   size="sm"
                   onClick={() => navigate(`/courses/${course.slug}`)}
-                  className="font-semibold text-xs cursor-pointer"
+                  className="font-bold text-xs cursor-pointer min-h-[38px] px-3.5 active:scale-95"
                 >
                   {(course as any).isCompleted ? 'Review Course' : 'View Course'}
                 </Button>

@@ -419,15 +419,15 @@ export const CourseDetailPage: React.FC = () => {
               {/* Interactive Code Editor / Runner */}
               {userCode ? (
                 <div className="space-y-3 pt-2">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-2">
                     <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400 flex items-center gap-2">
-                      <Terminal className="w-3.5 h-3.5 text-blue-500" />
-                      <span>Interactive Code Sandbox</span>
+                      <Terminal className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                      <span className="truncate">Interactive Sandbox</span>
                     </span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2 shrink-0">
                       <button
                         onClick={handleCopyCode}
-                        className="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-neutral-900 hover:bg-neutral-800 flex items-center gap-1 cursor-pointer"
+                        className="text-xs text-slate-400 hover:text-white px-2.5 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 flex items-center gap-1 cursor-pointer min-h-[34px]"
                       >
                         <Copy className="w-3 h-3" />
                         <span>{copiedCode ? 'Copied' : 'Copy'}</span>
@@ -438,19 +438,19 @@ export const CourseDetailPage: React.FC = () => {
                         onClick={handleRunCode}
                         isLoading={isRunningCode}
                         leftIcon={<Terminal className="w-3.5 h-3.5" />}
-                        className="text-xs font-bold cursor-pointer"
+                        className="text-xs font-bold cursor-pointer min-h-[34px] active:scale-95"
                       >
                         Run & Verify
                       </Button>
                     </div>
                   </div>
 
-                  <div className="rounded-xl bg-slate-950 border border-slate-800 p-4 font-mono text-xs text-emerald-400 overflow-x-auto">
+                  <div className="rounded-xl bg-slate-950 border border-slate-800 p-3 sm:p-4 font-mono text-xs text-emerald-400 overflow-x-auto">
                     <textarea
                       value={userCode}
                       onChange={(e) => setUserCode(e.target.value)}
                       rows={8}
-                      className="w-full bg-transparent font-mono text-xs text-slate-200 focus:outline-none resize-none leading-relaxed"
+                      className="w-full bg-transparent font-mono text-base sm:text-xs text-slate-200 focus:outline-none resize-none leading-relaxed"
                     />
                   </div>
 
@@ -460,7 +460,7 @@ export const CourseDetailPage: React.FC = () => {
                         <Terminal className="w-3.5 h-3.5 text-emerald-500" />
                         <span>Execution Console Output</span>
                       </div>
-                      <pre className="whitespace-pre-wrap leading-relaxed">{codeOutput}</pre>
+                      <pre className="whitespace-pre-wrap leading-relaxed overflow-x-auto">{codeOutput}</pre>
                     </div>
                   )}
                 </div>
@@ -474,7 +474,7 @@ export const CourseDetailPage: React.FC = () => {
                   onClick={handlePreviousLesson}
                   disabled={isFirstLesson}
                   leftIcon={<ArrowLeft className="w-4 h-4" />}
-                  className="text-xs font-semibold cursor-pointer"
+                  className="w-full sm:w-auto min-h-[44px] text-xs font-semibold cursor-pointer active:scale-[0.98]"
                 >
                   Previous Lesson
                 </Button>
@@ -486,9 +486,9 @@ export const CourseDetailPage: React.FC = () => {
                       size="md"
                       onClick={handleMarkComplete}
                       rightIcon={<Award className="w-4 h-4" />}
-                      className="text-xs font-bold bg-emerald-600 hover:bg-emerald-700 shadow-sm cursor-pointer"
+                      className="w-full sm:w-auto min-h-[44px] text-xs font-bold bg-emerald-600 hover:bg-emerald-700 shadow-sm cursor-pointer active:scale-[0.98]"
                     >
-                      Complete & Take 2-Minute Adaptive Quiz 🚀
+                      Complete & Take 2-Minute Quiz 🚀
                     </Button>
                   ) : (
                     <Button
@@ -496,7 +496,7 @@ export const CourseDetailPage: React.FC = () => {
                       size="md"
                       onClick={handleMarkComplete}
                       rightIcon={<ArrowRight className="w-4 h-4" />}
-                      className="text-xs font-semibold cursor-pointer"
+                      className="w-full sm:w-auto min-h-[44px] text-xs font-bold cursor-pointer active:scale-[0.98]"
                     >
                       Complete & Next Lesson
                     </Button>
@@ -510,22 +510,22 @@ export const CourseDetailPage: React.FC = () => {
 
       {/* ── 🌟 2-MINUTE ADAPTIVE POST-COURSE QUIZ MODAL ── */}
       {showQuizModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <Card className="w-full max-w-xl p-6 sm:p-8 border-neutral-800 bg-neutral-900/95 shadow-2xl space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200 overscroll-contain">
+          <Card className="w-full max-w-xl max-h-[90dvh] overflow-y-auto p-4 sm:p-8 border-neutral-800 bg-neutral-900/95 shadow-2xl space-y-5 sm:space-y-6">
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                   <Award className="w-4 h-4" />
                 </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-bold text-white">2-Minute Adaptive Mastery Check</h3>
-                  <p className="text-[11px] text-neutral-400">Verifying competencies for {course.title}</p>
+                <div className="min-w-0">
+                  <h3 className="text-xs sm:text-base font-bold text-white truncate">2-Minute Adaptive Mastery Check</h3>
+                  <p className="text-[10px] sm:text-[11px] text-neutral-400 truncate">Verifying competencies for {course.title}</p>
                 </div>
               </div>
 
               {!quizResult && (
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold">
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold shrink-0">
                   <Timer className="w-3.5 h-3.5 animate-pulse" />
                   <span>
                     {Math.floor(quizTimeLeft / 60)}:{(quizTimeLeft % 60).toString().padStart(2, '0')}
@@ -537,7 +537,7 @@ export const CourseDetailPage: React.FC = () => {
             {/* Quiz Loading */}
             {isQuizLoading ? (
               <div className="text-center py-10 space-y-2">
-                <Loader2 className="w-8 h-8 text-primary-500 animate-spin mx-auto" />
+                <Loader2 className="w-8 h-8 text-blue-500 animate-spin mx-auto" />
                 <p className="text-xs text-neutral-400">Selecting 5 adaptive questions (2 Easy, 2 Medium, 1 Hard)...</p>
               </div>
             ) : quizResult ? (
@@ -569,7 +569,7 @@ export const CourseDetailPage: React.FC = () => {
                     setShowQuizModal(false);
                     navigate('/dashboard');
                   }}
-                  className="w-full py-3 font-semibold cursor-pointer"
+                  className="w-full min-h-[44px] font-semibold cursor-pointer active:scale-[0.98]"
                 >
                   <span>Return to Dashboard</span>
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -580,7 +580,7 @@ export const CourseDetailPage: React.FC = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between text-xs text-neutral-400">
                   <span className="font-mono">Question {currentQuizIdx + 1} of {quizQuestions.length}</span>
-                  <span className="font-mono text-primary-400 font-bold">{quizQuestions[currentQuizIdx].difficulty}</span>
+                  <span className="font-mono text-blue-400 font-bold">{quizQuestions[currentQuizIdx].difficulty}</span>
                 </div>
 
                 <h4 className="text-sm sm:text-base font-semibold text-white leading-relaxed">
@@ -601,9 +601,9 @@ export const CourseDetailPage: React.FC = () => {
                         key={oIdx}
                         type="button"
                         onClick={() => setUserQuizAnswers((p) => ({ ...p, [quizQuestions[currentQuizIdx].id]: oIdx }))}
-                        className={`w-full p-3 rounded-xl border text-left text-xs transition-all flex items-start gap-2.5 cursor-pointer ${
+                        className={`w-full p-3 min-h-[44px] rounded-xl border text-left text-xs transition-all flex items-start gap-2.5 cursor-pointer active:scale-[0.98] ${
                           isSelected
-                            ? 'border-primary-500 bg-primary-500/15 text-white font-medium ring-1 ring-primary-500'
+                            ? 'border-blue-500 bg-blue-500/15 text-white font-medium ring-1 ring-blue-500'
                             : 'border-neutral-800 bg-black/40 hover:bg-neutral-800/40 text-neutral-300'
                         }`}
                       >
@@ -616,13 +616,13 @@ export const CourseDetailPage: React.FC = () => {
                   })}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-neutral-800">
+                <div className="flex items-center justify-between pt-4 border-t border-neutral-800 gap-2">
                   <Button
                     variant="secondary"
                     size="sm"
                     onClick={() => setCurrentQuizIdx((p) => Math.max(0, p - 1))}
                     disabled={currentQuizIdx === 0}
-                    className="cursor-pointer"
+                    className="min-h-[40px] px-3.5 cursor-pointer"
                   >
                     Previous
                   </Button>
@@ -633,7 +633,7 @@ export const CourseDetailPage: React.FC = () => {
                       size="sm"
                       onClick={() => setCurrentQuizIdx((p) => p + 1)}
                       disabled={userQuizAnswers[quizQuestions[currentQuizIdx].id] === undefined}
-                      className="cursor-pointer"
+                      className="min-h-[40px] px-4 cursor-pointer active:scale-95"
                     >
                       <span>Next</span>
                       <ChevronRight className="w-4 h-4 ml-1" />
@@ -643,7 +643,7 @@ export const CourseDetailPage: React.FC = () => {
                       variant="primary"
                       size="sm"
                       onClick={handleSubmitCourseQuiz}
-                      className="bg-emerald-600 hover:bg-emerald-500 cursor-pointer"
+                      className="min-h-[40px] px-4 bg-emerald-600 hover:bg-emerald-500 cursor-pointer active:scale-95"
                     >
                       <span>Submit Quiz</span>
                       <Award className="w-4 h-4 ml-1" />

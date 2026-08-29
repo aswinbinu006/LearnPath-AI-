@@ -75,13 +75,13 @@ export const ProgressPage: React.FC = () => {
       </div>
 
       {/* Top Stat Row - Equal height cards with aligned typography */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <Card className="p-6 border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700">
-          <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-500 flex items-center justify-center shrink-0 shadow-sm">
-            <Flame className="w-6 h-6" />
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6">
+        <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-500 flex items-center justify-center shrink-0 shadow-sm">
+            <Flame className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
               {streakDays} {streakDays === 1 ? 'Day' : 'Days'}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate mt-0.5">
@@ -90,12 +90,12 @@ export const ProgressPage: React.FC = () => {
           </div>
         </Card>
 
-        <Card className="p-6 border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700">
-          <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 shadow-sm">
-            <Clock className="w-6 h-6" />
+        <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0 shadow-sm">
+            <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
               {Math.round(totalHours)} {Math.round(totalHours) === 1 ? 'Hour' : 'Hours'}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate mt-0.5">
@@ -104,12 +104,12 @@ export const ProgressPage: React.FC = () => {
           </div>
         </Card>
 
-        <Card className="p-6 border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 shadow-sm">
-            <Award className="w-6 h-6" />
+        <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-slate-800 shadow-sm flex items-center gap-4 transition-all duration-200 hover:border-slate-300 dark:hover:border-slate-700">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 shadow-sm">
+            <Award className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight leading-tight">
               {completedTestsCount} {completedTestsCount === 1 ? 'Assessment' : 'Assessments'}
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate mt-0.5">
@@ -120,12 +120,12 @@ export const ProgressPage: React.FC = () => {
       </div>
 
       {/* Row 2: Weekly Activity Rhythm */}
-      <Card className="p-6 border-slate-200/90 dark:border-neutral-800 shadow-sm space-y-6">
+      <Card className="p-4 sm:p-6 border-slate-200/90 dark:border-neutral-800 shadow-sm space-y-5 sm:space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <div className="flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <h3 className="font-bold text-slate-900 dark:text-slate-100 text-base">
+              <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm sm:text-base">
                 Weekly Activity Rhythm
               </h3>
             </div>
@@ -139,31 +139,31 @@ export const ProgressPage: React.FC = () => {
         </div>
 
         {/* Days grid with centered alignment and crisp borders */}
-        <div className="grid grid-cols-7 gap-2.5 sm:gap-4">
+        <div className="grid grid-cols-7 gap-1 sm:gap-4">
           {daysOfWeek.map((day, idx) => {
             const isActive = idx < Math.min(streakDays || 1, 7);
             return (
               <div
                 key={day}
-                className={`p-3.5 sm:p-4 rounded-xl border text-center transition-all duration-150 ${
+                className={`p-2 sm:p-4 rounded-xl border text-center transition-all duration-150 ${
                   isActive
                     ? 'border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20'
                     : 'border-slate-200/80 dark:border-neutral-800 bg-slate-50/40 dark:bg-neutral-900/30'
                 }`}
               >
-                <span className="text-xs font-bold text-slate-600 dark:text-neutral-400 block mb-2">
+                <span className="text-[10px] sm:text-xs font-bold text-slate-600 dark:text-neutral-400 block mb-1.5 sm:mb-2">
                   {day}
                 </span>
                 <div
-                  className={`w-7 h-7 mx-auto rounded-full flex items-center justify-center transition-all ${
+                  className={`w-6 h-6 sm:w-7 sm:h-7 mx-auto rounded-full flex items-center justify-center transition-all ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/30'
                       : 'bg-slate-200 dark:bg-neutral-800 text-slate-400 dark:text-neutral-500'
                   }`}
                 >
-                  <CheckCircle2 className="w-4 h-4" />
+                  <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
-                <span className="text-[10px] text-slate-400 dark:text-neutral-500 font-medium block mt-2">
+                <span className="text-[9px] sm:text-[10px] text-slate-400 dark:text-neutral-500 font-medium block mt-1.5 sm:mt-2">
                   {user?.dailyGoalMinutes ?? 45}m
                 </span>
               </div>
