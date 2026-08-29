@@ -101,14 +101,21 @@ export class PathGenerator {
       studyPaceMinutes,
     });
 
+    const personalizedPhasesData = await this.personalizePhasesWithLLM(
+      phasesData,
+      goalDescription,
+      effectiveWeakAreas,
+      effectiveStrengths
+    );
+
     // Compute dynamic total estimated hours based on adaptive modules
-    const totalEstimatedHours = phasesData.reduce((acc, p) => acc + p.estimatedHours, 0);
+    const totalEstimatedHours = personalizedPhasesData.reduce((acc, p) => acc + p.estimatedHours, 0);
 
     const pathTitle = `${track} Career Roadmap`;
     const baseDescription = `Your customized AI-curated curriculum tailored to ${experienceLevel} level for mastering ${track} (${studyPaceMinutes} min/day pace).`;
     const description = goalDescription ? `${baseDescription} Goal: ${goalDescription}` : baseDescription;
 
-    const currentFocus = phasesData[0]?.modules?.[0]?.title || 'Core Foundations';
+    const currentFocus = personalizedPhasesData[0]?.modules?.[0]?.title || 'Core Foundations';
 
     const learningPath = await prisma.learningPath.create({
       data: {
@@ -122,7 +129,7 @@ export class PathGenerator {
         currentFocus,
         currentPhaseIndex: 1,
         phases: {
-          create: phasesData.map((phase, pIdx) => ({
+          create: personalizedPhasesData.map((phase, pIdx) => ({
             phaseNumber: phase.phaseNumber,
             title: phase.title,
             description: phase.description,
@@ -131,7 +138,7 @@ export class PathGenerator {
             iconType: phase.iconType,
             order: phase.order,
             modules: {
-              create: phase.modules.map((m, mIdx) => ({
+              create: phase.modules.map((m: any, mIdx: number) => ({
                 title: m.title,
                 summary: m.summary,
                 isCurrent: pIdx === 0 && mIdx === 0,
@@ -587,6 +594,105 @@ export class PathGenerator {
         ];
       }
     }
+  }
+
+  private static async personalizePhasesWithLLM(
+    phasesData: any[],
+    goalDescription: string | undefined,
+    weakAreas: string[],
+    strengths: string[]
+  ): Promise<any[]> {
+    if (!goalDescription) return phasesData; // nothing to personalize against
+
+    const compactPhases = phasesData.map((p) => ({
+      phaseId: p.phaseNumber,
+      title: p.title,
+      modules: p.modules.map((m: any) => m.title),
+    }));
+
+    const prompt = `You are a learning path curator. A learner's goal: "${goalDescription}"
+Weak areas: ${weakAreas.join(', ') || 'none specified'}
+Strengths: ${strengths.join(', ') || 'none specified'}
+
+Their current roadmap (JSON): ${JSON.stringify(compactPhases)}
+
+Suggest at most 2 targeted module additions that directly address their weak areas or goal specifics — nothing generic, nothing already in the list.
+
+Return ONLY valid JSON, no markdown, matching exactly:
+[{ "phaseId": number, "moduleTitle": string, "moduleSummary": string, "reason": string }]
+
+Return [] if the existing roadmap already covers everything relevant.`;
+
+    const llmApiKey = process.env.GROQ_API_KEY || process.env.LLM_API_KEY;
+    const llmBaseUrl = (process.env.LLM_BASE_URL || (process.env.GROQ_API_KEY ? 'https://api.groq.com/openai/v1' : 'http://localhost:3001/v1')).replace(/\/+$/, '');
+    const defaultModel = llmBaseUrl.includes('groq.com') ? 'llama-3.3-70b-versatile' : 'auto';
+    const llmModel = process.env.LLM_MODEL || defaultModel;
+
+    const applySuggestions = (suggestions: any[]) => {
+      if (!Array.isArray(suggestions) || suggestions.length === 0) return phasesData;
+      return phasesData.map((phase) => {
+        const matches = suggestions.filter((s) => s.phaseId === phase.phaseNumber);
+        if (matches.length === 0) return phase;
+        return {
+          ...phase,
+          modules: [
+            ...phase.modules,
+            ...matches.map((s, i) => ({
+              title: `🤖 AI Pick: ${s.moduleTitle}`,
+              summary: `${s.moduleSummary} (Suggested because: ${s.reason})`,
+              order: phase.modules.length + i + 1,
+            })),
+          ],
+        };
+      });
+    };
+
+    // Tier 1: Groq / OpenAI-compatible proxy
+    if (llmApiKey) {
+      try {
+        const response = await fetch(`${llmBaseUrl}/chat/completions`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${llmApiKey}` },
+          body: JSON.stringify({
+            model: llmModel,
+            messages: [{ role: 'user', content: prompt }],
+            temperature: 0.2,
+          }),
+          signal: AbortSignal.timeout(8000),
+        });
+        if (response.ok) {
+          const data: any = await response.json();
+          const content = data?.choices?.[0]?.message?.content?.trim();
+          if (content) {
+            const cleaned = content.replace(/```json/g, '').replace(/```/g, '').trim();
+            return applySuggestions(JSON.parse(cleaned));
+          }
+        }
+      } catch (err) {
+        // fall through to Tier 2
+      }
+    }
+
+    // Tier 2: Gemini fallback
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (apiKey) {
+      try {
+        const { GoogleGenerativeAI } = await import('@google/generative-ai');
+        const gemini = new GoogleGenerativeAI(apiKey);
+        const model = gemini.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const result = await model.generateContent(prompt);
+        const text = result.response.text()?.trim();
+        if (text) {
+          const cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
+          return applySuggestions(JSON.parse(cleaned));
+        }
+      } catch (err) {
+        // fall through to plain template
+      }
+    }
+
+    // Tier 3: no LLM available or both failed — return the untouched template
+    return phasesData;
   }
 
   /**
