@@ -58,7 +58,22 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { email, password, name, targetRole = 'Frontend Engineer', experienceLevel = 'Intermediate' } = req.body;
 
-    const normalizedEmail = (email || '').toLowerCase().trim();
+    if (!email || typeof email !== 'string' || !email.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: 'A valid email address is required.',
+      });
+    }
+
+    if (!password || typeof password !== 'string' || password.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message: 'Password must be at least 6 characters.',
+      });
+    }
+
+    const normalizedEmail = email.toLowerCase().trim();
+    const sanitizedName = (name && typeof name === 'string' ? name : normalizedEmail.split('@')[0] || 'Learner').trim();
 
     const existingUser = await prisma.user.findUnique({
       where: { email: normalizedEmail },
@@ -79,7 +94,7 @@ export const register = async (req: Request, res: Response) => {
       data: {
         email: normalizedEmail,
         passwordHash,
-        name: (name || '').trim(),
+        name: sanitizedName,
         targetRole: userRole,
         experienceLevel: userExp,
         theme: 'light',
@@ -148,17 +163,23 @@ export const register = async (req: Request, res: Response) => {
     const ipAddress = extractIpAddress(req);
 
     // Create session record
-    const session = await prisma.session.create({
-      data: {
-        userId: user.id,
-        refreshToken,
-        userAgent,
-        browser,
-        os,
-        ipAddress,
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-      },
-    });
+    let sessionId: string = '';
+    try {
+      const session = await prisma.session.create({
+        data: {
+          userId: user.id,
+          refreshToken,
+          userAgent,
+          browser,
+          os,
+          ipAddress,
+          expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        },
+      });
+      sessionId = session.id;
+    } catch (sessErr) {
+      logger.warn('Failed to record session on register', { error: sessErr });
+    }
 
     // Record login history
     try {
@@ -175,13 +196,18 @@ export const register = async (req: Request, res: Response) => {
       logger.warn('Failed to record login history on register', { error: histErr });
     }
 
-    await AuditService.log({
-      userId: user.id,
-      action: 'USER_REGISTERED',
-      category: AuditCategory.AUTH,
-      req,
-      details: { email: user.email, name: user.name, targetRole: user.targetRole },
-    });
+    // Record audit log
+    try {
+      await AuditService.log({
+        userId: user.id,
+        action: 'USER_REGISTERED',
+        category: AuditCategory.AUTH,
+        req,
+        details: { email: user.email, name: user.name, targetRole: user.targetRole },
+      });
+    } catch (auditErr) {
+      logger.warn('Failed to record audit log on register', { error: auditErr });
+    }
 
     res.cookie('token', token, {
       httpOnly: true,
@@ -202,7 +228,7 @@ export const register = async (req: Request, res: Response) => {
       message: 'Registration successful.',
       token,
       refreshToken,
-      sessionId: session.id,
+      sessionId,
       user: {
         id: user.id,
         email: user.email,
@@ -219,7 +245,7 @@ export const register = async (req: Request, res: Response) => {
     logger.error('Registration failed', error);
     return res.status(500).json({
       success: false,
-      message: 'Failed to register account. Please try again.',
+      message: error?.message || 'Failed to register account. Please try again.',
     });
   }
 };
