@@ -31,7 +31,7 @@ export const ProgressPage: React.FC = () => {
 
   const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   // Active days representation
-  const streakDays = user?.learningStreak ?? 0;
+  const streakDays = Math.max(1, user?.learningStreak ?? 1);
   const totalHours = user?.totalHoursInvested ?? 0;
   const completedTestsCount = assessmentHistory.filter((a) => a.status === 'COMPLETED').length;
 

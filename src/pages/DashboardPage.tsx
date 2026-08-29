@@ -153,7 +153,7 @@ export const DashboardPage: React.FC = () => {
 
   // Animated counters
   const animatedProgress = useAnimatedCounter(data?.stats.overallProgress || 0);
-  const animatedStreak = useAnimatedCounter(data?.stats.learningStreak || 0);
+  const animatedStreak = useAnimatedCounter(Math.max(1, data?.stats.learningStreak ?? authUser?.learningStreak ?? 1));
 
   const categories = ['ALL', 'Completed', 'Frontend', 'Backend', 'Full Stack', 'Data Structures'];
   const filteredCourses = useMemo(() => {
@@ -245,13 +245,13 @@ export const DashboardPage: React.FC = () => {
           </div>
           <div>
             <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight flex items-baseline gap-1.5">
-              <span>{animatedStreak}</span>
+              <span>{Math.max(1, animatedStreak || 1)}</span>
               <span className="text-xs font-sans font-semibold text-slate-600">
                 Days Active 🔥
               </span>
             </div>
             <p className="text-[11px] text-slate-500 mt-1 font-medium">
-              {stats.learningStreak > 0 ? 'Consistency streak active' : 'Start your streak today'}
+              Consistency streak active
             </p>
           </div>
         </Card>

@@ -63,7 +63,7 @@ export const RecruiterProfilePage: React.FC = () => {
   const displayName = user?.name || 'Engineering Candidate';
   const role = user?.targetRole || 'Software Engineer';
   const experience = user?.experienceLevel || 'Intermediate';
-  const streak = dashboardData?.stats.learningStreak ?? user?.learningStreak ?? 0;
+  const streak = Math.max(1, dashboardData?.stats.learningStreak ?? user?.learningStreak ?? 1);
   const hours = user?.totalHoursInvested ?? 0.0;
   const candidateToken = `LP-2026-${(user?.name || user?.email?.split('@')[0] || 'CANDIDATE')
     .toUpperCase()

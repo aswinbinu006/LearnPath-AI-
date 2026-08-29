@@ -99,7 +99,7 @@ export const register = async (req: Request, res: Response) => {
         experienceLevel: userExp,
         theme: 'light',
         headline: `${userRole} in Training`,
-        learningStreak: 0,
+        learningStreak: 1,
         dailyGoalMinutes: 45,
         totalHoursInvested: 0,
         lastActiveAt: new Date(),
