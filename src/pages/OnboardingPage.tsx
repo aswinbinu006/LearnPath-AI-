@@ -348,7 +348,7 @@ export const OnboardingPage: React.FC = () => {
                 value={goalText}
                 onChange={(e) => setGoalText(e.target.value)}
                 rows={4}
-                className="w-full p-4 rounded-xl bg-black/50 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:border-primary-500 transition-colors text-sm leading-relaxed"
+                className="w-full p-4 rounded-xl bg-black/50 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:border-primary-500 transition-colors text-base sm:text-sm leading-relaxed"
                 placeholder="e.g. I want to become a Backend Developer in six months. I know Python but not APIs."
               />
 
@@ -408,7 +408,7 @@ export const OnboardingPage: React.FC = () => {
               <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider block mb-2.5">
                 1. How much experience do you already have?
               </label>
-              <div className="grid grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 {[
                   { id: 'Beginner', title: 'Complete Beginner', desc: 'New to programming' },
                   { id: 'Intermediate', title: 'Know the Basics', desc: 'Familiar with syntax' },
@@ -418,7 +418,7 @@ export const OnboardingPage: React.FC = () => {
                     key={lvl.id}
                     type="button"
                     onClick={() => setExperienceLevel(lvl.id as any)}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                    className={`p-3.5 min-h-[48px] rounded-xl border text-left transition-all cursor-pointer active:scale-[0.98] ${
                       experienceLevel === lvl.id
                         ? 'border-primary-500 bg-primary-500/10 ring-1 ring-primary-500'
                         : 'border-neutral-800 bg-black/40 hover:bg-neutral-800/50 text-neutral-400'
@@ -456,7 +456,7 @@ export const OnboardingPage: React.FC = () => {
                       key={item.name}
                       type="button"
                       onClick={() => toggleInterest(item.name)}
-                      className={`p-3 rounded-xl border flex items-center gap-3 text-left transition-all cursor-pointer ${
+                      className={`p-3 min-h-[44px] rounded-xl border flex items-center gap-3 text-left transition-all cursor-pointer active:scale-[0.98] ${
                         isSelected
                           ? 'border-emerald-500 bg-emerald-500/10 text-white'
                           : 'border-neutral-800 bg-black/40 hover:bg-neutral-800/40 text-neutral-400'
@@ -479,15 +479,15 @@ export const OnboardingPage: React.FC = () => {
               <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider block mb-2">
                 3. Daily Study Commitment
               </label>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[15, 30, 60, 90].map((mins) => (
                   <button
                     key={mins}
                     type="button"
                     onClick={() => setStudyPaceMinutes(mins)}
-                    className={`py-2 px-3 rounded-xl border text-center font-mono text-xs transition-all cursor-pointer ${
+                    className={`py-2.5 px-3 min-h-[44px] rounded-xl border text-center font-mono text-xs transition-all cursor-pointer active:scale-[0.98] flex items-center justify-center ${
                       studyPaceMinutes === mins
-                        ? 'border-primary-500 bg-primary-500/10 text-primary-400 font-bold'
+                        ? 'border-primary-500 bg-primary-500/10 text-primary-400 font-bold ring-1 ring-primary-500'
                         : 'border-neutral-800 bg-black/40 text-neutral-400 hover:bg-neutral-800'
                     }`}
                   >

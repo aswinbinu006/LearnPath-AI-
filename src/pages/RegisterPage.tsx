@@ -336,22 +336,22 @@ export const RegisterPage: React.FC = () => {
                       <div className={`h-full rounded-full transition-all duration-300 ${strengthScore >= 4 ? strengthLabel.color : 'bg-transparent'}`} />
                     </div>
 
-                    {/* Criteria Checklist */}
-                    <div className="grid grid-cols-2 gap-1.5 pt-1 text-[11px]">
+                    {/* Criteria Checklist — Responsive 1-col on mobile, 2-col on sm */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-1 text-[11px]">
                       <div className={`flex items-center gap-1.5 ${passwordCriteria.hasMinLength ? 'text-emerald-400' : 'text-neutral-500'}`}>
-                        {passwordCriteria.hasMinLength ? <CheckCircle2 className="w-3.5 h-3.5" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700" />}
+                        {passwordCriteria.hasMinLength ? <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700 shrink-0" />}
                         <span>8+ characters</span>
                       </div>
                       <div className={`flex items-center gap-1.5 ${passwordCriteria.hasUpperLower ? 'text-emerald-400' : 'text-neutral-500'}`}>
-                        {passwordCriteria.hasUpperLower ? <CheckCircle2 className="w-3.5 h-3.5" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700" />}
+                        {passwordCriteria.hasUpperLower ? <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700 shrink-0" />}
                         <span>Upper & lowercase</span>
                       </div>
                       <div className={`flex items-center gap-1.5 ${passwordCriteria.hasNumber ? 'text-emerald-400' : 'text-neutral-500'}`}>
-                        {passwordCriteria.hasNumber ? <CheckCircle2 className="w-3.5 h-3.5" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700" />}
+                        {passwordCriteria.hasNumber ? <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700 shrink-0" />}
                         <span>At least 1 number</span>
                       </div>
                       <div className={`flex items-center gap-1.5 ${passwordCriteria.hasSpecial ? 'text-emerald-400' : 'text-neutral-500'}`}>
-                        {passwordCriteria.hasSpecial ? <CheckCircle2 className="w-3.5 h-3.5" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700" />}
+                        {passwordCriteria.hasSpecial ? <CheckCircle2 className="w-3.5 h-3.5 shrink-0" /> : <div className="w-3.5 h-3.5 rounded-full border border-neutral-700 shrink-0" />}
                         <span>Special symbol (!@#)</span>
                       </div>
                     </div>
@@ -368,12 +368,12 @@ export const RegisterPage: React.FC = () => {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Re-enter password"
                   leftIcon={<Lock className="w-4 h-4 text-neutral-400" />}
-                  className="bg-neutral-950/80 border-neutral-800 focus:border-blue-500 focus:ring-blue-500/30 text-white placeholder:text-neutral-500 py-2.5 rounded-xl text-sm"
+                  className="bg-neutral-950/80 border-neutral-800 focus:border-blue-500 focus:ring-blue-500/30 text-white placeholder:text-neutral-500 py-2.5 rounded-xl text-base sm:text-sm"
                   rightIcon={
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="text-neutral-400 hover:text-neutral-200 transition-colors p-1 cursor-pointer focus:outline-none"
+                      className="text-neutral-400 hover:text-neutral-200 transition-colors p-2 cursor-pointer focus:outline-none min-h-[36px] min-w-[36px] flex items-center justify-center"
                       aria-label="Toggle confirm password visibility"
                     >
                       {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}

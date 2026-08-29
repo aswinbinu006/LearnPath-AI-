@@ -207,7 +207,7 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 leftIcon={<Mail className="w-4 h-4 text-neutral-400" />}
-                className="bg-neutral-950/80 border-neutral-800 focus:border-blue-500 focus:ring-blue-500/30 text-white placeholder:text-neutral-500 py-2.5 rounded-xl text-sm"
+                className="bg-neutral-950/80 border-neutral-800 focus:border-blue-500 focus:ring-blue-500/30 text-white placeholder:text-neutral-500 py-2.5 rounded-xl text-base sm:text-sm min-h-[44px]"
                 required
               />
 
@@ -218,12 +218,12 @@ export const LoginPage: React.FC = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 leftIcon={<Lock className="w-4 h-4 text-neutral-400" />}
-                className="bg-neutral-950/80 border-neutral-800 focus:border-blue-500 focus:ring-blue-500/30 text-white placeholder:text-neutral-500 py-2.5 rounded-xl text-sm"
+                className="bg-neutral-950/80 border-neutral-800 focus:border-blue-500 focus:ring-blue-500/30 text-white placeholder:text-neutral-500 py-2.5 rounded-xl text-base sm:text-sm min-h-[44px]"
                 rightIcon={
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="text-neutral-400 hover:text-neutral-200 transition-colors p-1 cursor-pointer focus:outline-none"
+                    className="text-neutral-400 hover:text-neutral-200 transition-colors p-2 cursor-pointer focus:outline-none min-h-[36px] min-w-[36px] flex items-center justify-center"
                     aria-label="Toggle password visibility"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
