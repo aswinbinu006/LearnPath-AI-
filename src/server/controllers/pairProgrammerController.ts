@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import vm from 'node:vm';
 import { AuthRequest } from '../middleware/authMiddleware.js';
 import { prisma } from '../services/prismaClient.js';
 import { LearnerProfileService } from '../services/ai/learnerProfileService.js';
@@ -154,59 +155,58 @@ export const chatWithPairMentor = async (req: AuthRequest, res: Response) => {
 
 export const runSandbox = async (req: AuthRequest, res: Response) => {
   try {
-    const { code, testCases = [] } = req.body;
-
+    const { code } = req.body;
     if (typeof code !== 'string') {
       return res.status(400).json({ success: false, message: 'Code is required.' });
     }
+    if (code.length > 5000) {
+      return res.status(400).json({ success: false, message: 'Code exceeds 5000 character limit.' });
+    }
 
-    // Safety checks against dangerous APIs in sandbox
-    const dangerousPatterns = ['require("fs")', 'require("child_process")', 'process.exit', 'eval(', 'globalThis.process'];
+    // Layered blocklist — blocks obvious escape attempts before vm even starts
+    const dangerousPatterns = ['require(', 'process.', 'globalThis', 'import(', '__proto__', 'constructor.constructor'];
     for (const pattern of dangerousPatterns) {
       if (code.includes(pattern)) {
-        return res.status(400).json({
-          success: false,
-          data: {
-            output: `Security Warning: Operation forbidden: ${pattern} is blocked in learning sandbox.`,
-            passed: false,
-            executionTimeMs: 4,
-          },
+        return res.status(200).json({
+          success: true,
+          data: { output: `Security Warning: "${pattern}" is not permitted in the learning sandbox.`, passed: false, executionTimeMs: 4 },
         });
       }
     }
 
-    const start = Date.now();
     const logs: string[] = [];
+    const MAX_LOG_LINES = 200;
+    const sandboxConsole = {
+      log: (...args: any[]) => { if (logs.length < MAX_LOG_LINES) logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ')); },
+      info: (...args: any[]) => { if (logs.length < MAX_LOG_LINES) logs.push('[INFO] ' + args.join(' ')); },
+      warn: (...args: any[]) => { if (logs.length < MAX_LOG_LINES) logs.push('[WARN] ' + args.join(' ')); },
+      error: (...args: any[]) => { if (logs.length < MAX_LOG_LINES) logs.push('[ERROR] ' + args.join(' ')); },
+    };
 
-    // Evaluate code output safely
+    // vm.createContext provides a fresh V8 context — no access to Node globals
+    const context = vm.createContext({ console: sandboxConsole });
+    const start = Date.now();
+
     try {
-      const customConsole = {
-        log: (...args: any[]) => logs.push(args.map((a) => (typeof a === 'object' ? JSON.stringify(a) : String(a))).join(' ')),
-        info: (...args: any[]) => logs.push(`[INFO] ` + args.join(' ')),
-        warn: (...args: any[]) => logs.push(`[WARN] ` + args.join(' ')),
-        error: (...args: any[]) => logs.push(`[ERROR] ` + args.join(' ')),
-      };
-
-      // Wrap in sandbox runner
-      const runner = new Function('console', `"use strict";\n${code}`);
-      runner(customConsole);
-
-      const executionTime = Date.now() - start;
-      const outputText = logs.length > 0 ? logs.join('\n') : '✅ Code executed successfully with zero runtime errors (no console output).';
-
+      const script = new vm.Script(`"use strict";\n${code}`);
+      // Hard 3-second timeout — interrupts synchronous busy-loops (while(true){})
+      script.runInContext(context, { timeout: 3000 });
       return res.status(200).json({
         success: true,
         data: {
-          output: outputText,
+          output: logs.length ? logs.join('\n') : '✅ Code executed successfully (no console output).',
           passed: true,
-          executionTimeMs: executionTime,
+          executionTimeMs: Date.now() - start,
         },
       });
     } catch (runtimeErr: any) {
+      const isTimeout = /Script execution timed out/i.test(runtimeErr?.message || '');
       return res.status(200).json({
         success: true,
         data: {
-          output: `Runtime Error: ${runtimeErr?.message || String(runtimeErr)}\n${logs.join('\n')}`,
+          output: isTimeout
+            ? `⏱️ Execution stopped: exceeded 3s time limit (likely an infinite loop). Fix your loop condition and try again.`
+            : `Runtime Error: ${runtimeErr?.message || String(runtimeErr)}\n${logs.join('\n')}`,
           passed: false,
           executionTimeMs: Date.now() - start,
         },
