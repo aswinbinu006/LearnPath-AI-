@@ -31,13 +31,13 @@ export const AppLayout: React.FC = () => {
         />
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+        <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden max-w-full">
           <TopNav onOpenMobileMenu={() => setIsMobileMenuOpen(true)} />
           <main className={cn(
-            'flex-1 min-h-0',
+            'flex-1 min-h-0 max-w-full',
             isFullBleedPage
               ? 'p-0 overflow-hidden flex flex-col'
-              : 'p-3.5 sm:p-6 lg:p-8 overflow-y-auto pb-safe'
+              : 'p-3 sm:p-5 lg:p-8 overflow-y-auto overflow-x-hidden pb-safe'
           )}>
             <AnimatePresence mode="wait">
               <motion.div
@@ -46,7 +46,7 @@ export const AppLayout: React.FC = () => {
                 initial="initial"
                 animate="animate"
                 exit="exit"
-                className="w-full h-full flex flex-col"
+                className="w-full h-full flex flex-col max-w-full overflow-x-hidden"
               >
                 <Outlet context={{ openAssessmentModal: () => setIsAssessmentModalOpen(true) }} />
               </motion.div>

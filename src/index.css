@@ -16,19 +16,44 @@
     @apply h-full antialiased selection:bg-blue-600 selection:text-white transition-colors duration-150;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-[#F8FAFC] text-slate-900 min-h-[100dvh];
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Mobile Zoom-out & Responsive Fit: Scales all rem units proportionately so full content is visible without sideways scrolling */
+  @media (max-width: 768px) {
+    html {
+      font-size: 14.5px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 13.5px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    html {
+      font-size: 12.5px;
+    }
   }
 
   * {
     @apply border-slate-200/90;
     -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
   }
 
-  /* Prevent iOS Safari from zooming in on inputs < 16px font size */
+  /* Prevent iOS Safari from auto-zooming input focus */
   @media (max-width: 640px) {
     input:not([type="checkbox"]):not([type="radio"]),
     select,
