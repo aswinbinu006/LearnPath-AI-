@@ -125,10 +125,6 @@ export const OnboardingPage: React.FC = () => {
         } else {
           setSkillRatings({ 'Python/Node': 0, 'REST APIs': 0, 'SQL & Databases': 0, 'Git/Arch': 0 });
         }
-
-        if (parsed.interests && parsed.interests.length > 0) {
-          setSelectedInterests(parsed.interests.slice(0, 3));
-        }
       }
       setCurrentScreen(3);
     } catch (err) {
@@ -139,14 +135,12 @@ export const OnboardingPage: React.FC = () => {
     }
   };
 
-  // Toggle multi-interest selection (up to 3)
+  // Toggle multi-interest selection (select as many as desired)
   const toggleInterest = (interest: string) => {
     if (selectedInterests.includes(interest)) {
       setSelectedInterests(selectedInterests.filter((i) => i !== interest));
     } else {
-      if (selectedInterests.length < 3) {
-        setSelectedInterests([...selectedInterests, interest]);
-      }
+      setSelectedInterests([...selectedInterests, interest]);
     }
   };
 
@@ -435,9 +429,11 @@ export const OnboardingPage: React.FC = () => {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider">
-                  2. What excites you most? (Choose up to 3)
+                  2. What excites you most?
                 </label>
-                <span className="text-xs text-primary-400 font-mono">{selectedInterests.length}/3 selected</span>
+                <span className="text-xs text-primary-400 font-mono">
+                  {selectedInterests.length} selected
+                </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
