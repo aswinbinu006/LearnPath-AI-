@@ -272,22 +272,22 @@ export const OnboardingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-neutral-100 flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 flex flex-col justify-center items-center px-4 py-8 relative overflow-hidden">
       {/* Background Ambience */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-primary-600/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-2xl z-10">
         {/* Progress Bar (Screens 2 through 6) */}
         {currentScreen > 1 && (
           <div className="mb-6 flex items-center justify-between gap-2">
-            <div className="flex-1 bg-neutral-800 rounded-full h-2 overflow-hidden border border-neutral-700/40">
+            <div className="flex-1 bg-slate-200 rounded-full h-2 overflow-hidden border border-slate-200">
               <div
-                className="bg-gradient-to-r from-blue-500 to-emerald-400 h-full rounded-full transition-all duration-500"
+                className="bg-blue-600 h-full rounded-full transition-all duration-500"
                 style={{ width: `${((currentScreen - 1) / 5) * 100}%` }}
               />
             </div>
-            <span className="text-xs font-mono text-neutral-400 shrink-0">
+            <span className="text-xs font-mono text-slate-500 shrink-0 font-medium">
               Step {currentScreen - 1} of 5
             </span>
           </div>
@@ -295,8 +295,8 @@ export const OnboardingPage: React.FC = () => {
 
         {/* ── SCREEN 1: WELCOME ── */}
         {currentScreen === 1 && (
-          <Card className="p-8 sm:p-10 border-neutral-800 bg-neutral-900/80 backdrop-blur-xl text-center flex flex-col items-center">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-indigo-600 flex items-center justify-center mb-6 shadow-xl shadow-primary-500/20">
+          <Card className="p-8 sm:p-10 border-slate-200 bg-white shadow-xl text-center flex flex-col items-center rounded-3xl">
+            <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center mb-6 shadow-md shadow-blue-500/20">
               <Bot className="w-9 h-9 text-white animate-pulse" />
             </div>
 
@@ -305,10 +305,10 @@ export const OnboardingPage: React.FC = () => {
               Intelligent Career Profiling Engine
             </Badge>
 
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
               Meet Your AI Career Coach
             </h1>
-            <p className="text-neutral-400 text-sm sm:text-base leading-relaxed max-w-lg mb-8">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-lg mb-8">
               "Hi! I'll analyze your career goals, validate your baseline skills, and generate an adaptive roadmap for you in under 2 minutes."
             </p>
 
@@ -316,7 +316,7 @@ export const OnboardingPage: React.FC = () => {
               variant="primary"
               size="lg"
               onClick={() => setCurrentScreen(2)}
-              className="w-full sm:w-auto px-8 py-3.5 text-base font-semibold shadow-lg shadow-primary-500/25 group cursor-pointer"
+              className="w-full sm:w-auto px-8 py-3.5 text-base font-semibold bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 group cursor-pointer"
             >
               <span>Let's Start</span>
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -326,14 +326,14 @@ export const OnboardingPage: React.FC = () => {
 
         {/* ── SCREEN 2: GOAL CONVERSATION ── */}
         {currentScreen === 2 && (
-          <Card className="p-6 sm:p-8 border-neutral-800 bg-neutral-900/80 backdrop-blur-xl">
+          <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-xl rounded-3xl">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-primary-500/20 border border-primary-500/30 flex items-center justify-center">
-                <Bot className="w-5 h-5 text-primary-400" />
+              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center">
+                <Bot className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-white">What do you want to achieve?</h2>
-                <p className="text-xs text-neutral-400">Tell me in your own words. Mention your target role, timeline, and current skills.</p>
+                <h2 className="text-xl font-bold text-slate-900">What do you want to achieve?</h2>
+                <p className="text-xs text-slate-500">Tell me in your own words. Mention your target role, timeline, and current skills.</p>
               </div>
             </div>
 
@@ -342,12 +342,12 @@ export const OnboardingPage: React.FC = () => {
                 value={goalText}
                 onChange={(e) => setGoalText(e.target.value)}
                 rows={4}
-                className="w-full p-4 rounded-xl bg-black/50 border border-neutral-800 text-white placeholder-neutral-500 focus:outline-none focus:border-primary-500 transition-colors text-base sm:text-sm leading-relaxed"
+                className="w-full p-4 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-colors text-base sm:text-sm leading-relaxed"
                 placeholder="e.g. I want to become a Backend Developer in six months. I know Python but not APIs."
               />
 
               <div>
-                <p className="text-xs text-neutral-400 mb-2 font-medium">Or choose a quick inspiration:</p>
+                <p className="text-xs text-slate-500 mb-2 font-medium">Or choose a quick inspiration:</p>
                 <div className="flex flex-wrap gap-2">
                   {[
                     'I want to become a Backend Developer in six months. I know Python but not APIs.',
@@ -359,7 +359,7 @@ export const OnboardingPage: React.FC = () => {
                       key={idx}
                       type="button"
                       onClick={() => setGoalText(preset)}
-                      className="text-xs text-left px-3 py-1.5 rounded-lg bg-neutral-800/60 hover:bg-neutral-800 text-neutral-300 border border-neutral-700/50 transition-colors cursor-pointer"
+                      className="text-xs text-left px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 transition-colors cursor-pointer font-medium"
                     >
                       {preset}
                     </button>
@@ -372,7 +372,7 @@ export const OnboardingPage: React.FC = () => {
               variant="primary"
               onClick={handleParseGoal}
               disabled={isParsingGoal || !goalText.trim()}
-              className="w-full py-3 font-semibold cursor-pointer"
+              className="w-full py-3 font-semibold bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 cursor-pointer"
             >
               {isParsingGoal ? (
                 <>
@@ -391,15 +391,15 @@ export const OnboardingPage: React.FC = () => {
 
         {/* ── SCREEN 3: EXPERIENCE & MULTI-INTEREST DISCOVERY ── */}
         {currentScreen === 3 && (
-          <Card className="p-6 sm:p-8 border-neutral-800 bg-neutral-900/80 backdrop-blur-xl space-y-6">
+          <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-xl rounded-3xl space-y-6">
             <div>
-              <h2 className="text-xl font-bold text-white mb-1">Tailor Your Engineering Profile</h2>
-              <p className="text-xs text-neutral-400">Detected track: <strong className="text-primary-400">{detectedRole}</strong> ({timeline})</p>
+              <h2 className="text-xl font-bold text-slate-900 mb-1">Tailor Your Engineering Profile</h2>
+              <p className="text-xs text-slate-500">Detected track: <strong className="text-blue-600">{detectedRole}</strong> ({timeline})</p>
             </div>
 
             {/* Q1: Experience Level */}
             <div>
-              <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider block mb-2.5">
+              <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider block mb-2.5">
                 1. How much experience do you already have?
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -414,12 +414,12 @@ export const OnboardingPage: React.FC = () => {
                     onClick={() => setExperienceLevel(lvl.id as any)}
                     className={`p-3.5 min-h-[48px] rounded-xl border text-left transition-all cursor-pointer active:scale-[0.98] ${
                       experienceLevel === lvl.id
-                        ? 'border-primary-500 bg-primary-500/10 ring-1 ring-primary-500'
-                        : 'border-neutral-800 bg-black/40 hover:bg-neutral-800/50 text-neutral-400'
+                        ? 'border-blue-600 bg-blue-50 text-blue-900 ring-1 ring-blue-600'
+                        : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-600'
                     }`}
                   >
-                    <p className="text-xs font-bold text-white">{lvl.title}</p>
-                    <p className="text-[11px] text-neutral-400 mt-0.5">{lvl.desc}</p>
+                    <p className="text-xs font-bold text-slate-900">{lvl.title}</p>
+                    <p className="text-[11px] text-slate-500 mt-0.5">{lvl.desc}</p>
                   </button>
                 ))}
               </div>
@@ -428,10 +428,10 @@ export const OnboardingPage: React.FC = () => {
             {/* Q2: Multi-Interest Discovery */}
             <div>
               <div className="flex items-center justify-between mb-2">
-                <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider">
+                <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider">
                   2. What excites you most?
                 </label>
-                <span className="text-xs text-primary-400 font-mono">
+                <span className="text-xs text-blue-600 font-mono font-bold">
                   {selectedInterests.length} selected
                 </span>
               </div>
@@ -454,16 +454,16 @@ export const OnboardingPage: React.FC = () => {
                       onClick={() => toggleInterest(item.name)}
                       className={`p-3 min-h-[44px] rounded-xl border flex items-center gap-3 text-left transition-all cursor-pointer active:scale-[0.98] ${
                         isSelected
-                          ? 'border-emerald-500 bg-emerald-500/10 text-white'
-                          : 'border-neutral-800 bg-black/40 hover:bg-neutral-800/40 text-neutral-400'
+                          ? 'border-blue-600 bg-blue-50 text-blue-900 ring-1 ring-blue-600'
+                          : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
                       }`}
                     >
-                      <Icon className={`w-4 h-4 shrink-0 ${isSelected ? 'text-emerald-400' : 'text-neutral-500'}`} />
+                      <Icon className={`w-4 h-4 shrink-0 ${isSelected ? 'text-blue-600' : 'text-slate-400'}`} />
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium truncate">{item.name}</p>
-                        <p className="text-[10px] text-neutral-500 font-mono">{item.track}</p>
+                        <p className="text-xs font-medium truncate text-slate-900">{item.name}</p>
+                        <p className="text-[10px] text-slate-500 font-mono">{item.track}</p>
                       </div>
-                      {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />}
+                      {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 shrink-0" />}
                     </button>
                   );
                 })}
@@ -472,7 +472,7 @@ export const OnboardingPage: React.FC = () => {
 
             {/* Q3: Study Pace */}
             <div>
-              <label className="text-xs font-semibold text-neutral-300 uppercase tracking-wider block mb-2">
+              <label className="text-xs font-semibold text-slate-700 uppercase tracking-wider block mb-2">
                 3. Daily Study Commitment
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -483,8 +483,8 @@ export const OnboardingPage: React.FC = () => {
                     onClick={() => setStudyPaceMinutes(mins)}
                     className={`py-2.5 px-3 min-h-[44px] rounded-xl border text-center font-mono text-xs transition-all cursor-pointer active:scale-[0.98] flex items-center justify-center ${
                       studyPaceMinutes === mins
-                        ? 'border-primary-500 bg-primary-500/10 text-primary-400 font-bold ring-1 ring-primary-500'
-                        : 'border-neutral-800 bg-black/40 text-neutral-400 hover:bg-neutral-800'
+                        ? 'border-blue-600 bg-blue-50 text-blue-700 font-bold ring-1 ring-blue-600'
+                        : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'
                     }`}
                   >
                     {mins} min/day
@@ -497,7 +497,7 @@ export const OnboardingPage: React.FC = () => {
               variant="primary"
               onClick={() => setCurrentScreen(4)}
               disabled={!experienceLevel || selectedInterests.length === 0 || !studyPaceMinutes}
-              className="w-full py-3 font-semibold cursor-pointer"
+              className="w-full py-3 font-semibold bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 cursor-pointer"
             >
               <span>Next: Confidence Self-Rating</span>
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -507,35 +507,35 @@ export const OnboardingPage: React.FC = () => {
 
         {/* ── SCREEN 4: CONFIDENCE SELF-RATING ── */}
         {currentScreen === 4 && (
-          <Card className="p-6 sm:p-8 border-neutral-800 bg-neutral-900/80 backdrop-blur-xl">
+          <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-xl rounded-3xl">
             <div className="mb-6">
               <Badge variant="blue" className="mb-2 text-[10px]">Self-Calibration</Badge>
-              <h2 className="text-xl font-bold text-white">How confident do you feel with these skills?</h2>
-              <p className="text-xs text-neutral-400 mt-1">
+              <h2 className="text-xl font-bold text-slate-900">How confident do you feel with these skills?</h2>
+              <p className="text-xs text-slate-500 mt-1">
                 Rate your comfort from 1 to 5 ⭐. We will compare this with a quick 2-minute skill check next to calibrate your starting level.
               </p>
             </div>
 
             <div className="space-y-4 mb-8">
               {Object.entries(skillRatings).map(([skill, rating]) => (
-                <div key={skill} className="flex items-center justify-between p-3.5 rounded-xl bg-black/40 border border-neutral-800/80">
-                  <span className="text-xs font-semibold text-white">{skill}</span>
+                <div key={skill} className="flex items-center justify-between p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <span className="text-xs font-semibold text-slate-900">{skill}</span>
                   <div className="flex items-center gap-1.5">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
                         key={star}
                         type="button"
                         onClick={() => handleSetRating(skill, star)}
-                        className="p-1 text-neutral-600 hover:text-amber-400 transition-colors cursor-pointer"
+                        className="p-1 text-slate-300 hover:text-amber-400 transition-colors cursor-pointer"
                       >
                         <Star
                           className={`w-5 h-5 ${
-                            star <= rating ? 'text-amber-400 fill-amber-400' : 'text-neutral-700'
+                            star <= rating ? 'text-amber-400 fill-amber-400' : 'text-slate-300'
                           }`}
                         />
                       </button>
                     ))}
-                    <span className="text-xs font-mono text-neutral-400 ml-2 w-6 text-right">
+                    <span className="text-xs font-mono text-slate-500 ml-2 w-6 text-right">
                       {rating > 0 ? `${rating}⭐` : '—'}
                     </span>
                   </div>
@@ -547,7 +547,7 @@ export const OnboardingPage: React.FC = () => {
               variant="primary"
               onClick={handleStartBaselineQuiz}
               disabled={isQuizLoading || Object.values(skillRatings).some((r) => r === 0)}
-              className="w-full py-3 font-semibold cursor-pointer"
+              className="w-full py-3 font-semibold bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 cursor-pointer"
             >
               {isQuizLoading ? (
                 <>
@@ -566,19 +566,19 @@ export const OnboardingPage: React.FC = () => {
 
         {/* ── SCREEN 5: 2-MINUTE BASELINE ADAPTIVE QUIZ ── */}
         {currentScreen === 5 && (
-          <Card className="p-6 sm:p-8 border-neutral-800 bg-neutral-900/80 backdrop-blur-xl">
+          <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-xl rounded-3xl">
             {/* Header with Countdown Timer */}
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-neutral-800">
+            <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <Badge variant="blue" className="text-[10px]">
                   {detectedRole} Baseline Check
                 </Badge>
-                <span className="text-xs text-neutral-400 font-mono">
+                <span className="text-xs text-slate-500 font-mono">
                   Question {currentQuestionIdx + 1} of {quizQuestions.length || 5}
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold">
-                <Timer className="w-3.5 h-3.5 animate-pulse" />
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-mono font-bold">
+                <Timer className="w-3.5 h-3.5 animate-pulse text-amber-600" />
                 <span>
                   {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, '0')}
                 </span>
@@ -590,20 +590,20 @@ export const OnboardingPage: React.FC = () => {
               <div className="space-y-4 mb-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-neutral-800 text-neutral-400">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
                       {quizQuestions[currentQuestionIdx].skillTested}
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-primary-950 text-primary-400 border border-primary-800/50">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
                       {quizQuestions[currentQuestionIdx].difficulty}
                     </span>
                   </div>
-                  <h3 className="text-sm sm:text-base font-semibold text-white leading-relaxed">
+                  <h3 className="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">
                     {quizQuestions[currentQuestionIdx].questionText}
                   </h3>
                 </div>
 
                 {quizQuestions[currentQuestionIdx].codeBlock && (
-                  <pre className="p-3 rounded-xl bg-black border border-neutral-800 text-xs font-mono text-emerald-400 overflow-x-auto">
+                  <pre className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-emerald-400 overflow-x-auto">
                     <code>{quizQuestions[currentQuestionIdx].codeBlock}</code>
                   </pre>
                 )}
@@ -618,11 +618,13 @@ export const OnboardingPage: React.FC = () => {
                         onClick={() => handleSelectQuizOption(oIdx)}
                         className={`w-full p-3.5 rounded-xl border text-left text-xs transition-all flex items-start gap-3 cursor-pointer ${
                           isSelected
-                            ? 'border-primary-500 bg-primary-500/15 text-white font-medium ring-1 ring-primary-500'
-                            : 'border-neutral-800 bg-black/30 hover:bg-neutral-800/40 text-neutral-300'
+                            ? 'border-blue-600 bg-blue-50 text-blue-900 font-medium ring-1 ring-blue-600'
+                            : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
                         }`}
                       >
-                        <span className="w-5 h-5 rounded-full border border-neutral-700 flex items-center justify-center shrink-0 text-[11px] font-mono">
+                        <span className={`w-5 h-5 rounded-full border flex items-center justify-center shrink-0 text-[11px] font-mono ${
+                          isSelected ? 'border-blue-600 bg-blue-600 text-white' : 'border-slate-300 text-slate-600'
+                        }`}>
                           {String.fromCharCode(65 + oIdx)}
                         </span>
                         <span className="flex-1 leading-relaxed">{option}</span>
@@ -633,19 +635,19 @@ export const OnboardingPage: React.FC = () => {
               </div>
             ) : (
               <div className="text-center py-12">
-                <Loader2 className="w-8 h-8 text-primary-500 animate-spin mx-auto mb-2" />
-                <p className="text-xs text-neutral-400">Loading adaptive baseline questions...</p>
+                <Loader2 className="w-8 h-8 text-blue-600 animate-spin mx-auto mb-2" />
+                <p className="text-xs text-slate-500">Loading adaptive baseline questions...</p>
               </div>
             )}
 
             {/* Navigation / Submit */}
-            <div className="flex items-center justify-between pt-4 border-t border-neutral-800">
+            <div className="flex items-center justify-between pt-4 border-t border-slate-100">
               <Button
                 variant="secondary"
                 size="sm"
                 onClick={() => setCurrentQuestionIdx((p) => Math.max(0, p - 1))}
                 disabled={currentQuestionIdx === 0}
-                className="cursor-pointer"
+                className="cursor-pointer font-semibold"
               >
                 Previous
               </Button>
@@ -656,7 +658,7 @@ export const OnboardingPage: React.FC = () => {
                   size="sm"
                   onClick={() => setCurrentQuestionIdx((p) => p + 1)}
                   disabled={userAnswers[quizQuestions[currentQuestionIdx]?.id] === undefined}
-                  className="cursor-pointer"
+                  className="cursor-pointer bg-blue-600 hover:bg-blue-700 shadow-sm"
                 >
                   <span>Next Question</span>
                   <ChevronRight className="w-4 h-4 ml-1" />
@@ -666,7 +668,7 @@ export const OnboardingPage: React.FC = () => {
                   variant="primary"
                   size="sm"
                   onClick={handleFinishQuiz}
-                  className="bg-emerald-600 hover:bg-emerald-500 cursor-pointer"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm cursor-pointer"
                 >
                   <span>Submit & View AI Report</span>
                   <Award className="w-4 h-4 ml-1" />
@@ -678,39 +680,39 @@ export const OnboardingPage: React.FC = () => {
 
         {/* ── SCREEN 6: AI RECOMMENDATION REPORT ── */}
         {currentScreen === 6 && (
-          <Card className="p-6 sm:p-8 border-neutral-800 bg-neutral-900/90 backdrop-blur-xl space-y-6">
-            <div className="text-center pb-4 border-b border-neutral-800">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-3">
+          <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-xl rounded-3xl space-y-6">
+            <div className="text-center pb-4 border-b border-slate-100">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold mb-3">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 Assessment Complete: {quizScore ?? 70}% Score
               </div>
-              <h2 className="text-2xl font-extrabold text-white">Your Personalized Learning Report</h2>
-              <p className="text-xs text-neutral-400 mt-1">Calibrated by LearnPath AI Profiling Engine</p>
+              <h2 className="text-2xl font-extrabold text-slate-900">Your Personalized Learning Report</h2>
+              <p className="text-xs text-slate-500 mt-1">Calibrated by LearnPath AI Profiling Engine</p>
             </div>
 
             {/* Track & Confidence Score Gauge */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="p-4 rounded-xl bg-black/40 border border-neutral-800">
-                <p className="text-[11px] text-neutral-400 uppercase tracking-wider font-semibold">Recommended Career Track</p>
-                <p className="text-lg font-bold text-white mt-1 flex items-center gap-2">
-                  <Cpu className="w-4 h-4 text-primary-400" />
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <p className="text-[11px] text-slate-500 uppercase tracking-wider font-semibold">Recommended Career Track</p>
+                <p className="text-lg font-bold text-slate-900 mt-1 flex items-center gap-2">
+                  <Cpu className="w-4 h-4 text-blue-600" />
                   {detectedRole}
                 </p>
-                <p className="text-xs text-neutral-400 mt-1 font-mono">Pace: {studyPaceMinutes} min/day ({timeline})</p>
+                <p className="text-xs text-slate-500 mt-1 font-mono">Pace: {studyPaceMinutes} min/day ({timeline})</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-primary-950/40 border border-primary-500/30">
+              <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-200">
                 <div className="flex items-center justify-between">
-                  <p className="text-[11px] text-primary-300 uppercase tracking-wider font-semibold">Recommendation Confidence</p>
-                  <span className="text-lg font-extrabold text-primary-400 font-mono">{confidenceScore}%</span>
+                  <p className="text-[11px] text-blue-900 uppercase tracking-wider font-semibold">Recommendation Confidence</p>
+                  <span className="text-lg font-extrabold text-blue-700 font-mono">{confidenceScore}%</span>
                 </div>
-                <div className="w-full bg-neutral-800 rounded-full h-2.5 mt-2 overflow-hidden border border-neutral-700/40">
+                <div className="w-full bg-slate-200 rounded-full h-2.5 mt-2 overflow-hidden">
                   <div
-                    className="bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-400 h-full rounded-full transition-all duration-700 ease-out shadow-[0_0_12px_rgba(59,130,246,0.5)]"
+                    className="bg-blue-600 h-full rounded-full transition-all duration-700 ease-out"
                     style={{ width: `${confidenceScore}%` }}
                   />
                 </div>
-                <p className="text-[10px] text-neutral-400 mt-2 font-mono">
+                <p className="text-[10px] text-slate-500 mt-2 font-mono">
                   Formula: 0.35(Goal) + 0.35(Skill) + 0.15(Interest) + 0.15(History)
                 </p>
               </div>
@@ -718,23 +720,23 @@ export const OnboardingPage: React.FC = () => {
 
             {/* Strengths & Gaps */}
             <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30">
-                <span className="text-[11px] font-bold text-emerald-400 block mb-1">Validated Strengths</span>
-                <p className="text-neutral-200">{strengths.join(', ') || 'Core Programming, Logic'}</p>
+              <div className="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                <span className="text-[11px] font-bold text-emerald-700 block mb-1">Validated Strengths</span>
+                <p className="text-slate-800 font-medium">{strengths.join(', ') || 'Core Programming, Logic'}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-amber-950/20 border border-amber-500/30">
-                <span className="text-[11px] font-bold text-amber-400 block mb-1">Identified Skill Gaps</span>
-                <p className="text-neutral-200">{weakAreas.join(', ') || 'REST APIs, Databases'}</p>
+              <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200">
+                <span className="text-[11px] font-bold text-amber-700 block mb-1">Identified Skill Gaps</span>
+                <p className="text-slate-800 font-medium">{weakAreas.join(', ') || 'REST APIs, Databases'}</p>
               </div>
             </div>
 
             {/* AI Explanation Card ("Why we recommended this") */}
-            <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800/90 relative">
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 relative">
               <div className="flex items-center gap-2 mb-2">
-                <Bot className="w-4 h-4 text-primary-400" />
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider">Why We Recommended This Roadmap</h4>
+                <Bot className="w-4 h-4 text-blue-600" />
+                <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider">Why We Recommended This Roadmap</h4>
               </div>
-              <p className="text-xs text-neutral-300 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 {explanation ||
                   `You want to become a ${detectedRole}. While your self-rating was Intermediate, your baseline quiz score of ${quizScore ?? 70}% indicates high aptitude with room for growth in API endpoints. We have injected a personalized foundational module before advanced architecture.`}
               </p>
@@ -745,7 +747,7 @@ export const OnboardingPage: React.FC = () => {
               size="lg"
               onClick={handleCompleteAndStartLearning}
               disabled={isGeneratingPath}
-              className="w-full py-3.5 font-bold text-base shadow-xl shadow-primary-500/25 cursor-pointer"
+              className="w-full py-3.5 font-bold text-base bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/20 cursor-pointer"
             >
               {isGeneratingPath ? (
                 <>

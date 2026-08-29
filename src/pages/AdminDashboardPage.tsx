@@ -253,33 +253,33 @@ export const AdminDashboardPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-indigo-500 selection:text-white font-sans antialiased">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
       {/* Toast popup */}
       {toastMessage && (
-        <div className="fixed top-6 right-6 z-50 bg-slate-900 border border-indigo-500/50 text-indigo-200 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm animate-in fade-in slide-in-from-top-4 duration-200 backdrop-blur-xl">
-          <Sparkles className="w-4 h-4 text-indigo-400" />
+        <div className="fixed top-6 right-6 z-50 bg-white border border-blue-200 text-blue-900 px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-sm animate-in fade-in slide-in-from-top-4 duration-200 backdrop-blur-xl">
+          <Sparkles className="w-4 h-4 text-blue-600" />
           <span>{toastMessage}</span>
         </div>
       )}
 
       {/* Top Enterprise Header Bar */}
-      <header className="sticky top-0 z-40 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800/80 px-6 py-4">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200 px-6 py-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20 font-bold border border-indigo-400/30">
+            <div className="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold">
               <Shield className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-lg font-extrabold tracking-tight text-white">
+                <h1 className="text-lg font-extrabold tracking-tight text-slate-900">
                   LearnPath AI Governance
                 </h1>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 uppercase tracking-wide">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200 uppercase tracking-wide">
                   Enterprise Admin
                 </span>
 
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-500">
                 Enterprise Learner Telemetry, RBAC & PostgreSQL Audit Engine
               </p>
             </div>
@@ -287,8 +287,8 @@ export const AdminDashboardPage: React.FC = () => {
 
           <div className="flex items-center gap-3">
             {/* Live indicator */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Real-Time Telemetry Active</span>
             </div>
 
@@ -298,7 +298,7 @@ export const AdminDashboardPage: React.FC = () => {
                 await logout();
                 navigate('/back');
               }}
-              className="px-3.5 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+              className="px-3.5 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
               <span>Logout</span>
@@ -310,14 +310,14 @@ export const AdminDashboardPage: React.FC = () => {
       {/* Main Content Area */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         {/* Navigation Tabs */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-8 overflow-x-auto no-scrollbar touch-pan-x">
-          <div className="flex items-center gap-2 p-1.5 bg-slate-900/90 rounded-2xl border border-slate-800 shrink-0">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-8 overflow-x-auto no-scrollbar touch-pan-x">
+          <div className="flex items-center gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200 shrink-0">
             <button
               onClick={() => setActiveTab('analytics')}
               className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 min-h-[40px] rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 activeTab === 'analytics'
-                  ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-600/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
               }`}
             >
               <BarChart3 className="w-4 h-4" />
@@ -328,14 +328,14 @@ export const AdminDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('users')}
               className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 min-h-[40px] rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 activeTab === 'users'
-                  ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-600/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
               }`}
             >
               <Users className="w-4 h-4" />
               <span>Users</span>
               {userTotal > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] bg-indigo-500/30 text-indigo-300">
+                <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeTab === 'users' ? 'bg-blue-700 text-white' : 'bg-slate-200 text-slate-700'}`}>
                   {userTotal}
                 </span>
               )}
@@ -345,14 +345,14 @@ export const AdminDashboardPage: React.FC = () => {
               onClick={() => setActiveTab('audit-logs')}
               className={`flex items-center gap-2.5 px-3.5 sm:px-4 py-2.5 min-h-[40px] rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer active:scale-95 shrink-0 ${
                 activeTab === 'audit-logs'
-                  ? 'bg-gradient-to-r from-indigo-600 to-blue-600 text-white shadow-md shadow-indigo-600/20'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+                  ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/80'
               }`}
             >
               <FileText className="w-4 h-4" />
               <span>Audit Logs</span>
               {auditTotal > 0 && (
-                <span className="px-2 py-0.5 rounded-full text-[10px] bg-indigo-500/30 text-indigo-300">
+                <span className={`px-2 py-0.5 rounded-full text-[10px] ${activeTab === 'audit-logs' ? 'bg-blue-700 text-white' : 'bg-slate-200 text-slate-700'}`}>
                   {auditTotal}
                 </span>
               )}
@@ -365,7 +365,7 @@ export const AdminDashboardPage: React.FC = () => {
               if (activeTab === 'users') loadUsers();
               if (activeTab === 'audit-logs') loadAuditLogs();
             }}
-            className="p-2.5 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-slate-200 border border-slate-800 rounded-xl transition cursor-pointer"
+            className="p-2.5 bg-white hover:bg-slate-50 text-slate-600 hover:text-slate-900 border border-slate-200 rounded-xl transition cursor-pointer shadow-xs"
             title="Refresh current view"
           >
             <RefreshCw className={`w-4 h-4 ${isAnalyticsLoading || usersLoading || auditLoading ? 'animate-spin' : ''}`} />
@@ -378,111 +378,110 @@ export const AdminDashboardPage: React.FC = () => {
             {/* Top 5 KPI Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {/* Total Learners */}
-              <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-indigo-500/40 transition shadow-lg">
+              <div className="bg-white border border-slate-200 rounded-2xl p-5 relative overflow-hidden group hover:border-blue-300 transition shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-slate-400">Total Learners</span>
-                  <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-xl">
+                  <span className="text-xs font-semibold text-slate-500">Total Learners</span>
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
                     <Users className="w-4 h-4" />
                   </div>
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                     <AnimatedNumber value={analytics?.kpis.totalUsers || 2} />
                   </span>
-                  <span className="text-xs text-emerald-400 flex items-center font-medium">
+                  <span className="text-xs text-emerald-600 flex items-center font-medium">
                     <ArrowUpRight className="w-3 h-3" /> {analytics?.kpis.activeUsers7d || 2} active (7d)
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-2">Enterprise registered seats</p>
+                <p className="text-[11px] text-slate-400 mt-2">Enterprise registered seats</p>
               </div>
 
               {/* Daily Active Users (DAU) */}
-              <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-emerald-500/40 transition shadow-lg">
+              <div className="bg-white border border-slate-200 rounded-2xl p-5 relative overflow-hidden group hover:border-emerald-300 transition shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-slate-400">Daily Active Users</span>
-                  <div className="p-2 bg-emerald-500/10 text-emerald-400 rounded-xl">
+                  <span className="text-xs font-semibold text-slate-500">Daily Active Users</span>
+                  <div className="p-2 bg-emerald-50 text-emerald-600 rounded-xl">
                     <Activity className="w-4 h-4" />
                   </div>
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                     <AnimatedNumber value={analytics?.dau.current || 3} />
                   </span>
-                  <span className="text-xs text-emerald-400 font-medium">Today</span>
+                  <span className="text-xs text-emerald-600 font-medium">Today</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-2">Engaged today across platform</p>
+                <p className="text-[11px] text-slate-400 mt-2">Engaged today across platform</p>
               </div>
 
               {/* Course Completion Rate */}
-              <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-blue-500/40 transition shadow-lg">
+              <div className="bg-white border border-slate-200 rounded-2xl p-5 relative overflow-hidden group hover:border-blue-300 transition shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-slate-400">Completion Rate</span>
-                  <div className="p-2 bg-blue-500/10 text-blue-400 rounded-xl">
+                  <span className="text-xs font-semibold text-slate-500">Completion Rate</span>
+                  <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
                     <GraduationCap className="w-4 h-4" />
                   </div>
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                     <AnimatedNumber value={analytics?.courseCompletion.overallRate || 42} suffix="%" />
                   </span>
-                  <span className="text-xs text-blue-400 font-medium">Avg benchmark</span>
+                  <span className="text-xs text-blue-600 font-medium">Avg benchmark</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-2">Across all published courses</p>
+                <p className="text-[11px] text-slate-400 mt-2">Across all published courses</p>
               </div>
 
               {/* AI Mentorship Invocations */}
-              <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-violet-500/40 transition shadow-lg">
+              <div className="bg-white border border-slate-200 rounded-2xl p-5 relative overflow-hidden group hover:border-indigo-300 transition shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-slate-400">AI Interactions</span>
-                  <div className="p-2 bg-violet-500/10 text-violet-400 rounded-xl">
+                  <span className="text-xs font-semibold text-slate-500">AI Interactions</span>
+                  <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
                     <Bot className="w-4 h-4" />
                   </div>
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                     <AnimatedNumber value={analytics?.kpis.totalChatMessages || 48} />
                   </span>
-                  <span className="text-xs text-violet-400 font-medium">Prompts</span>
+                  <span className="text-xs text-indigo-600 font-medium">Prompts</span>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-2">{analytics?.kpis.totalConversations || 14} threads active</p>
+                <p className="text-[11px] text-slate-400 mt-2">{analytics?.kpis.totalConversations || 14} threads active</p>
               </div>
 
               {/* Total Learning Hours */}
-              <div className="bg-slate-900/90 border border-slate-800/80 rounded-2xl p-5 relative overflow-hidden group hover:border-amber-500/40 transition shadow-lg">
+              <div className="bg-white border border-slate-200 rounded-2xl p-5 relative overflow-hidden group hover:border-amber-300 transition shadow-sm">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-semibold text-slate-400">Learning Hours</span>
-                  <div className="p-2 bg-amber-500/10 text-amber-400 rounded-xl">
+                  <span className="text-xs font-semibold text-slate-500">Learning Hours</span>
+                  <div className="p-2 bg-amber-50 text-amber-600 rounded-xl">
                     <Clock className="w-4 h-4" />
                   </div>
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <span className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                     <AnimatedNumber value={analytics?.kpis.totalLearningHours || 84} suffix="h" />
                   </span>
-                  <span className="text-xs text-amber-400 font-medium">
+                  <span className="text-xs text-amber-600 font-medium">
                     avg {analytics?.kpis.avgLearningHours || 28}h
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 mt-2">Total time in training modules</p>
+                <p className="text-[11px] text-slate-400 mt-2">Total time in training modules</p>
               </div>
             </div>
-
 
             {/* Row 2: Daily Active Users (DAU) & Course Completion Breakdown */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* DAU Trend Visualizer */}
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-                      <Activity className="w-4 h-4 text-emerald-400" />
+                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                      <Activity className="w-4 h-4 text-emerald-600" />
                       Daily Active Users (DAU) Trend
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-500 mt-0.5">
                       Learner activity & login frequency over the past 14 days
                     </p>
                   </div>
-                  <span className="px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold rounded-xl">
+                  <span className="px-3 py-1 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold rounded-xl">
                     14-Day Trajectory
                   </span>
                 </div>
@@ -493,9 +492,9 @@ export const AdminDashboardPage: React.FC = () => {
                   const midDau = Math.round(maxDau / 2);
 
                   return (
-                    <div className="h-48 flex gap-3 pt-4 pb-2 px-3 bg-slate-950/60 rounded-2xl border border-slate-800/60 relative">
+                    <div className="h-48 flex gap-3 pt-4 pb-2 px-3 bg-slate-50 rounded-2xl border border-slate-200 relative">
                       {/* Left Y-Axis Scale */}
-                      <div className="flex flex-col justify-between h-[calc(100%-1.5rem)] text-[10px] font-mono text-slate-500 pr-2 border-r border-slate-800/60 shrink-0 select-none">
+                      <div className="flex flex-col justify-between h-[calc(100%-1.5rem)] text-[10px] font-mono text-slate-500 pr-2 border-r border-slate-200 shrink-0 select-none">
                         <span>{maxDau}</span>
                         <span>{midDau}</span>
                         <span>0</span>
@@ -505,9 +504,9 @@ export const AdminDashboardPage: React.FC = () => {
                       <div className="flex-1 flex flex-col justify-between h-full relative">
                         {/* Background Gridlines */}
                         <div className="absolute inset-0 flex flex-col justify-between pointer-events-none h-[calc(100%-1.5rem)]">
-                          <div className="w-full border-b border-slate-800/40 border-dashed" />
-                          <div className="w-full border-b border-slate-800/40 border-dashed" />
-                          <div className="w-full border-b border-slate-800/60" />
+                          <div className="w-full border-b border-slate-200 border-dashed" />
+                          <div className="w-full border-b border-slate-200 border-dashed" />
+                          <div className="w-full border-b border-slate-200" />
                         </div>
 
                         {/* Bars Row */}
@@ -516,17 +515,17 @@ export const AdminDashboardPage: React.FC = () => {
                             const heightPercent = item.count > 0 ? Math.max(8, Math.round((item.count / maxDau) * 100)) : 0;
                             return (
                               <div key={idx} className="flex-1 flex flex-col items-center gap-1.5 h-full justify-end group">
-                                <div className="text-[10px] text-slate-300 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                                <div className="text-[10px] text-slate-700 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                                   {item.count}
                                 </div>
                                 <div className="w-full h-full flex items-end justify-center">
                                   {item.count > 0 ? (
                                     <div
                                       style={{ height: `${heightPercent}%` }}
-                                      className="w-full bg-gradient-to-t from-emerald-600 to-teal-400 rounded-t-md transition-all duration-300 group-hover:brightness-125 shadow-xs"
+                                      className="w-full bg-blue-600 rounded-t-md transition-all duration-300 group-hover:brightness-110 shadow-xs"
                                     />
                                   ) : (
-                                    <div className="w-full h-0.5 bg-slate-800/80 rounded-full" />
+                                    <div className="w-full h-0.5 bg-slate-200 rounded-full" />
                                   )}
                                 </div>
                                 <span className="text-[9px] text-slate-500 font-mono rotate-45 sm:rotate-0 origin-left">
@@ -543,43 +542,43 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
 
               {/* Course Completion Rates Matrix */}
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-                      <GraduationCap className="w-4 h-4 text-blue-400" />
+                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                      <GraduationCap className="w-4 h-4 text-blue-600" />
                       Course Completion Rate
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-500 mt-0.5">
                       Completion metrics across official enterprise curriculum
                     </p>
                   </div>
-                  <span className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold rounded-xl">
+                  <span className="px-3 py-1 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold rounded-xl">
                     Curriculum Health
                   </span>
                 </div>
 
-                <div className="space-y-4 max-h-52 overflow-y-auto pr-1">
+                <div className="space-y-3 max-h-52 overflow-y-auto pr-1">
                   {analytics?.courseCompletion.courses.map((c) => (
-                    <div key={c.id} className="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800/60">
+                    <div key={c.id} className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
                       <div className="flex items-center justify-between text-xs mb-2">
-                        <div className="font-bold text-slate-200 truncate max-w-[200px]">
+                        <div className="font-bold text-slate-900 truncate max-w-[200px]">
                           {c.title}
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-slate-400 text-[11px]">
+                          <span className="text-slate-500 text-[11px]">
                             {c.completedCount} / {c.totalEnrolled} completed
                           </span>
-                          <span className="font-extrabold text-blue-400">
+                          <span className="font-extrabold text-blue-600">
                             {c.completionRate}%
                           </span>
                         </div>
                       </div>
-                      <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
                         {c.completionRate > 0 ? (
                           <div
                             style={{ width: `${c.completionRate}%` }}
-                            className="h-full bg-gradient-to-r from-blue-600 to-indigo-500 rounded-full transition-all duration-500"
+                            className="h-full bg-blue-600 rounded-full transition-all duration-500"
                           />
                         ) : (
                           <div className="w-0 h-full" />
@@ -594,32 +593,32 @@ export const AdminDashboardPage: React.FC = () => {
             {/* Row 3: AI Mentorship Telemetry & Skill Gap Distribution */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* AI Usage Analytics */}
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-5">
                   <div>
-                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-                      <Bot className="w-4 h-4 text-violet-400" />
+                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                      <Bot className="w-4 h-4 text-blue-600" />
                       AI Usage & Query Topics
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-500 mt-0.5">
                       Learner prompt volume & most queried architecture topics
                     </p>
                   </div>
-                  <span className="px-3 py-1 bg-violet-500/10 border border-violet-500/20 text-violet-400 text-xs font-bold rounded-xl">
+                  <span className="px-3 py-1 bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold rounded-xl">
                     GenAI Mentor
                   </span>
                 </div>
 
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   {analytics?.aiUsage.topTopics.map((item, idx) => (
-                    <div key={idx} className="flex items-center justify-between p-2.5 bg-slate-950/60 rounded-xl border border-slate-800/60">
-                      <div className="flex items-center gap-2.5 text-xs text-slate-300 font-medium">
-                        <span className="w-5 h-5 rounded-lg bg-violet-500/20 text-violet-300 flex items-center justify-center font-mono text-[10px] font-bold">
+                    <div key={idx} className="flex items-center justify-between p-2.5 bg-slate-50 rounded-xl border border-slate-200">
+                      <div className="flex items-center gap-2.5 text-xs text-slate-700 font-medium">
+                        <span className="w-5 h-5 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-mono text-[10px] font-bold">
                           {idx + 1}
                         </span>
                         <span>{item.topic}</span>
                       </div>
-                      <span className="text-xs font-bold text-violet-400 font-mono">
+                      <span className="text-xs font-bold text-blue-600 font-mono">
                         {item.frequency} queries
                       </span>
                     </div>
@@ -628,18 +627,18 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
 
               {/* Skill Gap Distribution */}
-              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-6 shadow-xl">
+              <div className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-5">
                   <div>
-                    <h3 className="text-base font-extrabold text-white flex items-center gap-2">
-                      <Flame className="w-4 h-4 text-rose-400" />
+                    <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
+                      <Flame className="w-4 h-4 text-rose-600" />
                       Skill Gap Distribution
                     </h3>
-                    <p className="text-xs text-slate-400 mt-0.5">
+                    <p className="text-xs text-slate-500 mt-0.5">
                       Severity breakdown and top missing skills across workforce
                     </p>
                   </div>
-                  <span className="px-3 py-1 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-bold rounded-xl">
+                  <span className="px-3 py-1 bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold rounded-xl">
                     Competency Gaps
                   </span>
                 </div>
@@ -647,34 +646,34 @@ export const AdminDashboardPage: React.FC = () => {
                 {/* Severity Breakdown Bar */}
                 <div className="grid grid-cols-3 gap-3 mb-5">
                   {analytics?.skillGaps.severityDistribution.map((item, idx) => (
-                    <div key={idx} className="p-3 bg-slate-950/60 rounded-2xl border border-slate-800/60 text-center">
+                    <div key={idx} className="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-center">
                       <span
                         className={`text-xs font-bold ${
                           item.severity === 'Critical'
-                            ? 'text-rose-400'
+                            ? 'text-rose-600'
                             : item.severity === 'Moderate'
-                            ? 'text-amber-400'
-                            : 'text-emerald-400'
+                            ? 'text-amber-600'
+                            : 'text-emerald-600'
                         }`}
                       >
                         {item.severity}
                       </span>
-                      <div className="text-xl font-extrabold text-white mt-1">{item.count}</div>
+                      <div className="text-xl font-extrabold text-slate-900 mt-1">{item.count}</div>
                       <span className="text-[10px] text-slate-500">{item.percentage}% of gaps</span>
                     </div>
                   ))}
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-xs font-bold text-slate-400">Top Missing Skills Across Learners:</p>
+                  <p className="text-xs font-bold text-slate-600">Top Missing Skills Across Learners:</p>
                   <div className="flex flex-wrap gap-2">
                     {analytics?.skillGaps.topMissingSkills.map((gap, i) => (
                       <span
                         key={i}
-                        className="px-3 py-1 bg-slate-800/80 border border-slate-700 text-slate-300 text-xs rounded-xl font-medium flex items-center gap-1.5"
+                        className="px-3 py-1 bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-xl font-medium flex items-center gap-1.5"
                       >
                         <span>{gap.name}</span>
-                        <span className="px-1.5 py-0.2 bg-rose-500/20 text-rose-400 rounded-md font-mono text-[10px]">
+                        <span className="px-1.5 py-0.2 bg-rose-100 text-rose-700 rounded-md font-mono text-[10px]">
                           {gap.count}
                         </span>
                       </span>
@@ -690,9 +689,9 @@ export const AdminDashboardPage: React.FC = () => {
         {activeTab === 'users' && (
           <div className="space-y-6 animate-in fade-in duration-300">
             {/* Search & Filter Bar */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="relative flex-1 max-w-md">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <Search className="w-4 h-4" />
                 </div>
                 <input
@@ -703,7 +702,7 @@ export const AdminDashboardPage: React.FC = () => {
                     setUserPage(1);
                   }}
                   placeholder="Search by name, email, target role..."
-                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -715,7 +714,7 @@ export const AdminDashboardPage: React.FC = () => {
                     setUserRoleFilter(e.target.value);
                     setUserPage(1);
                   }}
-                  className="px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3.5 py-2.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="ALL">All Roles</option>
                   <option value="STUDENT">Students</option>
@@ -729,7 +728,7 @@ export const AdminDashboardPage: React.FC = () => {
                     setUserExpFilter(e.target.value);
                     setUserPage(1);
                   }}
-                  className="px-3.5 py-2.5 bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3.5 py-2.5 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="ALL">All Experience Levels</option>
                   <option value="Beginner">Beginner</option>
@@ -740,11 +739,11 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
 
             {/* Users Table */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-slate-950/80 border-b border-slate-800 text-xs font-bold text-slate-400">
+                    <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600">
                       <th className="py-4 px-6">Learner Profile</th>
                       <th className="py-4 px-6">Role & Status</th>
                       <th className="py-4 px-6">Target Role</th>
@@ -753,34 +752,34 @@ export const AdminDashboardPage: React.FC = () => {
                       <th className="py-4 px-6 text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 text-xs">
+                  <tbody className="divide-y divide-slate-100 text-xs">
                     {usersLoading ? (
                       <tr>
-                        <td colSpan={6} className="py-12 text-center text-slate-400">
+                        <td colSpan={6} className="py-12 text-center text-slate-500">
                           <div className="flex flex-col items-center gap-2">
-                            <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                            <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
                             <span>Loading user directory...</span>
                           </div>
                         </td>
                       </tr>
                     ) : users.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="py-12 text-center text-slate-500">
+                        <td colSpan={6} className="py-12 text-center text-slate-400">
                           No users matched your query.
                         </td>
                       </tr>
                     ) : (
                       users.map((u) => (
-                        <tr key={u.id} className="hover:bg-slate-800/40 transition">
+                        <tr key={u.id} className="hover:bg-slate-50 transition">
                           {/* Name & Email */}
                           <td className="py-4 px-6">
                             <div className="flex items-center gap-3">
-                              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-blue-500 flex items-center justify-center font-bold text-white shadow-sm">
+                              <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-xs">
                                 {u.name.charAt(0)}
                               </div>
                               <div>
-                                <p className="font-bold text-slate-100 text-sm">{u.name}</p>
-                                <p className="text-slate-400 text-[11px] font-mono">{u.email}</p>
+                                <p className="font-bold text-slate-900 text-sm">{u.name}</p>
+                                <p className="text-slate-500 text-[11px] font-mono">{u.email}</p>
                               </div>
                             </div>
                           </td>
@@ -791,8 +790,8 @@ export const AdminDashboardPage: React.FC = () => {
                               <span
                                 className={`px-2.5 py-1 rounded-full font-bold text-[10px] uppercase tracking-wide border ${
                                   u.role === 'ADMIN'
-                                    ? 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40'
-                                    : 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                                    ? 'bg-blue-50 text-blue-700 border-blue-200'
+                                    : 'bg-emerald-50 text-emerald-700 border-emerald-200'
                                 }`}
                               >
                                 {u.role}
@@ -801,7 +800,7 @@ export const AdminDashboardPage: React.FC = () => {
                               <select
                                 value={u.role}
                                 onChange={(e) => handleRoleChange(u.id, e.target.value)}
-                                className="bg-slate-950 border border-slate-800 text-[10px] text-slate-400 rounded-lg p-1 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                className="bg-slate-50 border border-slate-200 text-[10px] text-slate-600 rounded-lg p-1 focus:outline-none focus:ring-1 focus:ring-blue-500"
                                 title="Change Role"
                               >
                                 <option value="STUDENT">Student</option>
@@ -812,23 +811,23 @@ export const AdminDashboardPage: React.FC = () => {
 
                           {/* Target Role & Level */}
                           <td className="py-4 px-6">
-                            <p className="font-semibold text-slate-200">{u.targetRole}</p>
-                            <p className="text-slate-400 text-[11px]">{u.experienceLevel}</p>
+                            <p className="font-semibold text-slate-900">{u.targetRole}</p>
+                            <p className="text-slate-500 text-[11px]">{u.experienceLevel}</p>
                           </td>
 
                           {/* Progress */}
                           <td className="py-4 px-6">
                             <div className="w-32">
-                              <div className="flex justify-between text-[11px] font-semibold text-slate-300 mb-1">
+                              <div className="flex justify-between text-[11px] font-semibold text-slate-700 mb-1">
                                 <span>{u.overallProgress}%</span>
-                                <span className="text-slate-500 text-[10px]">
+                                <span className="text-slate-400 text-[10px]">
                                   {u.totalProgressRecords} mods
                                 </span>
                               </div>
-                              <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                              <div className="w-full h-1.5 bg-slate-200 rounded-full overflow-hidden">
                                 <div
                                   style={{ width: `${u.overallProgress}%` }}
-                                  className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
+                                  className="h-full bg-blue-600 rounded-full"
                                 />
                               </div>
                             </div>
@@ -836,8 +835,8 @@ export const AdminDashboardPage: React.FC = () => {
 
                           {/* Study Hours & Streak */}
                           <td className="py-4 px-6">
-                            <p className="font-bold text-slate-200">{u.totalHoursInvested}h</p>
-                            <p className="text-amber-400 text-[11px] flex items-center gap-1 font-medium">
+                            <p className="font-bold text-slate-900">{u.totalHoursInvested}h</p>
+                            <p className="text-amber-600 text-[11px] flex items-center gap-1 font-medium">
                               <Flame className="w-3 h-3" /> {u.learningStreak}d streak
                             </p>
                           </td>
@@ -847,20 +846,20 @@ export const AdminDashboardPage: React.FC = () => {
                             {/* View Progress */}
                             <button
                               onClick={() => handleOpenUserProgress(u.id)}
-                              className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition border border-slate-700 inline-flex items-center gap-1 cursor-pointer"
+                              className="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl text-xs font-semibold transition border border-slate-200 inline-flex items-center gap-1 cursor-pointer shadow-xs"
                               title="View in-depth progress details"
                             >
-                              <Eye className="w-3.5 h-3.5 text-blue-400" />
+                              <Eye className="w-3.5 h-3.5 text-blue-600" />
                               <span>Progress</span>
                             </button>
 
                             {/* Reset Path */}
                             <button
                               onClick={() => setUserToReset(u)}
-                              className="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 rounded-xl text-xs font-semibold transition border border-rose-500/30 inline-flex items-center gap-1 cursor-pointer"
+                              className="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl text-xs font-semibold transition border border-rose-200 inline-flex items-center gap-1 cursor-pointer"
                               title="Reset learning path and module progress"
                             >
-                              <RotateCcw className="w-3.5 h-3.5 text-rose-400" />
+                              <RotateCcw className="w-3.5 h-3.5 text-rose-600" />
                               <span>Reset Path</span>
                             </button>
                           </td>
@@ -872,7 +871,7 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
 
               {/* Pagination */}
-              <div className="p-4 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between text-xs text-slate-400">
+              <div className="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
                 <span>
                   Showing {users.length} of {userTotal} total learners
                 </span>
@@ -880,17 +879,17 @@ export const AdminDashboardPage: React.FC = () => {
                   <button
                     disabled={userPage <= 1}
                     onClick={() => setUserPage((p) => Math.max(1, p - 1))}
-                    className="p-1.5 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 disabled:opacity-40 transition cursor-pointer"
+                    className="p-1.5 bg-white hover:bg-slate-100 rounded-lg border border-slate-200 disabled:opacity-40 transition cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="font-mono text-slate-300">
+                  <span className="font-mono text-slate-700">
                     Page {userPage} of {userTotalPages}
                   </span>
                   <button
                     disabled={userPage >= userTotalPages}
                     onClick={() => setUserPage((p) => Math.min(userTotalPages, p + 1))}
-                    className="p-1.5 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 disabled:opacity-40 transition cursor-pointer"
+                    className="p-1.5 bg-white hover:bg-slate-100 rounded-lg border border-slate-200 disabled:opacity-40 transition cursor-pointer"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -904,9 +903,9 @@ export const AdminDashboardPage: React.FC = () => {
         {activeTab === 'audit-logs' && (
           <div className="space-y-6 animate-in fade-in duration-300">
             {/* Filter and Export Bar */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-4">
               <div className="relative flex-1 max-w-md">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
                   <Search className="w-4 h-4" />
                 </div>
                 <input
@@ -917,7 +916,7 @@ export const AdminDashboardPage: React.FC = () => {
                     setAuditPage(1);
                   }}
                   placeholder="Search logs by action, email, details, IP..."
-                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -929,7 +928,7 @@ export const AdminDashboardPage: React.FC = () => {
                     setAuditActionFilter(e.target.value);
                     setAuditPage(1);
                   }}
-                  className="px-3 py-2 bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3 py-2 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="ALL">All Actions</option>
                   <option value="LOGIN">Login</option>
@@ -950,7 +949,7 @@ export const AdminDashboardPage: React.FC = () => {
                     setAuditCategoryFilter(e.target.value);
                     setAuditPage(1);
                   }}
-                  className="px-3 py-2 bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3 py-2 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="ALL">All Categories</option>
                   <option value="AUTH">AUTH</option>
@@ -968,7 +967,7 @@ export const AdminDashboardPage: React.FC = () => {
                     setAuditStatusFilter(e.target.value);
                     setAuditPage(1);
                   }}
-                  className="px-3 py-2 bg-slate-950 border border-slate-800 text-slate-300 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="px-3 py-2 bg-slate-50 border border-slate-200 text-slate-700 text-xs font-semibold rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="ALL">All Statuses</option>
                   <option value="SUCCESS">SUCCESS</option>
@@ -979,7 +978,7 @@ export const AdminDashboardPage: React.FC = () => {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleExportLogs('csv')}
-                    className="px-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-md shadow-indigo-600/20 cursor-pointer"
+                    className="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-xs cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>CSV</span>
@@ -987,7 +986,7 @@ export const AdminDashboardPage: React.FC = () => {
 
                   <button
                     onClick={() => handleExportLogs('json')}
-                    className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
+                    className="px-3 py-2 bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>JSON</span>
@@ -997,11 +996,11 @@ export const AdminDashboardPage: React.FC = () => {
             </div>
 
             {/* Audit Logs Table */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
+            <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-slate-950/80 border-b border-slate-800 text-xs font-bold text-slate-400">
+                    <tr className="bg-slate-50 border-b border-slate-200 text-xs font-bold text-slate-600">
                       <th className="py-4 px-6">Timestamp</th>
                       <th className="py-4 px-6">Action & Category</th>
                       <th className="py-4 px-6">User Context</th>
@@ -1010,34 +1009,34 @@ export const AdminDashboardPage: React.FC = () => {
                       <th className="py-4 px-6 text-right">Details</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 text-xs font-mono">
+                  <tbody className="divide-y divide-slate-100 text-xs font-mono">
                     {auditLoading ? (
                       <tr>
-                        <td colSpan={6} className="py-12 text-center text-slate-400 font-sans">
+                        <td colSpan={6} className="py-12 text-center text-slate-500 font-sans">
                           <div className="flex flex-col items-center gap-2">
-                            <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                            <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
                             <span>Querying PostgreSQL audit engine...</span>
                           </div>
                         </td>
                       </tr>
                     ) : auditLogs.length === 0 ? (
                       <tr>
-                        <td colSpan={6} className="py-12 text-center text-slate-500 font-sans">
+                        <td colSpan={6} className="py-12 text-center text-slate-400 font-sans">
                           No audit logs found matching criteria.
                         </td>
                       </tr>
                     ) : (
                       auditLogs.map((log) => {
-                        let actionColor = 'bg-blue-500/20 text-blue-300 border-blue-500/40';
-                        if (log.category === 'LEARNING') actionColor = 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40';
-                        if (log.category === 'AI') actionColor = 'bg-violet-500/20 text-violet-300 border-violet-500/40';
-                        if (log.category === 'ASSESSMENT') actionColor = 'bg-amber-500/20 text-amber-300 border-amber-500/40';
-                        if (log.category === 'ADMIN') actionColor = 'bg-rose-500/20 text-rose-300 border-rose-500/40';
+                        let actionColor = 'bg-blue-50 text-blue-700 border-blue-200';
+                        if (log.category === 'LEARNING') actionColor = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                        if (log.category === 'AI') actionColor = 'bg-indigo-50 text-indigo-700 border-indigo-200';
+                        if (log.category === 'ASSESSMENT') actionColor = 'bg-amber-50 text-amber-700 border-amber-200';
+                        if (log.category === 'ADMIN') actionColor = 'bg-rose-50 text-rose-700 border-rose-200';
 
                         return (
-                          <tr key={log.id} className="hover:bg-slate-800/40 transition font-sans">
+                          <tr key={log.id} className="hover:bg-slate-50 transition font-sans">
                             {/* Timestamp */}
-                            <td className="py-4 px-6 font-mono text-[11px] text-slate-400">
+                            <td className="py-4 px-6 font-mono text-[11px] text-slate-500">
                               {new Date(log.createdAt).toLocaleString()}
                             </td>
 
@@ -1047,7 +1046,7 @@ export const AdminDashboardPage: React.FC = () => {
                                 <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${actionColor}`}>
                                   {log.action}
                                 </span>
-                                <span className="text-[10px] text-slate-500 font-mono">
+                                <span className="text-[10px] text-slate-400 font-mono">
                                   CAT: {log.category}
                                 </span>
                               </div>
@@ -1057,29 +1056,29 @@ export const AdminDashboardPage: React.FC = () => {
                             <td className="py-4 px-6">
                               {log.user ? (
                                 <div>
-                                  <p className="font-bold text-slate-200">{log.user.name}</p>
-                                  <p className="text-[11px] text-slate-400 font-mono">{log.user.email}</p>
+                                  <p className="font-bold text-slate-900">{log.user.name}</p>
+                                  <p className="text-[11px] text-slate-500 font-mono">{log.user.email}</p>
                                 </div>
                               ) : (
-                                <span className="text-slate-500 italic">System / Anonymous</span>
+                                <span className="text-slate-400 italic">System / Anonymous</span>
                               )}
                             </td>
 
                             {/* IP & Browser */}
                             <td className="py-4 px-6 text-[11px]">
-                              <p className="font-mono text-slate-300">{log.ipAddress || '127.0.0.1'}</p>
+                              <p className="font-mono text-slate-700">{log.ipAddress || '127.0.0.1'}</p>
                               <p className="text-slate-500">{log.browser} • {log.os}</p>
                             </td>
 
                             {/* Status */}
                             <td className="py-4 px-6">
                               {log.status === 'SUCCESS' ? (
-                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                   <CheckCircle2 className="w-3 h-3" />
                                   <span>SUCCESS</span>
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30">
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200">
                                   <XCircle className="w-3 h-3" />
                                   <span>{log.status}</span>
                                 </span>
@@ -1090,7 +1089,7 @@ export const AdminDashboardPage: React.FC = () => {
                             <td className="py-4 px-6 text-right">
                               <button
                                 onClick={() => setSelectedAuditLog(log)}
-                                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 rounded-xl text-xs font-semibold transition border border-slate-700 inline-flex items-center gap-1 cursor-pointer"
+                                className="px-3 py-1.5 bg-slate-50 hover:bg-slate-100 text-blue-700 rounded-xl text-xs font-semibold transition border border-slate-200 inline-flex items-center gap-1 cursor-pointer shadow-xs"
                               >
                                 <Code className="w-3.5 h-3.5" />
                                 <span>Inspect</span>
@@ -1105,7 +1104,7 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
 
               {/* Pagination */}
-              <div className="p-4 border-t border-slate-800 bg-slate-950/60 flex items-center justify-between text-xs text-slate-400">
+              <div className="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between text-xs text-slate-500">
                 <span>
                   Showing {auditLogs.length} of {auditTotal} recorded events
                 </span>
@@ -1113,17 +1112,17 @@ export const AdminDashboardPage: React.FC = () => {
                   <button
                     disabled={auditPage <= 1}
                     onClick={() => setAuditPage((p) => Math.max(1, p - 1))}
-                    className="p-1.5 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 disabled:opacity-40 transition cursor-pointer"
+                    className="p-1.5 bg-white hover:bg-slate-100 rounded-lg border border-slate-200 disabled:opacity-40 transition cursor-pointer"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
-                  <span className="font-mono text-slate-300">
+                  <span className="font-mono text-slate-700">
                     Page {auditPage} of {auditTotalPages}
                   </span>
                   <button
                     disabled={auditPage >= auditTotalPages}
                     onClick={() => setAuditPage((p) => Math.min(auditTotalPages, p + 1))}
-                    className="p-1.5 bg-slate-900 hover:bg-slate-800 rounded-lg border border-slate-800 disabled:opacity-40 transition cursor-pointer"
+                    className="p-1.5 bg-white hover:bg-slate-100 rounded-lg border border-slate-200 disabled:opacity-40 transition cursor-pointer"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -1136,16 +1135,16 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* MODAL 1: VIEW USER PROGRESS */}
       {selectedUserId && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-            <div className="p-6 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-50">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center font-bold text-white text-lg">
+                <div className="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center font-bold text-white text-lg shadow-sm">
                   {userDetails?.name ? userDetails.name.charAt(0) : 'U'}
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-white">{userDetails?.name || 'Learner'}</h3>
-                  <p className="text-xs text-slate-400 font-mono">{userDetails?.email}</p>
+                  <h3 className="text-base font-extrabold text-slate-900">{userDetails?.name || 'Learner'}</h3>
+                  <p className="text-xs text-slate-500 font-mono">{userDetails?.email}</p>
                 </div>
               </div>
               <button
@@ -1153,7 +1152,7 @@ export const AdminDashboardPage: React.FC = () => {
                   setSelectedUserId(null);
                   setUserDetails(null);
                 }}
-                className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+                className="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1161,53 +1160,53 @@ export const AdminDashboardPage: React.FC = () => {
 
             <div className="p-6 overflow-y-auto space-y-6 flex-1 text-xs">
               {isDetailsLoading ? (
-                <div className="py-16 text-center text-slate-400 flex flex-col items-center gap-2">
-                  <div className="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+                <div className="py-16 text-center text-slate-500 flex flex-col items-center gap-2">
+                  <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
                   <span>Loading deep progress profile...</span>
                 </div>
               ) : userDetails ? (
                 <>
                   {/* User Profile Summary */}
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    <div className="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800/80">
-                      <span className="text-slate-400 font-semibold">Target Role</span>
-                      <p className="text-sm font-extrabold text-white mt-1">{userDetails.targetRole}</p>
+                    <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+                      <span className="text-slate-500 font-semibold">Target Role</span>
+                      <p className="text-sm font-extrabold text-slate-900 mt-1">{userDetails.targetRole}</p>
                     </div>
-                    <div className="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800/80">
-                      <span className="text-slate-400 font-semibold">Experience</span>
-                      <p className="text-sm font-extrabold text-white mt-1">{userDetails.experienceLevel}</p>
+                    <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+                      <span className="text-slate-500 font-semibold">Experience</span>
+                      <p className="text-sm font-extrabold text-slate-900 mt-1">{userDetails.experienceLevel}</p>
                     </div>
-                    <div className="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800/80">
-                      <span className="text-slate-400 font-semibold">Learning Streak</span>
-                      <p className="text-sm font-extrabold text-amber-400 mt-1">{userDetails.learningStreak} days</p>
+                    <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+                      <span className="text-slate-500 font-semibold">Learning Streak</span>
+                      <p className="text-sm font-extrabold text-amber-600 mt-1">{userDetails.learningStreak} days</p>
                     </div>
-                    <div className="p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800/80">
-                      <span className="text-slate-400 font-semibold">Hours Invested</span>
-                      <p className="text-sm font-extrabold text-blue-400 mt-1">{userDetails.totalHoursInvested}h</p>
+                    <div className="p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
+                      <span className="text-slate-500 font-semibold">Hours Invested</span>
+                      <p className="text-sm font-extrabold text-blue-600 mt-1">{userDetails.totalHoursInvested}h</p>
                     </div>
                   </div>
 
                   {/* Active Learning Path */}
-                  <div className="p-4 bg-slate-950/60 rounded-2xl border border-slate-800/80 space-y-3">
-                    <h4 className="font-extrabold text-slate-200 text-sm flex items-center gap-2">
-                      <GraduationCap className="w-4 h-4 text-indigo-400" />
+                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                    <h4 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                      <GraduationCap className="w-4 h-4 text-blue-600" />
                       Active Learning Path Phases
                     </h4>
                     {userDetails.learningPaths?.[0]?.phases?.map((phase: any) => (
-                      <div key={phase.id} className="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between">
+                      <div key={phase.id} className="p-3 bg-white rounded-xl border border-slate-200 flex items-center justify-between shadow-xs">
                         <div>
-                          <p className="font-bold text-slate-200">
+                          <p className="font-bold text-slate-900">
                             Phase {phase.phaseNumber}: {phase.title}
                           </p>
-                          <p className="text-[11px] text-slate-400">{phase.estimatedHours}h estimated</p>
+                          <p className="text-[11px] text-slate-500">{phase.estimatedHours}h estimated</p>
                         </div>
                         <span
                           className={`px-2.5 py-0.5 rounded-full font-bold text-[10px] uppercase border ${
                             phase.status === 'COMPLETED'
-                              ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                              ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
                               : phase.status === 'IN_PROGRESS'
-                              ? 'bg-blue-500/20 text-blue-300 border-blue-500/40'
-                              : 'bg-slate-800 text-slate-500 border-slate-700'
+                              ? 'bg-blue-50 text-blue-700 border-blue-200'
+                              : 'bg-slate-100 text-slate-500 border-slate-200'
                           }`}
                         >
                           {phase.status}
@@ -1217,40 +1216,40 @@ export const AdminDashboardPage: React.FC = () => {
                   </div>
 
                   {/* Skill Gaps */}
-                  <div className="p-4 bg-slate-950/60 rounded-2xl border border-slate-800/80 space-y-3">
-                    <h4 className="font-extrabold text-slate-200 text-sm flex items-center gap-2">
-                      <Flame className="w-4 h-4 text-rose-400" />
+                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
+                    <h4 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                      <Flame className="w-4 h-4 text-rose-600" />
                       Identified Skill Gaps
                     </h4>
                     {userDetails.skillGaps?.length > 0 ? (
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                         {userDetails.skillGaps.map((gap: any) => (
-                          <div key={gap.id} className="p-3 bg-slate-900 rounded-xl border border-slate-800">
+                          <div key={gap.id} className="p-3 bg-white rounded-xl border border-slate-200 shadow-xs">
                             <div className="flex items-center justify-between mb-1">
-                              <span className="font-bold text-slate-200">{gap.skillName}</span>
-                              <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-rose-500/20 text-rose-400 border border-rose-500/30">
+                              <span className="font-bold text-slate-900">{gap.skillName}</span>
+                              <span className="px-2 py-0.5 text-[10px] font-bold rounded-md bg-rose-50 text-rose-700 border border-rose-200">
                                 {gap.severity}
                               </span>
                             </div>
-                            <p className="text-[11px] text-slate-400">{gap.description}</p>
+                            <p className="text-[11px] text-slate-500">{gap.description}</p>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-slate-500 italic">No critical skill gaps identified.</p>
+                      <p className="text-slate-400 italic">No critical skill gaps identified.</p>
                     )}
                   </div>
                 </>
               ) : null}
             </div>
 
-            <div className="p-4 border-t border-slate-800 bg-slate-950/40 flex justify-end">
+            <div className="p-4 border-t border-slate-200 bg-slate-50 flex justify-end">
               <button
                 onClick={() => {
                   setSelectedUserId(null);
                   setUserDetails(null);
                 }}
-                className="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition cursor-pointer"
+                className="px-5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-bold transition cursor-pointer"
               >
                 Close Profile
               </button>
@@ -1261,17 +1260,17 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* MODAL 2: RESET PATH CONFIRMATION */}
       {userToReset && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-rose-500/30 rounded-3xl max-w-md w-full p-6 shadow-2xl animate-in zoom-in-95 duration-200">
-            <div className="w-12 h-12 bg-rose-500/10 border border-rose-500/20 text-rose-500 rounded-2xl flex items-center justify-center mb-4">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-rose-200 rounded-3xl max-w-md w-full p-6 shadow-2xl animate-in zoom-in-95 duration-200">
+            <div className="w-12 h-12 bg-rose-50 border border-rose-200 text-rose-600 rounded-2xl flex items-center justify-center mb-4">
               <AlertTriangle className="w-6 h-6" />
             </div>
 
-            <h3 className="text-lg font-bold text-white mb-2">
+            <h3 className="text-lg font-bold text-slate-900 mb-2">
               Reset Learning Path?
             </h3>
-            <p className="text-xs text-slate-400 leading-relaxed mb-6">
-              Are you sure you want to reset the learning path for <strong className="text-slate-200">{userToReset.name}</strong> ({userToReset.email})?
+            <p className="text-xs text-slate-600 leading-relaxed mb-6">
+              Are you sure you want to reset the learning path for <strong className="text-slate-900">{userToReset.name}</strong> ({userToReset.email})?
               This will clear all module progress, reset the curriculum phases back to zero, and generate a fresh personalized path. This action is recorded in the audit log.
             </p>
 
@@ -1279,14 +1278,14 @@ export const AdminDashboardPage: React.FC = () => {
               <button
                 disabled={isResetting}
                 onClick={() => setUserToReset(null)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold transition cursor-pointer"
+                className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 disabled={isResetting}
                 onClick={handleConfirmResetPath}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg shadow-rose-600/20 cursor-pointer"
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-md shadow-rose-600/20 cursor-pointer"
               >
                 {isResetting ? (
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -1304,18 +1303,18 @@ export const AdminDashboardPage: React.FC = () => {
 
       {/* MODAL 3: AUDIT LOG PAYLOAD INSPECTOR */}
       {selectedAuditLog && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-            <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-3xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
               <div className="flex items-center gap-2.5">
-                <Code className="w-5 h-5 text-indigo-400" />
-                <h3 className="text-base font-extrabold text-white">
+                <Code className="w-5 h-5 text-blue-600" />
+                <h3 className="text-base font-extrabold text-slate-900">
                   Audit Event Payload & Metadata
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedAuditLog(null)}
-                className="p-1.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+                className="p-1.5 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1323,47 +1322,47 @@ export const AdminDashboardPage: React.FC = () => {
 
             <div className="p-5 overflow-y-auto flex-1 text-xs space-y-4">
               {/* Event Metadata Table */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 p-3.5 bg-slate-950 rounded-2xl border border-slate-800">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 p-3.5 bg-slate-50 rounded-2xl border border-slate-200">
                 <div>
-                  <span className="text-slate-500 font-mono text-[10px]">EVENT ID</span>
-                  <p className="font-mono text-slate-300 truncate">{selectedAuditLog.id}</p>
+                  <span className="text-slate-400 font-mono text-[10px]">EVENT ID</span>
+                  <p className="font-mono text-slate-700 truncate">{selectedAuditLog.id}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-mono text-[10px]">ACTION</span>
-                  <p className="font-bold text-indigo-400">{selectedAuditLog.action}</p>
+                  <span className="text-slate-400 font-mono text-[10px]">ACTION</span>
+                  <p className="font-bold text-blue-600">{selectedAuditLog.action}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-mono text-[10px]">CATEGORY</span>
-                  <p className="font-mono text-slate-300">{selectedAuditLog.category}</p>
+                  <span className="text-slate-400 font-mono text-[10px]">CATEGORY</span>
+                  <p className="font-mono text-slate-700">{selectedAuditLog.category}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-mono text-[10px]">USER EMAIL</span>
-                  <p className="font-mono text-slate-300 truncate">{selectedAuditLog.user?.email || 'N/A'}</p>
+                  <span className="text-slate-400 font-mono text-[10px]">USER EMAIL</span>
+                  <p className="font-mono text-slate-700 truncate">{selectedAuditLog.user?.email || 'N/A'}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-mono text-[10px]">IP ADDRESS</span>
-                  <p className="font-mono text-slate-300">{selectedAuditLog.ipAddress || '127.0.0.1'}</p>
+                  <span className="text-slate-400 font-mono text-[10px]">IP ADDRESS</span>
+                  <p className="font-mono text-slate-700">{selectedAuditLog.ipAddress || '127.0.0.1'}</p>
                 </div>
                 <div>
-                  <span className="text-slate-500 font-mono text-[10px]">STATUS</span>
-                  <p className="font-bold text-emerald-400">{selectedAuditLog.status}</p>
+                  <span className="text-slate-400 font-mono text-[10px]">STATUS</span>
+                  <p className="font-bold text-emerald-600">{selectedAuditLog.status}</p>
                 </div>
               </div>
 
               {/* Raw JSON Payload */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <span className="text-slate-400 font-semibold text-[11px]">Serialized Event Details</span>
+                  <span className="text-slate-600 font-semibold text-[11px]">Serialized Event Details</span>
                   <button
                     onClick={handleCopyPayload}
-                    className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer"
+                    className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer border border-slate-200"
                   >
-                    {copiedPayload ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedPayload ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedPayload ? 'Copied!' : 'Copy JSON'}</span>
                   </button>
                 </div>
 
-                <pre className="p-4 bg-slate-950 text-indigo-300 rounded-2xl border border-slate-800 font-mono text-[11px] overflow-x-auto leading-relaxed">
+                <pre className="p-4 bg-slate-950 text-emerald-400 rounded-2xl border border-slate-800 font-mono text-[11px] overflow-x-auto leading-relaxed">
                   {JSON.stringify(
                     {
                       id: selectedAuditLog.id,
@@ -1389,10 +1388,10 @@ export const AdminDashboardPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="p-4 border-t border-slate-800 bg-slate-950/40 flex justify-end">
+            <div className="p-4 border-t border-slate-200 bg-slate-50 flex justify-end">
               <button
                 onClick={() => setSelectedAuditLog(null)}
-                className="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition cursor-pointer"
+                className="px-5 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl text-xs font-bold transition cursor-pointer"
               >
                 Close Inspector
               </button>

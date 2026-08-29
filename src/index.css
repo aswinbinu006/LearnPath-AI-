@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --brand-primary: #2563eb;
-    --brand-dark: #000000;
+    --brand-dark: #0f172a;
     --sat: env(safe-area-inset-top, 0px);
     --sar: env(safe-area-inset-right, 0px);
     --sab: env(safe-area-inset-bottom, 0px);
@@ -13,18 +13,18 @@
   }
 
   html, body {
-    @apply h-full antialiased selection:bg-blue-600 selection:text-white transition-colors duration-200;
+    @apply h-full antialiased selection:bg-blue-600 selection:text-white transition-colors duration-150;
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
   }
 
   body {
-    @apply bg-slate-50 text-slate-900 dark:bg-black dark:text-neutral-100 min-h-[100dvh];
+    @apply bg-[#F8FAFC] text-slate-900 min-h-[100dvh];
     overflow-x: hidden;
   }
 
   * {
-    @apply border-slate-200/80 dark:border-neutral-800;
+    @apply border-slate-200/90;
     -webkit-overflow-scrolling: touch;
   }
 

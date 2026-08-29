@@ -240,32 +240,32 @@ export const LandingPage: React.FC = () => {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-blue-600 selection:text-white font-sans antialiased">
-      {/* ── 1. Top Pure Black Navbar ────────────────────────── */}
-      <header className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-neutral-800 transition-all">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
+      {/* ── 1. Top Enterprise Navbar ────────────────────────── */}
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo */}
           <div
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center gap-3 cursor-pointer select-none"
           >
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20 border border-blue-400/30">
+            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20">
               <BrainCircuit className="w-5 h-5 text-white" />
             </div>
             <div className="flex items-center gap-1">
-              <span className="font-extrabold text-lg tracking-tight text-white">LearnPath</span>
-              <span className="text-blue-500 font-extrabold text-lg">AI</span>
+              <span className="font-extrabold text-lg tracking-tight text-slate-900">LearnPath</span>
+              <span className="text-blue-600 font-extrabold text-lg">AI</span>
             </div>
           </div>
 
           {/* Nav links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-neutral-400">
-            <a href="#tracks" className="hover:text-white transition-colors">Courses</a>
-            <a href="#studio" className="hover:text-white transition-colors">Code Studio</a>
-            <a href="#comparison" className="hover:text-white transition-colors">Features</a>
-            <a href="#diagnostic" className="hover:text-white transition-colors">Skill Test</a>
-            <a href="#recruiter" className="hover:text-white transition-colors">Portfolio</a>
-            <a href="#faq" className="hover:text-white transition-colors">FAQ</a>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+            <a href="#tracks" className="hover:text-blue-600 transition-colors">Courses</a>
+            <a href="#studio" className="hover:text-blue-600 transition-colors">Code Studio</a>
+            <a href="#comparison" className="hover:text-blue-600 transition-colors">Features</a>
+            <a href="#diagnostic" className="hover:text-blue-600 transition-colors">Skill Test</a>
+            <a href="#recruiter" className="hover:text-blue-600 transition-colors">Portfolio</a>
+            <a href="#faq" className="hover:text-blue-600 transition-colors">FAQ</a>
           </nav>
 
           {/* Action CTAs */}
@@ -274,7 +274,7 @@ export const LandingPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
-                className="px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
+                className="px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
               >
                 <span>Go to Workspace</span>
                 <ArrowRight className="w-4 h-4" />
@@ -284,14 +284,14 @@ export const LandingPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => navigate('/login')}
-                  className="px-4 py-2 text-sm font-semibold text-neutral-300 hover:text-white hover:bg-neutral-900/80 border border-neutral-800 hover:border-neutral-700 rounded-xl transition-all cursor-pointer shadow-xs"
+                  className="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all cursor-pointer shadow-xs"
                 >
                   Sign In
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate('/register')}
-                  className="px-5 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/25 flex items-center gap-2"
+                  className="px-5 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
                 >
                   <span>Start Learning Free</span>
                   <ArrowRight className="w-4 h-4" />
@@ -303,25 +303,25 @@ export const LandingPage: React.FC = () => {
       </header>
 
       {/* ── 2. Hero Section: Asymmetric Content & Live Explorer ── */}
-      <section className="pt-12 pb-20 md:pt-20 md:pb-28 bg-black border-b border-neutral-800 relative overflow-hidden">
+      <section className="pt-12 pb-20 md:pt-20 md:pb-28 bg-[#F8FAFC] border-b border-slate-200 relative overflow-hidden">
         {/* Subtle radial glow */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Column: Core Value Prop */}
             <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300">
-                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700">
+                <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
                 <span>Next-Generation Socratic Engineering Education</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.1]">
                 Engineering Mastery Built for the{' '}
-                <span className="text-blue-500">AI Era.</span>
+                <span className="text-blue-600">AI Era.</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-neutral-400 max-w-xl leading-relaxed">
+              <p className="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
                 Stop watching passive video tutorials. Learn by coding with an adaptive Socratic pair mentor, continuous skill gap diagnostics, and cryptographically verified recruiter portfolios.
               </p>
 
@@ -329,7 +329,7 @@ export const LandingPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => navigate('/register')}
-                  className="px-6 py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-colors cursor-pointer shadow-lg shadow-blue-500/25 flex items-center gap-2"
+                  className="px-6 py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
                 >
                   <span>Explore Roadmaps Free</span>
                   <ArrowRight className="w-4 h-4" />
@@ -337,53 +337,53 @@ export const LandingPage: React.FC = () => {
 
                 <a
                   href="#diagnostic"
-                  className="px-5 py-3 text-sm font-semibold text-neutral-300 bg-neutral-900 hover:bg-neutral-800 hover:text-white border border-neutral-800 rounded-xl transition-colors cursor-pointer shadow-sm flex items-center gap-2"
+                  className="px-5 py-3 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-colors cursor-pointer shadow-xs flex items-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4 text-blue-400" />
+                  <Sparkles className="w-4 h-4 text-blue-600" />
                   <span>Try 1-Minute Quiz</span>
                 </a>
               </div>
 
               {/* Verified Trust Stats */}
-              <div className="pt-6 border-t border-neutral-800 grid grid-cols-3 gap-4 text-left">
+              <div className="pt-6 border-t border-slate-200 grid grid-cols-3 gap-4 text-left">
                 <div>
-                  <span className="text-xl sm:text-2xl font-extrabold text-white font-mono block">42+</span>
-                  <span className="text-[11px] font-medium text-neutral-400">Adaptive Modules</span>
+                  <span className="text-xl sm:text-2xl font-extrabold text-slate-900 font-mono block">42+</span>
+                  <span className="text-[11px] font-medium text-slate-500">Adaptive Modules</span>
                 </div>
                 <div>
-                  <span className="text-xl sm:text-2xl font-extrabold text-blue-400 font-mono block">&lt; 10ms</span>
-                  <span className="text-[11px] font-medium text-neutral-400">AST Analysis Latency</span>
+                  <span className="text-xl sm:text-2xl font-extrabold text-blue-600 font-mono block">&lt; 10ms</span>
+                  <span className="text-[11px] font-medium text-slate-500">AST Analysis Latency</span>
                 </div>
                 <div>
-                  <span className="text-xl sm:text-2xl font-extrabold text-white font-mono block">100%</span>
-                  <span className="text-[11px] font-medium text-neutral-400">Postgres Verified</span>
+                  <span className="text-xl sm:text-2xl font-extrabold text-slate-900 font-mono block">100%</span>
+                  <span className="text-[11px] font-medium text-slate-500">Postgres Verified</span>
                 </div>
               </div>
             </div>
 
             {/* Right Column: Live Track Switcher Card */}
             <div id="tracks" className="lg:col-span-5">
-              <div className="p-6 rounded-3xl bg-neutral-950 border border-neutral-800 shadow-2xl space-y-5">
-                <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
+              <div className="p-6 rounded-3xl bg-white border border-slate-200 shadow-xl space-y-5">
+                <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                   <div className="flex items-center gap-2">
-                    <GitFork className="w-4 h-4 text-blue-400" />
-                    <span className="text-xs font-bold uppercase tracking-wider text-white">
+                    <GitFork className="w-4 h-4 text-blue-600" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
                       Live Curriculum Explorer
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-neutral-400">Interactive Preview</span>
+                  <span className="text-[11px] font-mono text-slate-400">Interactive Preview</span>
                 </div>
 
                 {/* Role Tabs */}
-                <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-neutral-900 text-xs font-bold">
+                <div className="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-slate-100 text-xs font-bold">
                   {ROLE_TRACKS.map((track) => (
                     <button
                       key={track.id}
                       type="button"
                       onClick={() => setSelectedRole(track)}
                       className={`py-2 px-2 rounded-lg text-[11px] transition-all cursor-pointer truncate ${selectedRole.id === track.id
-                        ? 'bg-neutral-800 text-white shadow-xs font-bold'
-                        : 'text-neutral-400 hover:text-white'
+                        ? 'bg-white text-blue-700 shadow-xs font-bold'
+                        : 'text-slate-600 hover:text-slate-900'
                         }`}
                     >
                       {track.name.split(' ')[0]}
@@ -394,17 +394,17 @@ export const LandingPage: React.FC = () => {
                 {/* Active Role Content */}
                 <div className="space-y-4 pt-1">
                   <div>
-                    <h3 className="text-base font-extrabold text-white">{selectedRole.name}</h3>
-                    <p className="text-xs text-blue-400 font-semibold mt-0.5">{selectedRole.tag}</p>
-                    <p className="text-[11px] text-neutral-400 mt-1">{selectedRole.duration}</p>
+                    <h3 className="text-base font-extrabold text-slate-900">{selectedRole.name}</h3>
+                    <p className="text-xs text-blue-600 font-semibold mt-0.5">{selectedRole.tag}</p>
+                    <p className="text-[11px] text-slate-500 mt-1">{selectedRole.duration}</p>
                   </div>
 
                   {/* Skills Pills */}
                   <div className="space-y-1.5">
-                    <span className="text-[10px] font-bold text-neutral-500 uppercase">Core Competencies:</span>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase">Core Competencies:</span>
                     <div className="flex flex-wrap gap-1.5">
                       {selectedRole.skills.map((skill, i) => (
-                        <span key={i} className="px-2 py-1 rounded-md text-[11px] font-medium bg-neutral-900 border border-neutral-800 text-neutral-300">
+                        <span key={i} className="px-2 py-1 rounded-md text-[11px] font-medium bg-slate-50 border border-slate-200 text-slate-700">
                           {skill}
                         </span>
                       ))}
@@ -412,19 +412,19 @@ export const LandingPage: React.FC = () => {
                   </div>
 
                   {/* Sample Capstone Box */}
-                  <div className="p-3.5 rounded-xl bg-neutral-900/90 border border-neutral-800 space-y-1 text-xs">
-                    <span className="text-[10px] font-bold text-blue-400 uppercase flex items-center gap-1">
+                  <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1 text-xs">
+                    <span className="text-[10px] font-bold text-blue-600 uppercase flex items-center gap-1">
                       <Code2 className="w-3.5 h-3.5" />
                       <span>Live Capstone Challenge:</span>
                     </span>
-                    <p className="font-bold text-white">{selectedRole.sampleChallenge.title}</p>
-                    <p className="text-[11px] text-neutral-400">{selectedRole.sampleChallenge.desc}</p>
+                    <p className="font-bold text-slate-900">{selectedRole.sampleChallenge.title}</p>
+                    <p className="text-[11px] text-slate-600">{selectedRole.sampleChallenge.desc}</p>
                   </div>
 
                   <button
                     type="button"
                     onClick={() => navigate('/register')}
-                    className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-blue-600/20 cursor-pointer"
+                    className="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/20 cursor-pointer"
                   >
                     <span>Launch This Track</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -437,32 +437,32 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ── 3. Pair Studio (Live Interactive Workbench) ───── */}
-      <section id="studio" className="py-20 bg-black border-b border-neutral-800">
+      <section id="studio" className="py-20 bg-slate-50 border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
               Interactive Workbench
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
               Experience the Socratic Pair Programmer
             </h2>
-            <p className="text-sm text-neutral-400 max-w-xl mx-auto">
+            <p className="text-sm text-slate-600 max-w-xl mx-auto">
               Real-time AST code inspection watches your logic, flags runtime anomalies, and guides you to reason through solutions.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 rounded-3xl bg-neutral-950 border border-neutral-800 shadow-2xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 rounded-3xl bg-white border border-slate-200 shadow-xl">
             {/* Left: Code Sandbox */}
             <div className="lg:col-span-7 space-y-3 font-mono text-xs">
-              <div className="flex items-center justify-between pb-2 border-b border-neutral-800 text-neutral-400">
-                <span className="flex items-center gap-2 font-bold text-white">
-                  <Code2 className="w-4 h-4 text-blue-400" />
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100 text-slate-600">
+                <span className="flex items-center gap-2 font-bold text-slate-900">
+                  <Code2 className="w-4 h-4 text-blue-600" />
                   <span>taskQueueProcessor.ts</span>
                 </span>
-                <span className="text-[11px] text-neutral-500">TypeScript 5.4</span>
+                <span className="text-[11px] text-slate-400">TypeScript 5.4</span>
               </div>
 
-              <div className="p-4 rounded-2xl bg-black text-neutral-200 leading-relaxed overflow-x-auto border border-neutral-900 shadow-inner">
+              <div className="p-4 rounded-2xl bg-slate-950 text-slate-200 leading-relaxed overflow-x-auto border border-slate-800 shadow-inner">
                 {sandboxCodeState === 'fixed' ? (
                   <div className="text-emerald-400">
                     <p>// ✅ Clean, immutable array mapping with strict equality</p>
@@ -486,7 +486,7 @@ export const LandingPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={handleRunSandbox}
-                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-blue-600/20 flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-1.5"
                 >
                   <Play className="w-3 h-3 fill-current" />
                   <span>Run Sandbox</span>
@@ -498,7 +498,7 @@ export const LandingPage: React.FC = () => {
                     setSandboxCodeState(sandboxCodeState === 'buggy' ? 'fixed' : 'buggy');
                     setSandboxOutput(null);
                   }}
-                  className="px-4 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-neutral-200 font-bold text-xs transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer shadow-xs flex items-center gap-1.5"
                 >
                   <RotateCcw className="w-3 h-3" />
                   <span>{sandboxCodeState === 'buggy' ? 'Apply Socratic Quick Fix' : 'Reset Buggy Code'}</span>
@@ -507,8 +507,8 @@ export const LandingPage: React.FC = () => {
 
               {sandboxOutput && (
                 <div className={`p-3 rounded-xl text-xs font-mono border ${sandboxCodeState === 'fixed'
-                  ? 'bg-emerald-950/40 border-emerald-800/60 text-emerald-300'
-                  : 'bg-amber-950/40 border-amber-800/60 text-amber-300'
+                  ? 'bg-emerald-50 border-emerald-200 text-emerald-800 font-medium'
+                  : 'bg-amber-50 border-amber-200 text-amber-800 font-medium'
                   }`}>
                   {sandboxOutput}
                 </div>
@@ -517,30 +517,30 @@ export const LandingPage: React.FC = () => {
 
             {/* Right: Socratic Mentor Guidance */}
             <div className="lg:col-span-5 space-y-4 text-xs">
-              <div className="p-4 rounded-2xl bg-blue-950/30 border border-blue-800/40 space-y-2">
-                <div className="flex items-center gap-2 text-blue-300 font-bold">
-                  <Sparkles className="w-4 h-4 text-blue-400" />
+              <div className="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 space-y-2">
+                <div className="flex items-center gap-2 text-blue-900 font-bold">
+                  <Sparkles className="w-4 h-4 text-blue-600" />
                   <span>Socratic Pair Mentor</span>
                 </div>
-                <p className="text-neutral-300 leading-relaxed font-medium">
+                <p className="text-slate-700 leading-relaxed font-medium">
                   Why does traversing an array with `i &lt;= queue.length` cause runtime anomalies in modern runtimes?
                 </p>
-                <p className="text-[11px] text-blue-400">
+                <p className="text-[11px] text-blue-700 font-semibold">
                   💡 Hint: In 0-indexed systems, the last valid element exists at index `length - 1`.
                 </p>
               </div>
 
-              <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-800 space-y-2">
-                <span className="text-[10px] font-bold text-neutral-400 uppercase block">AST Watcher Telemetry</span>
-                <div className="flex items-center justify-between text-xs font-bold text-white">
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                <span className="text-[10px] font-bold text-slate-500 uppercase block">AST Watcher Telemetry</span>
+                <div className="flex items-center justify-between text-xs font-bold text-slate-900">
                   <span>Code Health Score:</span>
-                  <span className={sandboxCodeState === 'fixed' ? 'text-emerald-400 font-mono' : 'text-amber-400 font-mono'}>
+                  <span className={sandboxCodeState === 'fixed' ? 'text-emerald-600 font-mono' : 'text-amber-600 font-mono'}>
                     {sandboxCodeState === 'fixed' ? '100% (Optimal)' : '72% (Requires Attention)'}
                   </span>
                 </div>
-                <div className="w-full bg-neutral-800 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
                   <div
-                    className={`h-full transition-all duration-300 ${sandboxCodeState === 'fixed' ? 'w-full bg-emerald-500' : 'w-3/4 bg-amber-500'
+                    className={`h-full transition-all duration-300 ${sandboxCodeState === 'fixed' ? 'w-full bg-emerald-600' : 'w-3/4 bg-amber-500'
                       }`}
                   />
                 </div>
@@ -553,54 +553,54 @@ export const LandingPage: React.FC = () => {
       {/* ── 4. Comparison Table (Traditional vs. LearnPath AI) ── */}
       <section id="comparison" className="py-20 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
             Architectural Differentiation
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
             Why LearnPath AI Outperforms Video Tutorials
           </h2>
         </div>
 
-        <div className="rounded-3xl border border-neutral-800 bg-neutral-950 shadow-2xl overflow-hidden">
-          <div className="grid grid-cols-12 bg-neutral-900/90 p-4 border-b border-neutral-800 font-bold text-xs text-neutral-300 uppercase tracking-wider">
+        <div className="rounded-3xl border border-slate-200 bg-white shadow-xl overflow-hidden">
+          <div className="grid grid-cols-12 bg-slate-50 p-4 border-b border-slate-200 font-bold text-xs text-slate-700 uppercase tracking-wider">
             <div className="col-span-4">Capability Dimension</div>
-            <div className="col-span-4 text-neutral-500">Traditional Video Courses</div>
-            <div className="col-span-4 text-blue-400">LearnPath AI Platform</div>
+            <div className="col-span-4 text-slate-500">Traditional Video Courses</div>
+            <div className="col-span-4 text-blue-700 font-extrabold">LearnPath AI Platform</div>
           </div>
 
-          <div className="divide-y divide-neutral-800/80 text-xs">
+          <div className="divide-y divide-slate-100 text-xs">
             <div className="grid grid-cols-12 p-4 items-center">
-              <div className="col-span-4 font-bold text-white">Feedback Loop</div>
-              <div className="col-span-4 text-neutral-400">Delayed (Forums, Comments)</div>
-              <div className="col-span-4 font-bold text-emerald-400 flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-400" />
+              <div className="col-span-4 font-bold text-slate-900">Feedback Loop</div>
+              <div className="col-span-4 text-slate-500">Delayed (Forums, Comments)</div>
+              <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600" />
                 <span>Real-Time AST & Socratic Streaming</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-12 p-4 items-center bg-neutral-900/40">
-              <div className="col-span-4 font-bold text-white">Curriculum Personalization</div>
-              <div className="col-span-4 text-neutral-400">Static, one-size-fits-all playlists</div>
-              <div className="col-span-4 font-bold text-emerald-400 flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-400" />
+            <div className="grid grid-cols-12 p-4 items-center bg-slate-50/50">
+              <div className="col-span-4 font-bold text-slate-900">Curriculum Personalization</div>
+              <div className="col-span-4 text-slate-500">Static, one-size-fits-all playlists</div>
+              <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600" />
                 <span>Dynamic Skill Gap Restructuring</span>
               </div>
             </div>
 
             <div className="grid grid-cols-12 p-4 items-center">
-              <div className="col-span-4 font-bold text-white">Hiring Credential Verification</div>
-              <div className="col-span-4 text-neutral-400">Unverifiable PDF certificates</div>
-              <div className="col-span-4 font-bold text-emerald-400 flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-400" />
+              <div className="col-span-4 font-bold text-slate-900">Hiring Credential Verification</div>
+              <div className="col-span-4 text-slate-500">Unverifiable PDF certificates</div>
+              <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600" />
                 <span>Cryptographic SHA-256 Recruiter Tokens</span>
               </div>
             </div>
 
-            <div className="grid grid-cols-12 p-4 items-center bg-neutral-900/40">
-              <div className="col-span-4 font-bold text-white">Offline Resilience</div>
-              <div className="col-span-4 text-neutral-400">Requires continuous internet streaming</div>
-              <div className="col-span-4 font-bold text-emerald-400 flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-emerald-400" />
+            <div className="grid grid-cols-12 p-4 items-center bg-slate-50/50">
+              <div className="col-span-4 font-bold text-slate-900">Offline Resilience</div>
+              <div className="col-span-4 text-slate-500">Requires continuous internet streaming</div>
+              <div className="col-span-4 font-bold text-emerald-600 flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600" />
                 <span>Cached In-Browser Sandbox & Sync Queue</span>
               </div>
             </div>
@@ -609,16 +609,16 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ── 5. Instant 1-Minute Skill Quiz Widget ───── */}
-      <section id="diagnostic" className="py-20 bg-neutral-950/60 border-y border-neutral-800">
+      <section id="diagnostic" className="py-20 bg-slate-50 border-y border-slate-200">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
               Quick Skill Check
             </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
               Try a 1-Minute Practice Quiz
             </h2>
-            <p className="text-xs sm:text-sm text-neutral-400">
+            <p className="text-xs sm:text-sm text-slate-600">
               Pick a domain below to see how our instant feedback and gap detection work.
             </p>
 
@@ -630,8 +630,8 @@ export const LandingPage: React.FC = () => {
                   type="button"
                   onClick={() => handleResetQuiz(idx)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer ${selectedTopicIdx === idx
-                    ? 'bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/20'
-                    : 'bg-neutral-900 text-neutral-400 border-neutral-800 hover:text-white hover:border-neutral-700'
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-500/20'
+                    : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
                     }`}
                 >
                   {quiz.topic}
@@ -640,16 +640,16 @@ export const LandingPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="rounded-3xl bg-neutral-950 border border-neutral-800 shadow-2xl overflow-hidden">
+          <div className="rounded-3xl bg-white border border-slate-200 shadow-xl overflow-hidden">
             {!isQuizCompleted ? (
               <>
                 {/* Top Question Header Bar */}
-                <div className="px-6 py-4 bg-neutral-900/70 border-b border-neutral-800 flex items-center justify-between">
+                <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <span className="px-2.5 py-1 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold uppercase tracking-wide">
+                    <span className="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold uppercase tracking-wide">
                       Question {currentQuestionIdx + 1} of {currentTrack.questions.length}
                     </span>
-                    <span className="text-xs text-neutral-400 font-medium">
+                    <span className="text-xs text-slate-500 font-medium">
                       {currentQ.category}
                     </span>
                   </div>
@@ -659,10 +659,10 @@ export const LandingPage: React.FC = () => {
                       <div
                         key={qIdx}
                         className={`h-1.5 rounded-full transition-all duration-300 ${qIdx === currentQuestionIdx
-                          ? 'w-6 bg-blue-500'
+                          ? 'w-6 bg-blue-600'
                           : userAnswers[qIdx] !== null
-                            ? 'w-3 bg-neutral-600'
-                            : 'w-2 bg-neutral-800'
+                            ? 'w-3 bg-slate-400'
+                            : 'w-2 bg-slate-200'
                           }`}
                       />
                     ))}
@@ -671,15 +671,15 @@ export const LandingPage: React.FC = () => {
 
                 <div className="p-6 sm:p-7 space-y-6">
                   {/* Distinct Question Box */}
-                  <div className="p-4 rounded-2xl bg-neutral-900/50 border border-neutral-800/80">
-                    <p className="text-sm sm:text-base font-bold text-white leading-relaxed">
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <p className="text-sm sm:text-base font-bold text-slate-900 leading-relaxed">
                       {currentQ.question}
                     </p>
                   </div>
 
                   {/* Options Header */}
                   <div className="space-y-3">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                       Select your answer:
                     </p>
 
@@ -699,22 +699,22 @@ export const LandingPage: React.FC = () => {
                             onClick={() => handleSelectAnswer(idx)}
                             className={`w-full p-4 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3.5 group ${isSelected
                               ? isCorrect
-                                ? 'bg-emerald-950/40 border-emerald-500/80 text-white shadow-lg shadow-emerald-950/30'
-                                : 'bg-rose-950/40 border-rose-500/80 text-white shadow-lg shadow-rose-950/40'
+                                ? 'bg-emerald-50 border-emerald-500 text-emerald-950 shadow-sm'
+                                : 'bg-rose-50 border-rose-500 text-rose-950 shadow-sm'
                               : isAnswered && isCorrect
-                                ? 'bg-emerald-950/20 border-emerald-500/40 text-neutral-200'
-                                : 'bg-neutral-900/60 hover:bg-neutral-900 hover:border-neutral-700 border-neutral-800 text-neutral-300'
+                                ? 'bg-emerald-50/60 border-emerald-300 text-slate-800'
+                                : 'bg-white hover:bg-slate-50 border-slate-200 text-slate-700'
                               }`}
                           >
                             {/* Letter Tag Badge (A, B, C) */}
                             <span
                               className={`w-7 h-7 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 transition-colors ${isSelected
                                 ? isCorrect
-                                  ? 'bg-emerald-500 text-black font-extrabold'
+                                  ? 'bg-emerald-600 text-white font-extrabold'
                                   : 'bg-rose-600 text-white font-extrabold'
                                 : isAnswered && isCorrect
-                                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                                  : 'bg-neutral-800 text-neutral-400 group-hover:bg-neutral-700 group-hover:text-white border border-neutral-700/60'
+                                  ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                                  : 'bg-slate-100 text-slate-600 group-hover:bg-slate-200 border border-slate-200'
                                 }`}
                             >
                               {letters[idx]}
@@ -734,8 +734,8 @@ export const LandingPage: React.FC = () => {
                     <div className="space-y-4 pt-1">
                       <div
                         className={`p-4 rounded-2xl border text-xs sm:text-sm font-semibold transition-all flex items-start gap-2.5 ${currentAnswer === currentQ.correctIdx
-                          ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
-                          : 'bg-rose-950/40 border-rose-500/50 text-rose-300'
+                          ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+                          : 'bg-rose-50 border-rose-200 text-rose-800'
                           }`}
                       >
                         <span className="text-base shrink-0">
@@ -755,7 +755,7 @@ export const LandingPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={handleNextQuestion}
-                          className="px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-all cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
+                          className="px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
                         >
                           <span>
                             {currentQuestionIdx < currentTrack.questions.length - 1
@@ -772,19 +772,19 @@ export const LandingPage: React.FC = () => {
             ) : (
               /* Quiz Completion Score Card */
               <div className="p-8 sm:p-10 text-center space-y-6">
-                <div className="w-16 h-16 rounded-3xl bg-blue-500/10 border border-blue-500/20 text-blue-400 mx-auto flex items-center justify-center shadow-lg shadow-blue-500/10">
-                  <Award className="w-8 h-8 text-blue-400" />
+                <div className="w-16 h-16 rounded-3xl bg-blue-50 text-blue-600 mx-auto flex items-center justify-center shadow-inner">
+                  <Award className="w-8 h-8 text-blue-600" />
                 </div>
 
                 <div className="space-y-2">
-                  <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold uppercase tracking-wider">
+                  <span className="px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold uppercase tracking-wider">
                     {currentTrack.topic} Diagnostic Complete
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                     Score: {correctCount} / {currentTrack.questions.length} (
                     {Math.round((correctCount / currentTrack.questions.length) * 100)}%)
                   </h3>
-                  <p className="text-xs sm:text-sm text-neutral-400 max-w-md mx-auto leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
                     {correctCount === 3
                       ? '🎯 Perfect Score! Your foundational mastery is outstanding. You are ready for Advanced Architecture & AI Pair Programming.'
                       : correctCount === 2
@@ -797,7 +797,7 @@ export const LandingPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => navigate('/register')}
-                    className="w-full sm:w-auto px-6 py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-all cursor-pointer shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-6 py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all cursor-pointer shadow-md shadow-blue-500/20 flex items-center justify-center gap-2"
                   >
                     <span>Start Your Custom Path Free</span>
                     <ArrowRight className="w-4 h-4" />
@@ -806,7 +806,7 @@ export const LandingPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleResetQuiz()}
-                    className="w-full sm:w-auto px-5 py-3 text-sm font-semibold text-neutral-300 bg-neutral-900 hover:bg-neutral-800 hover:text-white border border-neutral-800 rounded-xl transition-all cursor-pointer"
+                    className="w-full sm:w-auto px-5 py-3 text-sm font-semibold text-slate-700 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-all cursor-pointer"
                   >
                     Retake Quiz
                   </button>
@@ -820,41 +820,41 @@ export const LandingPage: React.FC = () => {
       {/* ── 6. Recruiter & Verified Portfolio Showcase ─────── */}
       <section id="recruiter" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
         <div className="space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
             Recruiter Mode
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
             Share Cryptographically Verified Credentials
           </h2>
-          <p className="text-sm text-neutral-400 max-w-xl mx-auto">
+          <p className="text-sm text-slate-600 max-w-xl mx-auto">
             Hiring managers don't need to guess your competency. Give them authenticated skill radars, real-time code health scores, and instant mobile QR code scanning.
           </p>
         </div>
 
-        <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950 border border-neutral-800 shadow-2xl max-w-xl mx-auto space-y-5 text-left text-xs">
-          <div className="flex items-center justify-between border-b border-neutral-800 pb-3">
-            <span className="font-bold text-white">Candidate ID: LP-2026-VERIFIED</span>
-            <span className="text-emerald-400 font-bold flex items-center gap-1">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-xl max-w-xl mx-auto space-y-5 text-left text-xs">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+            <span className="font-bold text-slate-900">Candidate ID: LP-2026-VERIFIED</span>
+            <span className="text-emerald-600 font-bold flex items-center gap-1">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
               <span>SHA-256 Authenticated</span>
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800">
-              <span className="text-[10px] text-neutral-400 font-bold uppercase block">TypeScript Architecture</span>
-              <span className="text-xl font-bold text-white font-mono">94%</span>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span className="text-[10px] text-slate-500 font-bold uppercase block">TypeScript Architecture</span>
+              <span className="text-xl font-bold text-slate-900 font-mono">94%</span>
             </div>
-            <div className="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800">
-              <span className="text-[10px] text-neutral-400 font-bold uppercase block">Async Concurrency</span>
-              <span className="text-xl font-bold text-white font-mono">92%</span>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span className="text-[10px] text-slate-500 font-bold uppercase block">Async Concurrency</span>
+              <span className="text-xl font-bold text-slate-900 font-mono">92%</span>
             </div>
           </div>
 
           <button
             type="button"
             onClick={() => navigate('/profile')}
-            className="w-full py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white font-bold transition cursor-pointer shadow-xs flex items-center justify-center gap-1.5"
+            className="w-full py-2.5 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 font-bold transition cursor-pointer shadow-xs flex items-center justify-center gap-1.5"
           >
             <span>Open Public Recruiter View</span>
             <ExternalLink className="w-3.5 h-3.5" />
@@ -865,10 +865,10 @@ export const LandingPage: React.FC = () => {
       {/* ── 7. FAQ Accordion ────────────────────────────────── */}
       <section id="faq" className="py-20 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+          <span className="text-xs font-bold uppercase tracking-wider text-blue-600">
             Frequently Asked Questions
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
             Everything You Need to Know
           </h2>
         </div>
@@ -879,16 +879,16 @@ export const LandingPage: React.FC = () => {
             return (
               <div
                 key={idx}
-                className="rounded-2xl border border-neutral-800 bg-neutral-950 overflow-hidden"
+                className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-xs"
               >
                 <button
                   type="button"
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-4 text-left flex items-center justify-between text-sm font-bold text-white cursor-pointer select-none"
+                  className="w-full p-4 text-left flex items-center justify-between text-sm font-bold text-slate-900 cursor-pointer select-none"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`w-4 h-4 text-neutral-400 transition-transform ${isOpen ? 'rotate-180 text-blue-400' : ''}`}
+                    className={`w-4 h-4 text-slate-400 transition-transform ${isOpen ? 'rotate-180 text-blue-600' : ''}`}
                   />
                 </button>
 
@@ -898,7 +898,7 @@ export const LandingPage: React.FC = () => {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      className="px-4 pb-4 text-xs text-neutral-400 leading-relaxed border-t border-neutral-800/80 pt-3"
+                      className="px-4 pb-4 text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3"
                     >
                       {faq.a}
                     </motion.div>
@@ -911,19 +911,18 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ── 8. Closing CTA Banner ──────────────────────────── */}
-      <section className="py-24 bg-black border-t border-neutral-800 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-600/10 via-transparent to-black pointer-events-none" />
+      <section className="py-24 bg-[#F8FAFC] border-t border-slate-200 text-center relative overflow-hidden">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs font-semibold text-blue-400">
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-semibold text-blue-700">
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
             <span>Start Building Real Engineering Mastery</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
             Ready to Accelerate Your Career?
           </h2>
 
-          <p className="text-base text-neutral-400 max-w-lg mx-auto leading-relaxed">
+          <p className="text-base text-slate-600 max-w-lg mx-auto leading-relaxed">
             Join thousands of developers advancing their technical growth with structured roadmaps, live Socratic mentorship, and verified credentials.
           </p>
 
@@ -931,7 +930,7 @@ export const LandingPage: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/register')}
-              className="px-8 py-3.5 text-base font-bold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition-colors cursor-pointer shadow-lg shadow-blue-500/25 inline-flex items-center gap-2"
+              className="px-8 py-3.5 text-base font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-lg shadow-blue-500/25 inline-flex items-center gap-2"
             >
               <span>Get Started Free</span>
               <ArrowRight className="w-4 h-4" />
@@ -940,30 +939,30 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* ── 9. Minimal Clean Pure Black Footer ──────────────── */}
-      <footer className="py-12 border-t border-neutral-800 bg-black text-neutral-400 text-sm">
+      {/* ── 9. Minimal Clean Enterprise Footer ──────────────── */}
+      <footer className="py-12 border-t border-slate-200 bg-white text-slate-600 text-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
             <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold shadow-xs">
               <BrainCircuit className="w-4 h-4 text-white" />
             </div>
-            <span className="font-extrabold text-white text-base">LearnPath AI</span>
-            <span className="text-neutral-500 text-xs">© 2026</span>
+            <span className="font-extrabold text-slate-900 text-base">LearnPath AI</span>
+            <span className="text-slate-400 text-xs">© 2026</span>
           </div>
 
           <div className="flex flex-wrap items-center gap-7 font-semibold text-sm">
-            <a href="#tracks" className="hover:text-white transition-colors">Tracks</a>
-            <a href="#studio" className="hover:text-white transition-colors">Pair Studio</a>
-            <a href="#comparison" className="hover:text-white transition-colors">Why LearnPath</a>
+            <a href="#tracks" className="hover:text-blue-600 transition-colors">Tracks</a>
+            <a href="#studio" className="hover:text-blue-600 transition-colors">Pair Studio</a>
+            <a href="#comparison" className="hover:text-blue-600 transition-colors">Why LearnPath</a>
             <span
               onClick={() => navigate('/help')}
-              className="hover:text-white transition-colors cursor-pointer"
+              className="hover:text-blue-600 transition-colors cursor-pointer"
             >
               Help & FAQ
             </span>
             <span
               onClick={() => navigate('/back')}
-              className="hover:text-white transition-colors cursor-pointer"
+              className="hover:text-blue-600 transition-colors cursor-pointer"
             >
               Admin Portal
             </span>
@@ -971,7 +970,7 @@ export const LandingPage: React.FC = () => {
               onClick={() => {
                 window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
               }}
-              className="hover:text-white transition-colors cursor-pointer font-mono px-2.5 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs"
+              className="hover:text-blue-600 transition-colors cursor-pointer font-mono px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 text-xs"
             >
               ⌘K Search
             </span>

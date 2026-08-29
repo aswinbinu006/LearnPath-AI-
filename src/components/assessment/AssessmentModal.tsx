@@ -131,14 +131,14 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
         <div className="space-y-3 sm:space-y-4">
           <div
             onClick={() => startQuiz('JavaScript')}
-            className="p-4 min-h-[48px] rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 bg-slate-50/70 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-sm active:scale-[0.99]"
+            className="p-4 min-h-[48px] rounded-2xl border border-slate-200 hover:border-blue-500 bg-slate-50/70 cursor-pointer transition-all hover:shadow-sm active:scale-[0.99]"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                <h4 className="text-sm font-bold text-slate-900">
                   JavaScript Engineering Benchmark
                 </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                   Evaluates DOM APIs, ES6+ features, Event Loop, and Asynchronous patterns.
                 </p>
               </div>
@@ -148,14 +148,14 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
 
           <div
             onClick={() => startQuiz('React')}
-            className="p-4 min-h-[48px] rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 bg-slate-50/70 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-sm active:scale-[0.99]"
+            className="p-4 min-h-[48px] rounded-2xl border border-slate-200 hover:border-blue-500 bg-slate-50/70 cursor-pointer transition-all hover:shadow-sm active:scale-[0.99]"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                <h4 className="text-sm font-bold text-slate-900">
                   React Architecture & Hooks
                 </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                   State lifecycles, memoization, custom hooks, and concurrent rendering.
                 </p>
               </div>
@@ -165,14 +165,14 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
 
           <div
             onClick={() => startQuiz('Async')}
-            className="p-4 min-h-[48px] rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-blue-500 dark:hover:border-blue-500 bg-slate-50/70 dark:bg-slate-800/40 cursor-pointer transition-all hover:shadow-sm active:scale-[0.99]"
+            className="p-4 min-h-[48px] rounded-2xl border border-slate-200 hover:border-blue-500 bg-slate-50/70 cursor-pointer transition-all hover:shadow-sm active:scale-[0.99]"
           >
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                <h4 className="text-sm font-bold text-slate-900">
                   Async Concurrency & Error Handling
                 </h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">
+                <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">
                   Promise.all, race conditions, network resiliency, and abort signals.
                 </p>
               </div>
@@ -196,12 +196,12 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
               </Badge>
             </div>
 
-            <p className="text-sm sm:text-base font-semibold text-slate-900 dark:text-slate-100 leading-relaxed">
+            <p className="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">
               {currentQ.questionText}
             </p>
 
             {currentQ.codeBlock && (
-              <pre className="mt-3 p-3.5 bg-slate-950 text-slate-100 rounded-xl text-xs font-mono overflow-x-auto border border-slate-800">
+              <pre className="mt-3 p-3.5 bg-slate-900 text-slate-100 rounded-xl text-xs font-mono overflow-x-auto border border-slate-800">
                 <code>{currentQ.codeBlock}</code>
               </pre>
             )}
@@ -218,8 +218,8 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
                   onClick={() => handleSelectOption(idx)}
                   className={`w-full text-left p-3.5 min-h-[44px] rounded-xl border text-xs font-medium transition-all duration-150 cursor-pointer flex items-center justify-between gap-2.5 active:scale-[0.98] ${
                     isSelected
-                      ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/50 text-blue-900 dark:text-blue-200 ring-1 ring-blue-600'
-                      : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300'
+                      ? 'border-blue-600 bg-blue-50/70 text-blue-900 ring-1 ring-blue-600'
+                      : 'border-slate-200 hover:border-slate-300 bg-white text-slate-700'
                   }`}
                 >
                   <span className="leading-relaxed">{option}</span>
@@ -227,7 +227,7 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
                     className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 ${
                       isSelected
                         ? 'border-blue-600 bg-blue-600 text-white'
-                        : 'border-slate-300 dark:border-slate-700'
+                        : 'border-slate-300'
                     }`}
                   >
                     {isSelected && <div className="w-1.5 h-1.5 bg-white rounded-full" />}
@@ -238,7 +238,7 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
           </div>
 
           {/* Actions */}
-          <div className="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-slate-800 gap-3">
+          <div className="flex justify-between items-center pt-3 border-t border-slate-100 gap-3">
             <Button
               variant="ghost"
               size="sm"
@@ -265,28 +265,28 @@ export const AssessmentModal: React.FC<AssessmentModalProps> = ({
 
       {step === 'RESULT' && result && (
         <div className="space-y-5 text-center py-2">
-          <div className="w-16 h-16 bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-2xl mx-auto flex items-center justify-center shadow-inner">
+          <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl mx-auto flex items-center justify-center shadow-inner">
             <Award className="w-8 h-8" />
           </div>
 
           <div>
-            <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100">
+            <h4 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
               {result.score}%
             </h4>
-            <p className="text-sm font-bold text-blue-600 dark:text-blue-400 mt-1">
+            <p className="text-sm font-bold text-blue-600 mt-1">
               {result.proficiencyResult}
             </p>
-            <p className="text-xs text-slate-600 dark:text-slate-400 max-w-md mx-auto mt-2 leading-relaxed">
+            <p className="text-xs text-slate-600 max-w-md mx-auto mt-2 leading-relaxed">
               {result.feedback}
             </p>
           </div>
 
-          <div className="p-4 bg-slate-50 dark:bg-slate-800/60 rounded-2xl border border-slate-200/80 dark:border-slate-700/80 text-left text-xs space-y-2">
-            <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+          <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200/80 text-left text-xs space-y-2">
+            <div className="flex items-center gap-2 font-bold text-slate-800">
               <Sparkles className="w-4 h-4 text-blue-600 shrink-0" />
               <span>AI Path Recalibration Applied</span>
             </div>
-            <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
+            <p className="text-slate-500 leading-relaxed">
               Your skill matrix has been calibrated. Weak competencies have been flagged as gap areas and new targeted modules have been prioritized in your curriculum.
             </p>
           </div>

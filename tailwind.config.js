@@ -15,8 +15,8 @@ export default {
           300: '#93c5fd',
           400: '#60a5fa',
           500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
+          600: '#2563eb', // Primary Blue #2563EB
+          700: '#1d4ed8', // Primary Hover #1D4ED8
           800: '#1e40af',
           900: '#1e3a8a',
           950: '#172554',
@@ -35,23 +35,22 @@ export default {
           950: '#172554',
         },
         surface: {
-          light: '#ffffff',
-          dark: '#000000',
-          cardLight: '#ffffff',
-          cardDark: '#0a0a0a',
-          subtleLight: '#f8fafc',
-          subtleDark: '#121212',
-          borderLight: '#e2e8f0',
-          borderDark: '#262626',
+          DEFAULT: '#ffffff',
+          secondary: '#f1f5f9',
+          subtle: '#f8fafc',
+          card: '#ffffff',
+          border: '#e2e8f0',
+          hover: '#f8fafc',
         }
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
-        'card-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.05)',
-        'glow': '0 0 20px -5px rgba(37, 99, 235, 0.3)',
+        'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03)',
+        'card-hover': '0 10px 15px -3px rgba(37, 99, 235, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03)',
+        'glow': '0 0 20px -5px rgba(37, 99, 235, 0.25)',
       },
       borderRadius: {
         '2xl': '1rem',

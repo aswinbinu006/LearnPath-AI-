@@ -96,7 +96,7 @@ export const RecruiterProfilePage: React.FC = () => {
   return (
     <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start gap-4 sm:gap-6 pb-16 select-none print:m-0 print:p-0 print:max-w-full">
       {/* ── Left Sidebar Action Dock (Responsive Grid on Mobile, Sticky on Desktop) ── */}
-      <div className="w-full lg:w-56 shrink-0 grid grid-cols-2 sm:grid-cols-4 lg:flex lg:flex-col gap-2 print:hidden p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl bg-slate-900/50 dark:bg-neutral-950/70 border border-slate-200/80 dark:border-neutral-800/80 shadow-xl backdrop-blur-md lg:sticky lg:top-24">
+      <div className="w-full lg:w-56 shrink-0 grid grid-cols-2 sm:grid-cols-4 lg:flex lg:flex-col gap-2 print:hidden p-2.5 sm:p-3 rounded-2xl sm:rounded-3xl bg-white border border-slate-200 shadow-sm backdrop-blur-md lg:sticky lg:top-24">
         <Button
           variant="outline"
           size="sm"
@@ -139,16 +139,16 @@ export const RecruiterProfilePage: React.FC = () => {
 
         {/* Recruiter QR Modal in Left Sidebar */}
         {showQr && (
-          <Card className="p-4 bg-slate-900 border border-indigo-500/40 text-center space-y-2 w-full shadow-2xl animate-in zoom-in-95 mt-1 col-span-2 sm:col-span-4 lg:col-span-1">
-            <div className="flex items-center justify-between pb-1.5 border-b border-slate-800 text-[11px]">
-              <span className="font-bold text-white flex items-center gap-1">
-                <QrCode className="w-3.5 h-3.5 text-indigo-400" />
+          <Card className="p-4 bg-white border border-blue-200 text-center space-y-2 w-full shadow-lg animate-in zoom-in-95 mt-1 col-span-2 sm:col-span-4 lg:col-span-1">
+            <div className="flex items-center justify-between pb-1.5 border-b border-slate-100 text-[11px]">
+              <span className="font-bold text-slate-900 flex items-center gap-1">
+                <QrCode className="w-3.5 h-3.5 text-blue-600" />
                 <span>Quick Scan</span>
               </span>
-              <span className="text-[9px] text-slate-400 font-mono">Verified</span>
+              <span className="text-[9px] text-emerald-600 font-mono font-bold">Verified</span>
             </div>
-            <div className="w-36 h-36 mx-auto bg-white p-2 rounded-xl flex items-center justify-center shadow-inner">
-              <div className="grid grid-cols-6 gap-1 w-full h-full p-1.5 bg-slate-950 rounded-lg">
+            <div className="w-36 h-36 mx-auto bg-slate-50 p-2 rounded-xl flex items-center justify-center border border-slate-200">
+              <div className="grid grid-cols-6 gap-1 w-full h-full p-1.5 bg-slate-900 rounded-lg">
                 {Array.from({ length: 36 }).map((_, i) => (
                   <div
                     key={i}
@@ -159,7 +159,7 @@ export const RecruiterProfilePage: React.FC = () => {
                 ))}
               </div>
             </div>
-            <p className="text-[10px] text-slate-300">
+            <p className="text-[10px] text-slate-500">
               Scan with smartphone camera to view live profile.
             </p>
           </Card>

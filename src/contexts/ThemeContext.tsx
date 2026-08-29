@@ -15,7 +15,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [theme, setThemeState] = useState<Theme>(() => {
     const saved = localStorage.getItem('learnpath_theme') as Theme;
     if (saved === 'dark' || saved === 'light') return saved;
-    return 'dark';
+    return 'light';
   });
 
 

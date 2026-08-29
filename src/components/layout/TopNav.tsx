@@ -163,12 +163,12 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
           </button>
 
           {showUserMenu && (
-            <div className="absolute right-0 mt-2 w-60 sm:w-56 bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-2xl py-2 z-50 animate-in fade-in zoom-in-95 duration-100">
-              <div className="px-4 py-2.5 border-b border-slate-100 dark:border-neutral-800">
-                <p className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">
+            <div className="absolute right-0 mt-2 w-60 sm:w-56 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50 animate-in fade-in zoom-in-95 duration-100">
+              <div className="px-4 py-2.5 border-b border-slate-100">
+                <p className="text-sm font-bold text-slate-900 truncate">
                   {user?.name || 'User'}
                 </p>
-                <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                <p className="text-xs text-slate-500 truncate">
                   {user?.email || ''}
                 </p>
               </div>
@@ -179,7 +179,7 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
                     navigate('/settings');
                     setShowUserMenu(false);
                   }}
-                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-800 text-left transition-colors cursor-pointer"
+                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-medium text-slate-700 hover:bg-slate-50 text-left transition-colors cursor-pointer"
                 >
                   <UserIcon className="w-4 h-4 text-slate-400" />
                   <span>Profile & Goals</span>
@@ -189,17 +189,17 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
                     navigate('/settings');
                     setShowUserMenu(false);
                   }}
-                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-800 text-left transition-colors cursor-pointer"
+                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-medium text-slate-700 hover:bg-slate-50 text-left transition-colors cursor-pointer"
                 >
                   <Settings className="w-4 h-4 text-slate-400" />
                   <span>Preferences & Theme</span>
                 </button>
               </div>
 
-              <div className="border-t border-slate-100 dark:border-neutral-800 pt-1">
+              <div className="border-t border-slate-100 pt-1">
                 <button
                   onClick={handleLogout}
-                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 text-left transition-colors cursor-pointer"
+                  className="w-full min-h-[44px] flex items-center gap-3 px-4 py-2.5 text-xs font-semibold text-red-600 hover:bg-red-50 text-left transition-colors cursor-pointer"
                 >
                   <LogOut className="w-4 h-4 text-red-500" />
                   <span>Log out</span>

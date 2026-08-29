@@ -18,7 +18,7 @@ export const AppLayout: React.FC = () => {
   const isFullBleedPage = location.pathname.startsWith('/ai-mentor') || location.pathname.startsWith('/pair-programmer');
 
   return (
-    <div className="min-h-[100dvh] bg-slate-50 dark:bg-black text-slate-900 dark:text-neutral-100 flex flex-col transition-colors">
+    <div className="min-h-[100dvh] bg-[#F8FAFC] text-slate-900 flex flex-col transition-colors">
       {/* Global Offline Resilience Banner */}
       <OfflineBanner />
 

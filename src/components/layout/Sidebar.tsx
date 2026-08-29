@@ -52,18 +52,18 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-white dark:bg-black border-r border-slate-200 dark:border-neutral-800">
+    <div className="flex flex-col h-full bg-white border-r border-slate-200">
       {/* Brand Header */}
-      <div className="p-5 sm:p-6 pb-4 flex items-center justify-between border-b border-slate-100 dark:border-neutral-800/80">
+      <div className="p-5 sm:p-6 pb-4 flex items-center justify-between border-b border-slate-100">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm shadow-blue-500/20 font-bold text-lg">
             L
           </div>
           <div>
-            <h1 className="font-extrabold text-lg tracking-tight text-blue-600 dark:text-blue-500 leading-tight">
+            <h1 className="font-extrabold text-lg tracking-tight text-blue-600 leading-tight">
               LearnPath AI
             </h1>
-            <p className="text-xs text-slate-400 dark:text-slate-500 font-medium truncate max-w-[140px]">
+            <p className="text-xs text-slate-400 font-medium truncate max-w-[140px]">
               {user?.headline || 'Professional Learner'}
             </p>
           </div>
@@ -74,7 +74,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <button
             onClick={onMobileClose}
             type="button"
-            className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all"
+            className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-700 hover:bg-slate-100 active:scale-95 transition-all"
             aria-label="Close navigation"
           >
             <X className="w-5 h-5" />
@@ -96,7 +96,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 'flex items-center justify-between px-3.5 py-3 lg:py-2.5 min-h-[44px] rounded-xl text-sm font-bold transition-all duration-150 mb-2 border active:scale-[0.98]',
                 isActive || location.pathname.startsWith('/back') || location.pathname.startsWith('/admin')
                   ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/20'
-                  : 'bg-indigo-50/70 text-indigo-700 dark:bg-indigo-950/40 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/50'
+                  : 'bg-indigo-50/70 text-indigo-700 border-indigo-200 hover:bg-indigo-100'
               )
             }
           >
@@ -104,7 +104,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <Shield className="w-5 h-5 flex-shrink-0" />
               <span>Admin Console</span>
             </div>
-            <span className="px-1.5 py-0.5 text-[10px] font-extrabold uppercase rounded-md bg-indigo-500/20 text-indigo-400 border border-indigo-400/30">
+            <span className="px-1.5 py-0.5 text-[10px] font-extrabold uppercase rounded-md bg-indigo-500/20 text-indigo-600 border border-indigo-400/30">
               Admin
             </span>
           </NavLink>
@@ -126,14 +126,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
               className={cn(
                 'flex items-center gap-3.5 px-3.5 py-3 lg:py-2.5 min-h-[44px] rounded-xl text-sm font-medium transition-all duration-150 active:scale-[0.98]',
                 isActive
-                  ? 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400 font-semibold shadow-xs'
-                  : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60'
+                  ? 'bg-blue-50 text-blue-700 font-semibold shadow-xs border border-blue-100'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
               )}
             >
               <Icon
                 className={cn(
                   'w-5 h-5 flex-shrink-0 transition-colors',
-                  isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'
+                  isActive ? 'text-blue-600' : 'text-slate-400'
                 )}
               />
               <span>{item.name}</span>
@@ -143,7 +143,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Bottom CTA & Utilities */}
-      <div className="p-4 pb-safe border-t border-slate-100 dark:border-slate-800/80 space-y-3 bg-white dark:bg-black">
+      <div className="p-4 pb-safe border-t border-slate-100 space-y-3 bg-white">
         {/* New Assessment Primary Button */}
         <button
           onClick={() => {
@@ -166,8 +166,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-3 py-2.5 min-h-[40px] rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors active:scale-[0.98]',
-                isActive && 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/30'
+                'flex items-center gap-3 px-3 py-2.5 min-h-[40px] rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors active:scale-[0.98]',
+                isActive && 'text-blue-600 bg-blue-50/50'
               )
             }
           >
@@ -181,8 +181,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             }}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-3 py-2.5 min-h-[40px] rounded-lg text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800/60 transition-colors active:scale-[0.98]',
-                isActive && 'text-blue-600 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/30'
+                'flex items-center gap-3 px-3 py-2.5 min-h-[40px] rounded-lg text-xs font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors active:scale-[0.98]',
+                isActive && 'text-blue-600 bg-blue-50/50'
               )
             }
           >
@@ -192,13 +192,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         {/* User Card */}
-        <div className="pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center gap-3 px-1">
+        <div className="pt-2 border-t border-slate-100 flex items-center gap-3 px-1">
           <Avatar name={user?.name || 'User'} size="sm" />
           <div className="min-w-0 flex-1">
-            <p className="text-xs font-semibold text-slate-900 dark:text-slate-100 truncate">
+            <p className="text-xs font-semibold text-slate-900 truncate">
               {user?.name || 'User'}
             </p>
-            <p className="text-[11px] text-slate-400 dark:text-slate-500 truncate">
+            <p className="text-[11px] text-slate-400 truncate">
               {user?.headline || 'Professional Learner'}
             </p>
           </div>
@@ -210,7 +210,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {/* Desktop Sidebar (hidden on mobile) */}
-      <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 border-r border-slate-200/80 dark:border-slate-800 h-screen sticky top-0 select-none z-30">
+      <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 border-r border-slate-200/90 h-screen sticky top-0 select-none z-30">
         {sidebarContent}
       </aside>
 
