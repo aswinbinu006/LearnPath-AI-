@@ -9,7 +9,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({ className, ...props }) => {
   return (
     <div
       className={cn(
-        'animate-pulse rounded-md bg-slate-200/80 dark:bg-neutral-800/80',
+        'animate-pulse rounded-md bg-slate-200/80',
         className
       )}
       {...props}
@@ -19,7 +19,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({ className, ...props }) => {
 
 export const CardSkeleton: React.FC<{ className?: string }> = ({ className }) => {
   return (
-    <div className={cn('p-6 rounded-2xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 space-y-4', className)}>
+    <div className={cn('p-6 rounded-2xl border border-slate-200 bg-white space-y-4', className)}>
       <div className="flex items-center justify-between">
         <Skeleton className="h-5 w-1/3" />
         <Skeleton className="h-4 w-16 rounded-full" />
@@ -35,7 +35,7 @@ export const CardSkeleton: React.FC<{ className?: string }> = ({ className }) =>
 
 export const HeroCardSkeleton: React.FC = () => {
   return (
-    <div className="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 space-y-6">
+    <div className="p-6 sm:p-8 rounded-3xl border border-slate-200 bg-white space-y-6">
       <div className="flex items-center justify-between">
         <Skeleton className="h-4 w-28 rounded-full" />
         <Skeleton className="h-4 w-20" />
@@ -64,7 +64,7 @@ export const StatsGridSkeleton: React.FC = () => {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
       {[1, 2, 3, 4].map((i) => (
-        <div key={i} className="p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 space-y-2">
+        <div key={i} className="p-4 sm:p-5 rounded-2xl border border-slate-200 bg-white space-y-2">
           <Skeleton className="h-3.5 w-16" />
           <Skeleton className="h-7 w-20" />
           <Skeleton className="h-2.5 w-24" />

@@ -12,38 +12,29 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    const saved = localStorage.getItem('learnpath_theme') as Theme;
-    if (saved === 'dark' || saved === 'light') return saved;
-    return 'light';
-  });
-
+  const [theme, setThemeState] = useState<Theme>('light');
 
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-    } else {
-      root.classList.remove('dark');
-    }
-    localStorage.setItem('learnpath_theme', theme);
-  }, [theme]);
+    root.classList.remove('dark');
+    localStorage.setItem('learnpath_theme', 'light');
+  }, []);
 
   const setTheme = (newTheme: Theme, syncWithDb = true) => {
-    setThemeState(newTheme);
+    setThemeState('light');
+    const root = document.documentElement;
+    root.classList.remove('dark');
+    localStorage.setItem('learnpath_theme', 'light');
     if (syncWithDb) {
       const token = localStorage.getItem('learnpath_token');
       if (token) {
-        api.put('/users/preferences', { theme: newTheme }).catch((err: any) => {
-          console.error('Failed to persist theme to database:', err);
-        });
+        api.put('/users/preferences', { theme: 'light' }).catch(() => {});
       }
     }
   };
 
   const toggleTheme = () => {
-    const nextTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(nextTheme, true);
+    setTheme('light', true);
   };
 
   return (

@@ -203,14 +203,14 @@ export const PairProgrammerPage: React.FC = () => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-indigo-50 dark:bg-neutral-900 border border-indigo-200/60 dark:border-neutral-800 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-semibold text-blue-700 mb-2">
             <Cpu className="w-3.5 h-3.5" />
             <span>Cursor AI Live Pair Programming Engine</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             AI Pair Programmer Studio
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-neutral-400 mt-0.5">
+          <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
             Real-time Socratic code watcher, line mistake detector, and sandbox execution harness.
           </p>
         </div>
@@ -223,8 +223,8 @@ export const PairProgrammerPage: React.FC = () => {
               onClick={() => setSelectedChallengeIdx(idx)}
               className={`px-3 py-1.5 min-h-[38px] rounded-xl border text-xs font-bold transition-all cursor-pointer shrink-0 active:scale-95 flex items-center justify-center ${
                 selectedChallengeIdx === idx
-                  ? 'bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/20'
-                  : 'bg-white dark:bg-black text-slate-700 dark:text-slate-300 border-slate-200 dark:border-neutral-800 hover:border-slate-300'
+                  ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                  : 'bg-white text-slate-700 border-slate-200 hover:border-slate-300'
               }`}
             >
               {ch.id === 'arrays' ? 'Arrays' : ch.id === 'concurrency' ? 'Event Loop' : ch.id === 'memoization' ? 'LRU Cache' : 'React State'}

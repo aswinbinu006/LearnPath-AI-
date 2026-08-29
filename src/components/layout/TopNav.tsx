@@ -47,14 +47,14 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
   };
 
   return (
-    <header className="h-16 bg-white dark:bg-black border-b border-slate-200/90 dark:border-neutral-800 px-3 sm:px-6 flex items-center justify-between sticky top-0 z-20 transition-colors select-none">
+    <header className="h-16 bg-white border-b border-slate-200 px-3 sm:px-6 flex items-center justify-between sticky top-0 z-20 transition-colors select-none">
       {/* Left side: Mobile Menu Button & Context Indicator */}
       <div className="flex items-center gap-2 sm:gap-3">
         {onOpenMobileMenu && (
           <button
             onClick={onOpenMobileMenu}
             type="button"
-            className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all cursor-pointer"
+            className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 active:scale-95 transition-all cursor-pointer"
             aria-label="Open navigation menu"
           >
             <Menu className="w-5 h-5" />
@@ -63,11 +63,11 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
 
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs font-semibold text-slate-600 dark:text-neutral-400 hidden sm:inline">
+          <span className="text-xs font-semibold text-slate-600 hidden sm:inline">
             Workspace Active
           </span>
           {user?.targetRole && (
-            <span className="hidden md:inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-blue-50 text-blue-700 dark:bg-blue-950/50 dark:text-blue-400 border border-blue-200/60 dark:border-blue-800/50">
+            <span className="hidden md:inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
               {user.targetRole}
             </span>
           )}
@@ -84,22 +84,22 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
           <button
             onClick={() => setShowNotifications(!showNotifications)}
             type="button"
-            className="relative min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 active:scale-95 transition-all cursor-pointer"
+            className="relative min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 active:scale-95 transition-all cursor-pointer"
             aria-label="Notifications"
           >
             <Bell className="w-5 h-5" />
             {unreadCount > 0 && (
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white dark:ring-black" />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-white" />
             )}
           </button>
 
           {showNotifications && (
-            <div className="fixed sm:absolute top-16 sm:top-full left-3 right-3 sm:left-auto sm:right-0 mt-2 sm:w-80 max-w-sm bg-white dark:bg-neutral-900 border border-slate-200 dark:border-neutral-800 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-neutral-800">
+            <div className="fixed sm:absolute top-16 sm:top-full left-3 right-3 sm:left-auto sm:right-0 mt-2 sm:w-80 max-w-sm bg-white border border-slate-200 rounded-2xl shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-100">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100">Notifications</h4>
+                  <h4 className="text-sm font-bold text-slate-900">Notifications</h4>
                   {unreadCount > 0 && (
-                    <span className="px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-400">
+                    <span className="px-1.5 py-0.2 text-[10px] font-bold rounded-full bg-blue-100 text-blue-700">
                       {unreadCount}
                     </span>
                   )}
@@ -107,14 +107,14 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllRead}
-                    className="text-[11px] font-medium text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                    className="text-[11px] font-medium text-blue-600 hover:underline cursor-pointer"
                   >
                     Mark all read
                   </button>
                 )}
               </div>
 
-              <div className="divide-y divide-slate-100 dark:divide-neutral-800 py-1 max-h-64 overflow-y-auto">
+              <div className="divide-y divide-slate-100 py-1 max-h-64 overflow-y-auto">
                 {notifications.length > 0 ? (
                   notifications.map((notif) => (
                     <div
@@ -124,26 +124,26 @@ export const TopNav: React.FC<TopNavProps> = ({ onOpenMobileMenu }) => {
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <p className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                          {notif.icon === 'sparkles' && <Sparkles className="w-3 h-3 text-indigo-500" />}
+                        <p className="font-semibold text-slate-800 flex items-center gap-1.5">
+                          {notif.icon === 'sparkles' && <Sparkles className="w-3 h-3 text-blue-500" />}
                           {notif.icon === 'flame' && <Flame className="w-3 h-3 text-amber-500" />}
                           {notif.icon === 'check' && <CheckCircle2 className="w-3 h-3 text-emerald-500" />}
                           <span>{notif.title}</span>
                         </p>
                         <span className="text-[10px] text-slate-400 font-mono">{notif.time}</span>
                       </div>
-                      <p className="text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                      <p className="text-slate-600 mt-1 leading-relaxed">
                         {notif.desc}
                       </p>
                     </div>
                   ))
                 ) : (
                   <div className="py-8 text-center space-y-2">
-                    <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-neutral-800/80 flex items-center justify-center mx-auto text-slate-400">
+                    <div className="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
                       <Bell className="w-4 h-4" />
                     </div>
-                    <p className="text-xs font-semibold text-slate-700 dark:text-neutral-200">No new notifications</p>
-                    <p className="text-[11px] text-slate-400 dark:text-neutral-500">You're completely up to date!</p>
+                    <p className="text-xs font-semibold text-slate-700">No new notifications</p>
+                    <p className="text-[11px] text-slate-400">You're completely up to date!</p>
                   </div>
                 )}
               </div>

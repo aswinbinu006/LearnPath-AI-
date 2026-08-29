@@ -882,7 +882,6 @@ export const AIMentorPage: React.FC = () => {
             </form>
           </div>
         </div>
-
       </div>
 
       {/* ── 3. Right Context Panel (Desktop Sticky / Mobile Drawer) ─── */}
@@ -890,23 +889,23 @@ export const AIMentorPage: React.FC = () => {
         <>
           {/* Mobile Backdrop */}
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-40 lg:hidden"
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 lg:hidden"
             onClick={() => setShowContextPanel(false)}
           />
 
-          <div className="fixed inset-y-0 right-0 z-50 lg:static w-80 max-w-[85vw] border-l border-slate-200/90 dark:border-neutral-800 bg-slate-50 dark:bg-neutral-950 p-4 space-y-4 overflow-y-auto shrink-0 animate-in slide-in-from-right duration-200 shadow-2xl lg:shadow-none pb-safe">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-200/80 dark:border-neutral-800">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-neutral-100 flex items-center gap-1.5">
-                <Cpu className="w-4 h-4 text-blue-500" />
+          <div className="fixed inset-y-0 right-0 z-50 lg:static w-80 max-w-[85vw] border-l border-slate-200 bg-white p-4 space-y-4 overflow-y-auto shrink-0 animate-in slide-in-from-right duration-200 shadow-2xl lg:shadow-none pb-safe">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-200">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
+                <Cpu className="w-4 h-4 text-blue-600" />
                 <span>Learning Context</span>
               </h4>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-semibold text-emerald-500 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full">
                   Live Sync
                 </span>
                 <button
                   onClick={() => setShowContextPanel(false)}
-                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-neutral-200 hover:bg-slate-200/60 dark:hover:bg-neutral-800 cursor-pointer lg:hidden min-h-[32px] min-w-[32px] flex items-center justify-center"
+                  className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer lg:hidden min-h-[32px] min-w-[32px] flex items-center justify-center"
                 >
                   <PanelRightClose className="w-4 h-4" />
                 </button>
@@ -914,19 +913,19 @@ export const AIMentorPage: React.FC = () => {
             </div>
 
             {/* Active Target Role */}
-            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-1.5">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-1.5">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                 Target Engineering Role
               </span>
               <div className="flex items-center justify-between">
-                <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                <h5 className="text-xs font-bold text-slate-900">
                   {mentorContext?.targetRole || user?.targetRole || 'Frontend Engineer'}
                 </h5>
                 <Badge variant="blue" size="sm">
                   {mentorContext?.experienceLevel || user?.experienceLevel || 'Intermediate'}
                 </Badge>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+              <p className="text-[11px] text-slate-600 leading-relaxed">
                 Focus: {mentorContext?.currentFocus || 'Engineering Mastery'}
               </p>
             </div>
@@ -935,18 +934,18 @@ export const AIMentorPage: React.FC = () => {
             {mentorContext?.currentCourse && (
               <div className={`p-3.5 rounded-xl border space-y-2 ${
                 mentorContext.currentCourse.isCompleted
-                  ? 'border-emerald-200 dark:border-emerald-900/60 bg-emerald-50/40 dark:bg-emerald-950/20'
-                  : 'border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20'
+                  ? 'border-emerald-200 bg-emerald-50/60'
+                  : 'border-blue-200 bg-blue-50/60'
               }`}>
                 <div className="flex items-center justify-between">
                   <span className={`text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 ${
                     mentorContext.currentCourse.isCompleted
-                      ? 'text-emerald-600 dark:text-emerald-400'
-                      : 'text-blue-600 dark:text-blue-400'
+                      ? 'text-emerald-700'
+                      : 'text-blue-700'
                   }`}>
                     {mentorContext.currentCourse.isCompleted ? (
                       <>
-                        <CheckCircle2 className="w-3 h-3 text-emerald-500" />
+                        <CheckCircle2 className="w-3 h-3 text-emerald-600" />
                         <span>Curriculum Status</span>
                       </>
                     ) : (
@@ -957,33 +956,33 @@ export const AIMentorPage: React.FC = () => {
                     )}
                   </span>
                   <span className={`text-[10px] font-semibold ${
-                    mentorContext.currentCourse.isCompleted ? 'text-emerald-500' : 'text-slate-400'
+                    mentorContext.currentCourse.isCompleted ? 'text-emerald-700' : 'text-slate-500'
                   }`}>
                     {mentorContext.currentCourse.isCompleted ? 'Mastered 🎉' : 'In Progress'}
                   </span>
                 </div>
-                <h5 className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                <h5 className="text-xs font-bold text-slate-900">
                   {mentorContext.currentCourse.isCompleted
                     ? 'All Roadmap Phases Completed!'
                     : mentorContext.currentCourse.title}
                 </h5>
                 {mentorContext.currentLesson && !mentorContext.currentCourse.isCompleted && (
-                  <div className="p-2 rounded-lg bg-white dark:bg-black border border-slate-200 dark:border-neutral-800 text-[11px]">
-                    <span className="text-[10px] text-slate-400 block">Current Milestone:</span>
-                    <span className="font-semibold text-slate-800 dark:text-neutral-200 truncate block">
+                  <div className="p-2 rounded-lg bg-white border border-slate-200 text-[11px]">
+                    <span className="text-[10px] text-slate-500 block">Current Milestone:</span>
+                    <span className="font-semibold text-slate-900 truncate block">
                       {mentorContext.currentLesson.title}
                     </span>
                   </div>
                 )}
                 {mentorContext.currentCourse.isCompleted && (
-                  <p className="text-[11px] text-slate-500 dark:text-neutral-400 leading-relaxed">
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
                     Your competencies are verified and ready to share with hiring managers.
                   </p>
                 )}
                 <Button
                   variant="primary"
                   size="sm"
-                  className="w-full text-xs font-semibold mt-1 cursor-pointer min-h-[40px]"
+                  className="w-full text-xs font-semibold mt-1 cursor-pointer min-h-[40px] bg-blue-600 hover:bg-blue-700"
                   onClick={() => {
                     setShowContextPanel(false);
                     navigate(mentorContext.currentCourse?.isCompleted ? '/recruiter-portfolio' : `/courses/${mentorContext.currentCourse?.slug}`);
@@ -996,8 +995,8 @@ export const AIMentorPage: React.FC = () => {
             )}
 
             {/* Diagnosed Weak Skills / Skill Gaps */}
-            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">
+            <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1">
                 <AlertTriangle className="w-3 h-3 text-amber-500" />
                 <span>Diagnosed Skill Gaps</span>
               </span>
@@ -1012,29 +1011,29 @@ export const AIMentorPage: React.FC = () => {
                           `Can you coach me on ${gap.name}? Explain key concepts and test my knowledge with a code exercise.`
                         );
                       }}
-                      className="p-2 rounded-lg bg-slate-50 dark:bg-neutral-900 hover:border-blue-500 border border-slate-200 dark:border-neutral-800 transition-colors cursor-pointer group active:scale-[0.98]"
+                      className="p-2 rounded-lg bg-white hover:border-blue-500 border border-slate-200 transition-colors cursor-pointer group active:scale-[0.98]"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-800 dark:text-neutral-200 group-hover:text-blue-500">
+                        <span className="text-xs font-bold text-slate-900 group-hover:text-blue-600">
                           {gap.name}
                         </span>
                         <span
                           className={`text-[9px] font-bold px-1.5 py-0.2 rounded ${
                             gap.severity === 'Critical'
-                              ? 'bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300'
-                              : 'bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300'
+                              ? 'bg-rose-50 text-rose-700 border border-rose-200'
+                              : 'bg-amber-50 text-amber-700 border border-amber-200'
                           }`}
                         >
                           {gap.severity}
                         </span>
                       </div>
-                      <p className="text-[10px] text-slate-500 dark:text-neutral-400 mt-0.5">
+                      <p className="text-[10px] text-slate-500 mt-0.5">
                         {gap.description}
                       </p>
                     </div>
                   ))
                 ) : (
-                  <p className="text-xs text-slate-400 dark:text-neutral-500 text-center py-2">
+                  <p className="text-xs text-slate-500 text-center py-2">
                     No critical skill gaps diagnosed yet. Take an assessment to calibrate your radar.
                   </p>
                 )}
@@ -1042,8 +1041,8 @@ export const AIMentorPage: React.FC = () => {
             </div>
 
             {/* Quick Context Action Prompts */}
-            <div className="p-3.5 rounded-xl border border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50 space-y-2">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                 Coaching Actions
               </span>
               <div className="space-y-1.5">
@@ -1055,7 +1054,7 @@ export const AIMentorPage: React.FC = () => {
                       `Give me a 5-question technical quiz on my target role (${mentorContext?.targetRole || user?.targetRole || 'Engineer'})`
                     );
                   }}
-                  className="w-full text-left p-2.5 rounded-lg hover:bg-blue-50 dark:hover:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-[11px] font-medium text-slate-700 dark:text-neutral-300 transition-colors cursor-pointer flex items-center justify-between min-h-[40px] active:scale-[0.98]"
+                  className="w-full text-left p-2.5 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 text-[11px] font-medium text-slate-700 transition-colors cursor-pointer flex items-center justify-between min-h-[40px] active:scale-[0.98]"
                 >
                   <span>🎯 Generate Mock Interview Quiz</span>
                   <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
@@ -1068,7 +1067,7 @@ export const AIMentorPage: React.FC = () => {
                       `What are the highest-impact architectural patterns I should master for a ${mentorContext?.targetRole || user?.targetRole || 'Software Engineer'} role?`
                     );
                   }}
-                  className="w-full text-left p-2.5 rounded-lg hover:bg-blue-50 dark:hover:bg-neutral-900 border border-slate-200 dark:border-neutral-800 text-[11px] font-medium text-slate-700 dark:text-neutral-300 transition-colors cursor-pointer flex items-center justify-between min-h-[40px] active:scale-[0.98]"
+                  className="w-full text-left p-2.5 rounded-lg bg-white hover:bg-blue-50 border border-slate-200 text-[11px] font-medium text-slate-700 transition-colors cursor-pointer flex items-center justify-between min-h-[40px] active:scale-[0.98]"
                 >
                   <span>🏗️ High-Yield Architecture Patterns</span>
                   <ChevronRight className="w-3.5 h-3.5 text-slate-400" />

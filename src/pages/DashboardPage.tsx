@@ -194,15 +194,15 @@ export const DashboardPage: React.FC = () => {
       {/* ── Top Header Row with Live Sync Action ────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-blue-50 dark:bg-neutral-900 border border-blue-200/60 dark:border-neutral-800 text-[11px] font-semibold text-blue-600 dark:text-blue-400 mb-2">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-semibold text-blue-700 mb-2">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="truncate max-w-[260px] sm:max-w-none">Live Workspace • {stats.currentSkillLevel || 'Level 1 • Engineering Associate'}</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             Welcome back, {displayName}.
           </h2>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-neutral-400 mt-0.5 leading-relaxed">
-            Active Track: <span className="font-semibold text-slate-700 dark:text-neutral-200">{recCenter?.recommendedTrack || user.targetRole}</span> • Pace: {recCenter?.studyPaceMinutes || 30}m/day
+          <p className="text-xs sm:text-sm text-slate-600 mt-0.5 leading-relaxed">
+            Active Track: <span className="font-semibold text-slate-800">{recCenter?.recommendedTrack || user.targetRole}</span> • Pace: {recCenter?.studyPaceMinutes || 30}m/day
           </p>
         </div>
 
@@ -224,7 +224,7 @@ export const DashboardPage: React.FC = () => {
             size="sm"
             onClick={() => navigate('/ai-mentor')}
             leftIcon={<Bot className="w-3.5 h-3.5" />}
-            className="text-xs font-semibold shadow-xs cursor-pointer w-full sm:w-auto min-h-[44px] sm:min-h-0"
+            className="text-xs font-semibold shadow-xs cursor-pointer w-full sm:w-auto min-h-[44px] sm:min-h-0 bg-blue-600 hover:bg-blue-700"
           >
             Ask AI Mentor
           </Button>
@@ -234,65 +234,65 @@ export const DashboardPage: React.FC = () => {
       {/* ── 3-Stat Metrics Banner ─── */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5">
         {/* Metric 1: Streak */}
-        <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-2.5 sm:space-y-3">
+        <Card className="p-4 sm:p-5 border-slate-200 bg-white shadow-sm space-y-2.5 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Learning Streak
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 flex items-center justify-center text-amber-500">
+            <div className="w-8 h-8 rounded-lg bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-500">
               <Flame className="w-4 h-4" />
             </div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono tracking-tight flex items-baseline gap-1.5">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight flex items-baseline gap-1.5">
               <span>{animatedStreak}</span>
-              <span className="text-xs font-sans font-semibold text-slate-500 dark:text-neutral-400">
+              <span className="text-xs font-sans font-semibold text-slate-600">
                 Days Active 🔥
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 dark:text-neutral-500 mt-1 font-medium">
+            <p className="text-[11px] text-slate-500 mt-1 font-medium">
               {stats.learningStreak > 0 ? 'Consistency streak active' : 'Start your streak today'}
             </p>
           </div>
         </Card>
 
         {/* Metric 2: Hours This Week */}
-        <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-2.5 sm:space-y-3">
+        <Card className="p-4 sm:p-5 border-slate-200 bg-white shadow-sm space-y-2.5 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Time Invested
             </span>
-            <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/60 flex items-center justify-center text-blue-500">
+            <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
               <Clock className="w-4 h-4" />
             </div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono tracking-tight flex items-baseline gap-1.5">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight flex items-baseline gap-1.5">
               <span>{(stats?.hoursThisWeek ?? 0).toFixed(1)}</span>
-              <span className="text-xs font-sans font-semibold text-slate-500 dark:text-neutral-400">
+              <span className="text-xs font-sans font-semibold text-slate-600">
                 Hours
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 dark:text-neutral-500 mt-1 font-medium">
+            <p className="text-[11px] text-slate-500 mt-1 font-medium">
               {(stats?.hoursThisWeek ?? 0) > 0 ? `${stats.hoursThisWeek} hrs logged in roadmap` : '0.0 hrs logged'}
             </p>
           </div>
         </Card>
 
         {/* Metric 3: Path Progress */}
-        <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-2.5 sm:space-y-3">
+        <Card className="p-4 sm:p-5 border-slate-200 bg-white shadow-sm space-y-2.5 sm:space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Path Completion
             </span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 flex items-center justify-center text-emerald-500">
+            <div className="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 font-mono tracking-tight flex items-baseline gap-1.5">
+            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-mono tracking-tight flex items-baseline gap-1.5">
               <span>{animatedProgress}%</span>
-              <span className="text-xs font-sans font-semibold text-slate-500 dark:text-neutral-400 truncate">
+              <span className="text-xs font-sans font-semibold text-slate-600 truncate">
                 {stats.overallProgress === 100
                   ? `${stats.coursesCompleted} of ${data?.roadmapTrack?.steps?.length || stats.coursesCompleted} Phases Done 🎉`
                   : `${stats.coursesCompleted} of ${data?.roadmapTrack?.steps?.length || 4} Phases Done`}
@@ -311,12 +311,12 @@ export const DashboardPage: React.FC = () => {
         <div className="lg:col-span-2 space-y-6">
           {/* ── 🎯 UNIFIED ACTIVE MILESTONE HERO CARD ─────────── */}
           {heroCourse ? (
-            <Card className="p-4 sm:p-8 border-indigo-500/30 dark:border-neutral-800 bg-gradient-to-br from-white via-indigo-50/20 to-blue-50/30 dark:from-neutral-950 dark:via-neutral-900 dark:to-blue-950/20 shadow-md relative overflow-hidden space-y-5 sm:space-y-6">
+            <Card className="p-4 sm:p-8 border-blue-200 bg-white shadow-sm relative overflow-hidden space-y-5 sm:space-y-6">
               {/* Header Badge Strip */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-slate-100 dark:border-neutral-800">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-3 border-b border-slate-100">
                 <div className="flex items-center gap-2">
-                  <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${heroCourse.progressPercentage === 100 ? 'bg-emerald-500' : 'bg-blue-500 animate-pulse'}`} />
-                  <span className={`text-xs font-bold uppercase tracking-wider ${heroCourse.progressPercentage === 100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-blue-600 dark:text-blue-400'}`}>
+                  <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${heroCourse.progressPercentage === 100 ? 'bg-emerald-500' : 'bg-blue-600 animate-pulse'}`} />
+                  <span className={`text-xs font-bold uppercase tracking-wider ${heroCourse.progressPercentage === 100 ? 'text-emerald-700' : 'text-blue-700'}`}>
                     {heroCourse.progressPercentage === 100
                       ? `Completed • All ${heroCourse.totalModules} Phases Done 🎉`
                       : `Active Milestone • Module ${heroCourse.currentModuleNumber} of ${heroCourse.totalModules}`}
@@ -324,7 +324,7 @@ export const DashboardPage: React.FC = () => {
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
                   {recCenter?.confidenceScore && (
-                    <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-semibold bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60 shrink-0">
+                    <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-semibold bg-blue-50 text-blue-700 border border-blue-200 shrink-0">
                       🎯 {recCenter.confidenceScore}% Match
                     </span>
                   )}
@@ -336,12 +336,12 @@ export const DashboardPage: React.FC = () => {
 
               {/* Course Title & Pedagogical Explanation */}
               <div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                   {heroCourse.progressPercentage === 100 ? 'Curriculum Track Mastered!' : heroCourse.title}
                 </h3>
-                <div className="mt-2.5 p-3 rounded-xl bg-slate-50 dark:bg-neutral-900/80 border border-slate-200/80 dark:border-neutral-800">
-                  <p className="text-xs text-slate-600 dark:text-neutral-300 leading-relaxed">
-                    <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+                <div className="mt-2.5 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                  <p className="text-xs text-slate-700 leading-relaxed">
+                    <span className="font-semibold text-blue-700">
                       {heroCourse.progressPercentage === 100 ? 'Achievement Summary: ' : 'Why this milestone: '}
                     </span>
                     {heroCourse.progressPercentage === 100
@@ -352,35 +352,35 @@ export const DashboardPage: React.FC = () => {
               </div>
 
               {/* Module Pill & Time Estimate */}
-              <div className="p-3.5 sm:p-4 rounded-xl bg-white dark:bg-black/60 border border-slate-200/80 dark:border-neutral-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
+              <div className="p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
                 <div className="min-w-0">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">
                     {heroCourse.progressPercentage === 100 ? 'Last Mastered Module:' : 'Current Focus:'}
                   </span>
-                  <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 mt-0.5 block truncate">
+                  <span className="text-xs sm:text-sm font-bold text-slate-900 mt-0.5 block truncate">
                     {heroCourse.currentModuleTitle}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs font-medium text-slate-500 dark:text-neutral-400 shrink-0">
+                <div className="flex items-center gap-3 text-xs font-medium text-slate-600 shrink-0">
                   <span className="flex items-center gap-1.5">
-                    <Clock className="w-4 h-4 text-blue-500 shrink-0" />
+                    <Clock className="w-4 h-4 text-blue-600 shrink-0" />
                     <span>{heroCourse.progressPercentage === 100 ? 'All Hours Invested' : `${heroCourse.timeRemainingMinutes}m estimated`}</span>
                   </span>
                 </div>
               </div>
 
               {/* Action Button & Curriculum Progress — Full Width Thumb Reach */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-neutral-800/80">
-                <div className="text-xs text-slate-500 dark:text-neutral-400">
-                  Curriculum Progress: <span className="font-bold text-emerald-600 dark:text-emerald-400">{heroCourse.progressPercentage}%</span>
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100">
+                <div className="text-xs text-slate-600">
+                  Curriculum Progress: <span className="font-bold text-emerald-600">{heroCourse.progressPercentage}%</span>
                 </div>
                 <Button
                   variant="primary"
                   size="md"
                   onClick={() => navigate(heroCourse.progressPercentage === 100 ? '/learning-path' : `/courses/${heroCourse.slug}`)}
                   rightIcon={<ArrowRight className="w-4 h-4" />}
-                  className="font-semibold shadow-xs cursor-pointer w-full sm:w-auto min-h-[44px] justify-center"
+                  className="font-semibold shadow-xs cursor-pointer w-full sm:w-auto min-h-[44px] justify-center bg-blue-600 hover:bg-blue-700"
                 >
                   {heroCourse.progressPercentage === 100 ? 'View Full Roadmap' : 'Continue Milestone'}
                 </Button>
@@ -392,10 +392,10 @@ export const DashboardPage: React.FC = () => {
           <div className="space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
               <div>
-                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+                <h3 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight">
                   Curriculum Catalog & Practice Tracks
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-neutral-400">
+                <p className="text-xs text-slate-500">
                   Explore prerequisites, framework specializations, and cloud modules.
                 </p>
               </div>
@@ -409,7 +409,7 @@ export const DashboardPage: React.FC = () => {
                     className={`px-3 py-1.5 min-h-[36px] rounded-xl text-xs font-semibold transition-all shrink-0 cursor-pointer active:scale-95 ${
                       selectedCategory === cat
                         ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-slate-100 dark:bg-neutral-900 text-slate-600 dark:text-neutral-400 hover:bg-slate-200 dark:hover:bg-neutral-800'
+                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
                     {cat}
@@ -425,28 +425,28 @@ export const DashboardPage: React.FC = () => {
                   <Card
                     key={course.id}
                     hoverable
-                    className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs flex flex-col justify-between space-y-3.5"
+                    className="p-4 sm:p-5 border-slate-200 bg-white shadow-sm flex flex-col justify-between space-y-3.5"
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
                         <Badge variant="slate" size="sm">
                           {course.category}
                         </Badge>
-                        <span className="text-[11px] font-medium text-slate-400">
+                        <span className="text-[11px] font-medium text-slate-500">
                           {(course as any).level || 'Intermediate'}
                         </span>
                       </div>
 
-                      <h4 className="text-sm font-bold text-slate-900 dark:text-slate-100 leading-snug line-clamp-1">
+                      <h4 className="text-sm font-bold text-slate-900 leading-snug line-clamp-1">
                         {course.title}
                       </h4>
-                      <p className="text-xs text-slate-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">
+                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
                         {course.description}
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-slate-100 dark:border-neutral-800/80 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1.5 text-[11px] text-slate-400 font-medium">
+                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
                         <Clock className="w-3.5 h-3.5 text-slate-400" />
                         <span>{course.durationMinutes} mins</span>
                       </div>
@@ -455,7 +455,7 @@ export const DashboardPage: React.FC = () => {
                         variant="outline"
                         size="sm"
                         onClick={() => navigate(`/courses/${course.slug}`)}
-                        className="text-xs font-semibold cursor-pointer min-h-[38px] px-3.5"
+                        className="text-xs font-semibold cursor-pointer min-h-[38px] px-3.5 border-slate-200 text-slate-700 hover:bg-slate-50"
                       >
                         {(course as any).isCompleted ? 'Review' : 'Start'}
                       </Button>
@@ -464,21 +464,21 @@ export const DashboardPage: React.FC = () => {
                 ))}
               </div>
             ) : (
-              <div className="p-6 sm:p-12 rounded-2xl bg-white dark:bg-black/60 border border-dashed border-slate-200 dark:border-neutral-800 text-center space-y-3">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-neutral-900 border border-blue-100 dark:border-neutral-800 text-blue-500 flex items-center justify-center mx-auto">
+              <div className="p-6 sm:p-12 rounded-2xl bg-white border border-dashed border-slate-200 text-center space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center mx-auto">
                   <Layers className="w-6 h-6" />
                 </div>
-                <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
+                <h4 className="text-sm sm:text-base font-bold text-slate-900">
                   No courses found in the "{selectedCategory}" track
                 </h4>
-                <p className="text-xs text-slate-500 dark:text-neutral-400 max-w-sm mx-auto leading-relaxed">
+                <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
                   Additional specialization modules for this domain are coming soon. Explore active tracks or review your curriculum roadmap.
                 </p>
                 <div className="pt-1">
                   <button
                     type="button"
                     onClick={() => setSelectedCategory('ALL')}
-                    className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer min-h-[40px] inline-flex items-center"
+                    className="text-xs font-semibold text-blue-600 hover:underline cursor-pointer min-h-[40px] inline-flex items-center"
                   >
                     ← Back to All Courses
                   </button>
@@ -492,15 +492,15 @@ export const DashboardPage: React.FC = () => {
         <div className="space-y-5 sm:space-y-6">
 
           {/* ── Today's Focus Checklist ───────────────── */}
-          <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-3.5">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-neutral-800">
+          <Card className="p-4 sm:p-5 border-slate-200 bg-white shadow-sm space-y-3.5">
+            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2">
                 <Target className="w-4 h-4 text-amber-500 shrink-0" />
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
                   Daily Focus Tasks
                 </h4>
               </div>
-              <span className="text-[10px] font-bold text-slate-400">
+              <span className="text-[10px] font-bold text-slate-500">
                 {todayFocus.filter((t) => t.isCompleted).length}/{todayFocus.length} Done
               </span>
             </div>
@@ -512,8 +512,8 @@ export const DashboardPage: React.FC = () => {
                   onClick={() => handleToggleTask(task.id)}
                   className={`p-3 sm:p-2.5 rounded-xl border transition-all flex items-center justify-between gap-3 cursor-pointer min-h-[48px] active:scale-[0.99] touch-manipulation ${
                     task.isCompleted
-                      ? 'border-emerald-200 dark:border-emerald-900/40 bg-emerald-50/40 dark:bg-emerald-950/20 text-slate-400'
-                      : 'border-slate-200 dark:border-neutral-800 bg-white dark:bg-neutral-950 hover:border-slate-300 dark:hover:border-neutral-700 text-slate-800 dark:text-slate-200'
+                      ? 'border-emerald-200 bg-emerald-50 text-slate-500'
+                      : 'border-slate-200 bg-white hover:border-slate-300 text-slate-900'
                   }`}
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
@@ -521,7 +521,7 @@ export const DashboardPage: React.FC = () => {
                       className={`w-5 h-5 rounded-md border flex items-center justify-center transition-colors shrink-0 ${
                         task.isCompleted
                           ? 'border-emerald-500 bg-emerald-500 text-white'
-                          : 'border-slate-300 dark:border-neutral-700'
+                          : 'border-slate-300'
                       }`}
                     >
                       {task.isCompleted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -530,7 +530,7 @@ export const DashboardPage: React.FC = () => {
                       {task.title}
                     </span>
                   </div>
-                  <span className="text-[10px] text-slate-400 shrink-0 font-mono font-semibold">
+                  <span className="text-[10px] text-slate-500 shrink-0 font-mono font-semibold">
                     {task.durationMinutes}m
                   </span>
                 </div>
@@ -540,41 +540,41 @@ export const DashboardPage: React.FC = () => {
 
           {/* ── AI Skill Gap Prioritization Card ─────────── */}
           {recCenter?.skillGapBreakdown && recCenter.skillGapBreakdown.length > 0 && (
-            <Card className="p-4 sm:p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-3.5">
-              <div className="flex items-center justify-between pb-2 border-b border-slate-100 dark:border-neutral-800">
+            <Card className="p-4 sm:p-5 border-slate-200 bg-white shadow-sm space-y-3.5">
+              <div className="flex items-center justify-between pb-2 border-b border-slate-100">
                 <div className="flex items-center gap-2">
                   <Target className="w-4 h-4 text-rose-500 shrink-0" />
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-100">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900">
                     AI Skill Gap Ranking
                   </h4>
                 </div>
-                <span className="text-[10px] font-bold text-slate-400">
+                <span className="text-[10px] font-bold text-slate-500">
                   Priority
                 </span>
               </div>
 
               <div className="space-y-2">
                 {recCenter.skillGapBreakdown.slice(0, 4).map((gap, idx) => (
-                  <div key={idx} className="p-3 rounded-xl border border-slate-100 dark:border-neutral-800/80 bg-slate-50/50 dark:bg-neutral-950 flex items-center justify-between gap-3 text-xs">
+                  <div key={idx} className="p-3 rounded-xl border border-slate-100 bg-slate-50 flex items-center justify-between gap-3 text-xs">
                     <div className="space-y-0.5 min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="px-1.5 py-0.2 rounded font-mono text-[10px] font-bold bg-slate-200 dark:bg-neutral-800 text-slate-700 dark:text-slate-300 shrink-0">
+                        <span className="px-1.5 py-0.2 rounded font-mono text-[10px] font-bold bg-slate-200 text-slate-700 shrink-0">
                           #{gap.priorityOrder}
                         </span>
-                        <span className="font-bold text-slate-900 dark:text-slate-100 truncate">{gap.skillName}</span>
+                        <span className="font-bold text-slate-900 truncate">{gap.skillName}</span>
                       </div>
                       <div className="text-[11px] text-slate-500 truncate">
-                        Target: <span className="font-mono font-semibold text-slate-700 dark:text-slate-300">{gap.requiredScore}%</span> • Current: <span className="font-mono font-semibold text-slate-700 dark:text-slate-300">{gap.currentScore}%</span>
+                        Target: <span className="font-mono font-semibold text-slate-700">{gap.requiredScore}%</span> • Current: <span className="font-mono font-semibold text-slate-700">{gap.currentScore}%</span>
                       </div>
                     </div>
 
                     <div className="text-right shrink-0">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap ${
                         gap.severity === 'CRITICAL'
-                          ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                          ? 'bg-rose-50 text-rose-700 border border-rose-200'
                           : gap.severity === 'MODERATE'
-                          ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                          : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                          : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                       }`}>
                         {gap.gap > 0 ? `-${gap.gap}% Gap` : 'Mastered ✓'}
                       </span>

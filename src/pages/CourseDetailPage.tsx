@@ -280,26 +280,26 @@ export const CourseDetailPage: React.FC = () => {
   return (
     <div className="space-y-6 max-w-7xl mx-auto pb-12 select-none">
       {/* ── Top Header & Breadcrumb ───────────────────────── */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200/90 dark:border-neutral-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-slate-200">
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate('/explore')}
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-slate-100 dark:hover:bg-neutral-900 transition-colors cursor-pointer"
+            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors cursor-pointer"
             title="Back to Catalog"
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-blue-600">
                 {course.category} Track
               </span>
-              <span className="text-slate-300 dark:text-neutral-700">•</span>
+              <span className="text-slate-300">•</span>
               <span className="text-xs text-slate-500 font-medium">
                 {Math.round(course.durationMinutes / 60)} Hours Total
               </span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               {course.title}
             </h2>
           </div>
@@ -311,11 +311,11 @@ export const CourseDetailPage: React.FC = () => {
             onClick={() => setIsPairMode(!isPairMode)}
             className={`px-3 py-1.5 rounded-xl border text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
               isPairMode
-                ? 'bg-purple-600 text-white border-purple-500 shadow-sm'
-                : 'bg-white dark:bg-black border-slate-200 dark:border-neutral-800 text-slate-700 dark:text-neutral-300 hover:bg-slate-50 dark:hover:bg-neutral-900'
+                ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
             }`}
           >
-            <MessageSquareCode className="w-4 h-4 text-purple-400" />
+            <MessageSquareCode className="w-4 h-4 text-blue-500" />
             <span>{isPairMode ? 'Exit Pair Mode' : 'AI Pair Programmer Mode'}</span>
           </button>
         </div>
@@ -325,12 +325,12 @@ export const CourseDetailPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Sidebar: Modules & Lessons Checklist (4 cols) */}
         <div className="lg:col-span-4 space-y-4">
-          <Card className="p-5 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-neutral-800">
-              <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400">
+          <Card className="p-5 border-slate-200 bg-white shadow-sm space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Curriculum Modules
               </span>
-              <span className="text-xs font-mono font-bold text-emerald-500">
+              <span className="text-xs font-mono font-bold text-emerald-600">
                 {progressPercent}% Complete
               </span>
             </div>
@@ -338,16 +338,16 @@ export const CourseDetailPage: React.FC = () => {
             <div className="space-y-3">
               {course.modules?.map((mod, mIdx) => (
                 <div key={mod.id} className="space-y-1.5">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-800 dark:text-slate-200 px-1">
+                  <div className="flex items-center justify-between text-xs font-bold text-slate-800 px-1">
                     <span>
                       Module {mIdx + 1}: {mod.title}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-normal">
+                    <span className="text-[10px] text-slate-500 font-normal">
                       {mod.lessons?.length || 0} lessons
                     </span>
                   </div>
 
-                  <div className="space-y-1 pl-2 border-l border-slate-200 dark:border-neutral-800">
+                  <div className="space-y-1 pl-2 border-l border-slate-200">
                     {mod.lessons?.map((lesson, lIdx) => {
                       const isSelected = activeModuleIndex === mIdx && activeLessonIndex === lIdx;
                       const isDone = Boolean(completedLessons[`${mIdx}-${lIdx}`]);
@@ -362,13 +362,13 @@ export const CourseDetailPage: React.FC = () => {
                           }}
                           className={`w-full text-left p-2 rounded-lg text-xs transition-colors flex items-center justify-between gap-2 cursor-pointer ${
                             isSelected
-                              ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 font-bold'
-                              : 'hover:bg-slate-50 dark:hover:bg-neutral-900 text-slate-600 dark:text-neutral-400'
+                              ? 'bg-blue-50 text-blue-700 font-bold'
+                              : 'hover:bg-slate-50 text-slate-700'
                           }`}
                         >
                           <div className="flex items-center gap-2 min-w-0">
                             {isDone ? (
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                             ) : (
                               <Icon className="w-3.5 h-3.5 shrink-0 opacity-70" />
                             )}
@@ -395,24 +395,24 @@ export const CourseDetailPage: React.FC = () => {
               initialCode={userCode}
             />
           ) : (
-            <Card className="p-6 sm:p-8 border-slate-200/90 dark:border-neutral-800 bg-white dark:bg-black shadow-xs space-y-6">
+            <Card className="p-6 sm:p-8 border-slate-200 bg-white shadow-sm space-y-6">
               {/* Lesson Title & Tag */}
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Badge variant="blue" size="sm">
                     {currentLesson?.type || 'LESSON'}
                   </Badge>
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-slate-500 font-mono">
                     {currentLesson?.durationMinutes || 10} minutes
                   </span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
                   {currentLesson?.title}
                 </h3>
               </div>
 
               {/* Lesson Content Markdown/Body */}
-              <div className="prose prose-slate dark:prose-invert max-w-none text-xs sm:text-sm leading-relaxed text-slate-700 dark:text-neutral-300">
+              <div className="prose prose-slate max-w-none text-xs sm:text-sm leading-relaxed text-slate-700">
                 <p>{currentLesson?.content || 'In this lesson, you will master the foundational paradigms required for production web systems.'}</p>
               </div>
 
@@ -420,14 +420,14 @@ export const CourseDetailPage: React.FC = () => {
               {userCode ? (
                 <div className="space-y-3 pt-2">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-neutral-400 flex items-center gap-2">
-                      <Terminal className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                    <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
+                      <Terminal className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                       <span className="truncate">Interactive Sandbox</span>
                     </span>
                     <div className="flex items-center gap-2 shrink-0">
                       <button
                         onClick={handleCopyCode}
-                        className="text-xs text-slate-400 hover:text-white px-2.5 py-1.5 rounded-lg bg-neutral-900 hover:bg-neutral-800 flex items-center gap-1 cursor-pointer min-h-[34px]"
+                        className="text-xs text-slate-600 hover:text-slate-900 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center gap-1 cursor-pointer min-h-[34px]"
                       >
                         <Copy className="w-3 h-3" />
                         <span>{copiedCode ? 'Copied' : 'Copy'}</span>
@@ -438,7 +438,7 @@ export const CourseDetailPage: React.FC = () => {
                         onClick={handleRunCode}
                         isLoading={isRunningCode}
                         leftIcon={<Terminal className="w-3.5 h-3.5" />}
-                        className="text-xs font-bold cursor-pointer min-h-[34px] active:scale-95"
+                        className="text-xs font-bold cursor-pointer min-h-[34px] active:scale-95 bg-blue-600 hover:bg-blue-700"
                       >
                         Run & Verify
                       </Button>
@@ -467,7 +467,7 @@ export const CourseDetailPage: React.FC = () => {
               ) : null}
 
               {/* Bottom Action Footer */}
-              <div className="pt-6 border-t border-slate-100 dark:border-neutral-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
                 <Button
                   variant="outline"
                   size="md"
@@ -496,7 +496,7 @@ export const CourseDetailPage: React.FC = () => {
                       size="md"
                       onClick={handleMarkComplete}
                       rightIcon={<ArrowRight className="w-4 h-4" />}
-                      className="w-full sm:w-auto min-h-[44px] text-xs font-bold cursor-pointer active:scale-[0.98]"
+                      className="w-full sm:w-auto min-h-[44px] text-xs font-bold cursor-pointer active:scale-[0.98] bg-blue-600 hover:bg-blue-700"
                     >
                       Complete & Next Lesson
                     </Button>
@@ -510,23 +510,23 @@ export const CourseDetailPage: React.FC = () => {
 
       {/* ── 🌟 2-MINUTE ADAPTIVE POST-COURSE QUIZ MODAL ── */}
       {showQuizModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200 overscroll-contain">
-          <Card className="w-full max-w-xl max-h-[90dvh] overflow-y-auto p-4 sm:p-8 border-neutral-800 bg-neutral-900/95 shadow-2xl space-y-5 sm:space-y-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-200 overscroll-contain">
+          <Card className="w-full max-w-xl max-h-[90dvh] overflow-y-auto p-4 sm:p-8 border-slate-200 bg-white shadow-2xl space-y-5 sm:space-y-6">
             {/* Header */}
-            <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
                   <Award className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-xs sm:text-base font-bold text-white truncate">2-Minute Adaptive Mastery Check</h3>
-                  <p className="text-[10px] sm:text-[11px] text-neutral-400 truncate">Verifying competencies for {course.title}</p>
+                  <h3 className="text-xs sm:text-base font-bold text-slate-900 truncate">2-Minute Adaptive Mastery Check</h3>
+                  <p className="text-[10px] sm:text-[11px] text-slate-500 truncate">Verifying competencies for {course.title}</p>
                 </div>
               </div>
 
               {!quizResult && (
-                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-mono font-bold shrink-0">
-                  <Timer className="w-3.5 h-3.5 animate-pulse" />
+                <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 text-xs font-mono font-bold shrink-0">
+                  <Timer className="w-3.5 h-3.5 animate-pulse text-amber-600" />
                   <span>
                     {Math.floor(quizTimeLeft / 60)}:{(quizTimeLeft % 60).toString().padStart(2, '0')}
                   </span>
@@ -537,26 +537,26 @@ export const CourseDetailPage: React.FC = () => {
             {/* Quiz Loading */}
             {isQuizLoading ? (
               <div className="text-center py-10 space-y-2">
-                <Loader2 className="w-8 h-8 text-blue-500 animate-spin mx-auto" />
-                <p className="text-xs text-neutral-400">Selecting 5 adaptive questions (2 Easy, 2 Medium, 1 Hard)...</p>
+                <Loader2 className="w-8 h-8 text-blue-600 animate-spin mx-auto" />
+                <p className="text-xs text-slate-500">Selecting 5 adaptive questions (2 Easy, 2 Medium, 1 Hard)...</p>
               </div>
             ) : quizResult ? (
               /* Quiz Result Card */
               <div className="text-center space-y-4 py-4">
                 <div className={`w-16 h-16 rounded-full mx-auto flex items-center justify-center ${
-                  quizResult.passed ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'
+                  quizResult.passed ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600'
                 }`}>
                   <Award className="w-8 h-8" />
                 </div>
 
                 <div>
-                  <h4 className="text-xl font-extrabold text-white">
+                  <h4 className="text-xl font-extrabold text-slate-900">
                     {quizResult.passed ? 'Course Mastered!' : 'Assessment Completed'}
                   </h4>
-                  <p className="text-2xl font-black font-mono text-emerald-400 mt-1">
+                  <p className="text-2xl font-black font-mono text-emerald-600 mt-1">
                     {quizResult.score}%
                   </p>
-                  <p className="text-xs text-neutral-400 mt-2 max-w-sm mx-auto leading-relaxed">
+                  <p className="text-xs text-slate-600 mt-2 max-w-sm mx-auto leading-relaxed">
                     {quizResult.passed
                       ? 'Your skills have been validated! Next milestones in your personalized learning path have been updated.'
                       : 'Good effort! Review the weak areas and retake anytime to accelerate your path confidence.'}
@@ -569,7 +569,7 @@ export const CourseDetailPage: React.FC = () => {
                     setShowQuizModal(false);
                     navigate('/dashboard');
                   }}
-                  className="w-full min-h-[44px] font-semibold cursor-pointer active:scale-[0.98]"
+                  className="w-full min-h-[44px] font-semibold cursor-pointer active:scale-[0.98] bg-blue-600 hover:bg-blue-700"
                 >
                   <span>Return to Dashboard</span>
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -578,17 +578,17 @@ export const CourseDetailPage: React.FC = () => {
             ) : quizQuestions[currentQuizIdx] ? (
               /* Question Item */
               <div className="space-y-4">
-                <div className="flex items-center justify-between text-xs text-neutral-400">
+                <div className="flex items-center justify-between text-xs text-slate-500">
                   <span className="font-mono">Question {currentQuizIdx + 1} of {quizQuestions.length}</span>
-                  <span className="font-mono text-blue-400 font-bold">{quizQuestions[currentQuizIdx].difficulty}</span>
+                  <span className="font-mono text-blue-600 font-bold">{quizQuestions[currentQuizIdx].difficulty}</span>
                 </div>
 
-                <h4 className="text-sm sm:text-base font-semibold text-white leading-relaxed">
+                <h4 className="text-sm sm:text-base font-semibold text-slate-900 leading-relaxed">
                   {quizQuestions[currentQuizIdx].questionText}
                 </h4>
 
                 {quizQuestions[currentQuizIdx].codeBlock && (
-                  <pre className="p-3 rounded-xl bg-black border border-neutral-800 text-xs font-mono text-emerald-400 overflow-x-auto">
+                  <pre className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-emerald-400 overflow-x-auto">
                     <code>{quizQuestions[currentQuizIdx].codeBlock}</code>
                   </pre>
                 )}
@@ -603,11 +603,11 @@ export const CourseDetailPage: React.FC = () => {
                         onClick={() => setUserQuizAnswers((p) => ({ ...p, [quizQuestions[currentQuizIdx].id]: oIdx }))}
                         className={`w-full p-3 min-h-[44px] rounded-xl border text-left text-xs transition-all flex items-start gap-2.5 cursor-pointer active:scale-[0.98] ${
                           isSelected
-                            ? 'border-blue-500 bg-blue-500/15 text-white font-medium ring-1 ring-blue-500'
-                            : 'border-neutral-800 bg-black/40 hover:bg-neutral-800/40 text-neutral-300'
+                            ? 'border-blue-600 bg-blue-50 text-blue-900 font-semibold ring-1 ring-blue-600'
+                            : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
                         }`}
                       >
-                        <span className="w-5 h-5 rounded-full border border-neutral-700 flex items-center justify-center shrink-0 text-[10px] font-mono">
+                        <span className="w-5 h-5 rounded-full border border-slate-300 flex items-center justify-center shrink-0 text-[10px] font-mono">
                           {String.fromCharCode(65 + oIdx)}
                         </span>
                         <span className="leading-relaxed">{opt}</span>
@@ -616,7 +616,7 @@ export const CourseDetailPage: React.FC = () => {
                   })}
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-neutral-800 gap-2">
+                <div className="flex items-center justify-between pt-4 border-t border-slate-100 gap-2">
                   <Button
                     variant="secondary"
                     size="sm"
@@ -633,7 +633,7 @@ export const CourseDetailPage: React.FC = () => {
                       size="sm"
                       onClick={() => setCurrentQuizIdx((p) => p + 1)}
                       disabled={userQuizAnswers[quizQuestions[currentQuizIdx].id] === undefined}
-                      className="min-h-[40px] px-4 cursor-pointer active:scale-95"
+                      className="min-h-[40px] px-4 cursor-pointer active:scale-95 bg-blue-600 hover:bg-blue-700"
                     >
                       <span>Next</span>
                       <ChevronRight className="w-4 h-4 ml-1" />
@@ -643,7 +643,7 @@ export const CourseDetailPage: React.FC = () => {
                       variant="primary"
                       size="sm"
                       onClick={handleSubmitCourseQuiz}
-                      className="min-h-[40px] px-4 bg-emerald-600 hover:bg-emerald-500 cursor-pointer active:scale-95"
+                      className="min-h-[40px] px-4 bg-emerald-600 hover:bg-emerald-700 cursor-pointer active:scale-95"
                     >
                       <span>Submit Quiz</span>
                       <Award className="w-4 h-4 ml-1" />
