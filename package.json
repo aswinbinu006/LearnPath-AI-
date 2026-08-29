@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "tsc --noEmit",
     "test": "tsx tests/security.test.ts",
-    "test:all": "tsx tests/security.test.ts && tsx tests/admin_dashboard.test.ts && tsx tests/pair_programmer.test.ts",
+    "test:all": "tsx tests/security.test.ts && tsx tests/admin_dashboard.test.ts && tsx tests/pair_programmer.test.ts && tsx tests/regression.test.ts",
     "validate:env": "tsx scripts/validateEnv.ts",
 
     "start": "node dist/server/index.js",
