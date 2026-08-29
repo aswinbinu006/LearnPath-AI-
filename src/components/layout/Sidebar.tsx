@@ -209,21 +209,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {/* Desktop Sidebar (hidden on mobile) */}
-      <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 border-r border-slate-200/90 h-screen sticky top-0 select-none z-30">
+      {/* Desktop Sidebar (hidden on mobile, fixed h-full on desktop) */}
+      <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 h-full border-r border-slate-200 bg-white select-none z-30 overflow-hidden">
         {sidebarContent}
       </aside>
 
       {/* Mobile Drawer Overlay */}
       <AnimatePresence>
         {isMobileOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden flex">
+          <motion.div
+            key="mobile-drawer-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-50 lg:hidden flex"
+          >
             {/* Backdrop */}
-            <motion.div
-              variants={shouldReduceMotion ? undefined : sidebarOverlayVariants}
-              initial="initial"
-              animate="animate"
-              exit="exit"
+            <div
               className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs"
               onClick={onMobileClose}
             />
@@ -234,11 +237,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
               initial="initial"
               animate="animate"
               exit="exit"
-              className="relative w-72 max-w-[85vw] h-full shadow-2xl z-10"
+              className="relative w-72 max-w-[85vw] h-full shadow-2xl z-10 overflow-hidden"
             >
               {sidebarContent}
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { Sidebar } from './Sidebar.js';
@@ -15,15 +15,20 @@ export const AppLayout: React.FC = () => {
   const location = useLocation();
   const shouldReduceMotion = useReducedMotion();
 
+  // Automatically close mobile menu whenever navigation happens
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const isFullBleedPage = location.pathname.startsWith('/ai-mentor') || location.pathname.startsWith('/pair-programmer');
 
   return (
-    <div className="min-h-[100dvh] bg-[#F8FAFC] text-slate-900 flex flex-col transition-colors">
+    <div className="h-screen w-screen overflow-hidden bg-[#F8FAFC] text-slate-900 flex flex-col transition-colors select-none">
       {/* Global Offline Resilience Banner */}
       <OfflineBanner />
 
-      <div className="flex-1 flex flex-row h-[100dvh] overflow-hidden">
-        {/* Sidebar (Desktop sticky & Mobile drawer) */}
+      <div className="flex-1 flex flex-row min-h-0 overflow-hidden">
+        {/* Sidebar (Desktop fixed left & Mobile drawer) */}
         <Sidebar
           isMobileOpen={isMobileMenuOpen}
           onMobileClose={() => setIsMobileMenuOpen(false)}
@@ -31,13 +36,13 @@ export const AppLayout: React.FC = () => {
         />
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden max-w-full">
+        <div className="flex-1 flex flex-col min-w-0 min-h-0 h-full overflow-hidden max-w-full">
           <TopNav onOpenMobileMenu={() => setIsMobileMenuOpen(true)} />
           <main className={cn(
             'flex-1 min-h-0 max-w-full',
             isFullBleedPage
               ? 'p-0 overflow-hidden flex flex-col'
-              : 'p-3 sm:p-5 lg:p-8 overflow-y-auto overflow-x-hidden pb-safe'
+              : 'p-3 sm:p-5 lg:p-8 overflow-y-auto overflow-x-hidden pb-safe select-text'
           )}>
             <AnimatePresence mode="wait">
               <motion.div

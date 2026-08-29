@@ -30,10 +30,12 @@ export const ProgressPage: React.FC = () => {
   }, []);
 
   const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  // Active days representation
-  const streakDays = Math.max(1, user?.learningStreak ?? 1);
+  const streakDays = user?.learningStreak ?? 0;
   const totalHours = user?.totalHoursInvested ?? 0;
   const completedTestsCount = assessmentHistory.filter((a) => a.status === 'COMPLETED').length;
+
+  // Real calendar day mapping: 0=Mon, 1=Tue, 2=Wed, 3=Thu, 4=Fri, 5=Sat, 6=Sun
+  const todayDayIndex = (new Date().getDay() + 6) % 7;
 
   if (isLoading) {
     return (
@@ -134,37 +136,47 @@ export const ProgressPage: React.FC = () => {
             </p>
           </div>
           <Badge variant={streakDays > 0 ? 'green' : 'blue'} size="sm">
-            {streakDays > 0 ? `${streakDays}-Day Streak Active` : 'Start Your Streak Today'}
+            {streakDays > 0 ? `${streakDays}-Day Streak Active` : 'Complete a lesson to start streak'}
           </Badge>
         </div>
 
         {/* Days grid with centered alignment and crisp borders */}
         <div className="grid grid-cols-7 gap-1 sm:gap-4">
           {daysOfWeek.map((day, idx) => {
-            const isActive = idx < Math.min(streakDays || 1, 7);
+            const isToday = idx === todayDayIndex;
+            const isActive = streakDays > 0 && idx <= todayDayIndex && idx >= todayDayIndex - (streakDays - 1);
             return (
               <div
                 key={day}
-                className={`p-2 sm:p-4 rounded-xl border text-center transition-all duration-150 ${
+                className={`p-2 sm:p-4 rounded-xl border text-center transition-all duration-150 relative ${
                   isActive
-                    ? 'border-blue-200 bg-blue-50/60'
+                    ? 'border-blue-300 bg-blue-50/80 shadow-xs'
+                    : isToday
+                    ? 'border-blue-400 bg-white ring-2 ring-blue-500/20'
                     : 'border-slate-200 bg-slate-50'
                 }`}
               >
-                <span className="text-[10px] sm:text-xs font-bold text-slate-700 block mb-1.5 sm:mb-2">
-                  {day}
-                </span>
+                <div className="flex items-center justify-center gap-1 mb-1.5 sm:mb-2">
+                  <span className={`text-[10px] sm:text-xs font-bold ${isToday ? 'text-blue-600' : 'text-slate-700'}`}>
+                    {day}
+                  </span>
+                  {isToday && (
+                    <span className="hidden sm:inline-block w-1.5 h-1.5 rounded-full bg-blue-600" />
+                  )}
+                </div>
                 <div
                   className={`w-6 h-6 sm:w-7 sm:h-7 mx-auto rounded-full flex items-center justify-center transition-all ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-sm'
+                      : isToday
+                      ? 'bg-blue-100 text-blue-600 border border-blue-200'
                       : 'bg-slate-200 text-slate-400'
                   }`}
                 >
                   <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </div>
                 <span className="text-[9px] sm:text-[10px] text-slate-500 font-medium block mt-1.5 sm:mt-2">
-                  {user?.dailyGoalMinutes ?? 45}m
+                  {isToday ? 'Today' : `${user?.dailyGoalMinutes ?? 45}m`}
                 </span>
               </div>
             );

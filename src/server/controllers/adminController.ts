@@ -353,27 +353,39 @@ export const resetUserLearningPath = async (req: AuthRequest, res: Response) => 
       where: { userId },
     });
 
-    // 2. Delete existing learning paths and phases
+    // 2. Delete existing quiz attempts & assessment milestones
+    await prisma.quizAttempt.deleteMany({
+      where: { userId },
+    });
+
+    // 3. Delete existing learning paths and phases
     await prisma.learningPath.deleteMany({
       where: { userId },
     });
 
-    // 3. Reset focus tasks
+    // 4. Reset focus tasks
     await prisma.dailyFocusTask.deleteMany({
       where: { userId },
     });
 
-    // 4. Reset user metrics
+    // 5. Reset user awarded skills
+    await prisma.userSkill.deleteMany({
+      where: { userId },
+    });
+
+    // 6. Reset user metrics
     await prisma.user.update({
       where: { id: userId },
       data: {
         learningStreak: 0,
         totalHoursInvested: 0,
+        lastActiveAt: new Date(),
       },
     });
 
-    // 5. Regenerate fresh clean personalized path
+    // 7. Regenerate fresh clean personalized path
     await PathGenerator.generatePersonalizedPath(userId, user.targetRole, user.experienceLevel);
+    await PathGenerator.syncUserLearningPath(userId);
 
     // 6. Record Audit Log
     await AuditService.log({
