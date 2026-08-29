@@ -18,6 +18,7 @@ import {
   ArrowRight,
   Sparkles,
   Command,
+  Code2,
   X,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
