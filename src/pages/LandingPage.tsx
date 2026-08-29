@@ -243,23 +243,23 @@ export const LandingPage: React.FC = () => {
     <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-blue-600 selection:text-white font-sans antialiased">
       {/* ── 1. Top Enterprise Navbar ────────────────────────── */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
           {/* Logo */}
           <div
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-3 cursor-pointer select-none"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0"
           >
-            <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20">
-              <BrainCircuit className="w-5 h-5 text-white" />
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-md shadow-blue-500/20 shrink-0">
+              <BrainCircuit className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </div>
             <div className="flex items-center gap-1">
-              <span className="font-extrabold text-lg tracking-tight text-slate-900">LearnPath</span>
-              <span className="text-blue-600 font-extrabold text-lg">AI</span>
+              <span className="font-extrabold text-base sm:text-lg tracking-tight text-slate-900">LearnPath</span>
+              <span className="text-blue-600 font-extrabold text-base sm:text-lg">AI</span>
             </div>
           </div>
 
           {/* Nav links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-sm font-semibold text-slate-600">
             <a href="#tracks" className="hover:text-blue-600 transition-colors">Courses</a>
             <a href="#studio" className="hover:text-blue-600 transition-colors">Code Studio</a>
             <a href="#comparison" className="hover:text-blue-600 transition-colors">Features</a>
@@ -269,12 +269,12 @@ export const LandingPage: React.FC = () => {
           </nav>
 
           {/* Action CTAs */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {isAuthenticated ? (
               <button
                 type="button"
                 onClick={() => navigate('/dashboard')}
-                className="px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
+                className="px-3.5 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap"
               >
                 <span>Go to Workspace</span>
                 <ArrowRight className="w-4 h-4" />
@@ -284,17 +284,17 @@ export const LandingPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => navigate('/login')}
-                  className="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 rounded-xl transition-all cursor-pointer shadow-xs"
+                  className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl transition-all cursor-pointer shadow-2xs whitespace-nowrap shrink-0"
                 >
                   Sign In
                 </button>
                 <button
                   type="button"
                   onClick={() => navigate('/register')}
-                  className="px-5 py-2 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-2"
+                  className="px-3.5 sm:px-5 py-1.5 sm:py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-colors cursor-pointer shadow-md shadow-blue-500/20 flex items-center gap-1.5 sm:gap-2 shrink-0 whitespace-nowrap"
                 >
-                  <span>Start Learning Free</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Start Free</span>
+                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </>
             )}
@@ -940,40 +940,44 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* ── 9. Minimal Clean Enterprise Footer ──────────────── */}
-      <footer className="py-12 border-t border-slate-200 bg-white text-slate-600 text-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold shadow-xs">
-              <BrainCircuit className="w-4 h-4 text-white" />
+      <footer className="py-10 sm:py-12 border-t border-slate-200 bg-white text-slate-600 text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Brand Logo & Copyright */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold shadow-xs shrink-0">
+                <BrainCircuit className="w-4 h-4 text-white" />
+              </div>
+              <span className="font-extrabold text-slate-900 text-base tracking-tight">LearnPath AI</span>
+              <span className="text-slate-400 text-xs font-medium">© 2026</span>
             </div>
-            <span className="font-extrabold text-slate-900 text-base">LearnPath AI</span>
-            <span className="text-slate-400 text-xs">© 2026</span>
-          </div>
 
-          <div className="flex flex-wrap items-center gap-7 font-semibold text-sm">
-            <a href="#tracks" className="hover:text-blue-600 transition-colors">Tracks</a>
-            <a href="#studio" className="hover:text-blue-600 transition-colors">Pair Studio</a>
-            <a href="#comparison" className="hover:text-blue-600 transition-colors">Why LearnPath</a>
-            <span
-              onClick={() => navigate('/help')}
-              className="hover:text-blue-600 transition-colors cursor-pointer"
-            >
-              Help & FAQ
-            </span>
-            <span
-              onClick={() => navigate('/back')}
-              className="hover:text-blue-600 transition-colors cursor-pointer"
-            >
-              Admin Portal
-            </span>
-            <span
-              onClick={() => {
-                window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
-              }}
-              className="hover:text-blue-600 transition-colors cursor-pointer font-mono px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 text-xs"
-            >
-              ⌘K Search
-            </span>
+            {/* Navigation links centered on mobile, right-aligned on desktop */}
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 font-semibold text-xs sm:text-sm text-center">
+              <a href="#tracks" className="hover:text-blue-600 transition-colors">Tracks</a>
+              <a href="#studio" className="hover:text-blue-600 transition-colors">Pair Studio</a>
+              <a href="#comparison" className="hover:text-blue-600 transition-colors">Why LearnPath</a>
+              <span
+                onClick={() => navigate('/help')}
+                className="hover:text-blue-600 transition-colors cursor-pointer"
+              >
+                Help & FAQ
+              </span>
+              <span
+                onClick={() => navigate('/back')}
+                className="hover:text-blue-600 transition-colors cursor-pointer"
+              >
+                Admin Portal
+              </span>
+              <span
+                onClick={() => {
+                  window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }));
+                }}
+                className="hover:text-blue-600 transition-colors cursor-pointer font-mono px-2.5 py-1 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 text-xs inline-flex items-center"
+              >
+                ⌘K Search
+              </span>
+            </div>
           </div>
         </div>
       </footer>
