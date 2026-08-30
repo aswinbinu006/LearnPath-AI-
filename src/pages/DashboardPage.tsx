@@ -29,6 +29,7 @@ import {
   AlertTriangle,
   Zap,
   Info,
+  Lock,
 } from 'lucide-react';
 
 import { useAuth } from '../contexts/AuthContext.js';
@@ -204,6 +205,8 @@ export const DashboardPage: React.FC = () => {
 
   const { user, heroCourse, todayFocus, stats, activityFeed } = data;
   const displayName = authUser?.name || user.name || 'Learner';
+  const userTrackCategory = getTrackCategory(recCenter?.recommendedTrack || user?.targetRole || authUser?.targetRole);
+  const isTrackCompleted = heroCourse?.progressPercentage === 100 || stats?.overallProgress === 100;
 
   return (
     <div className="space-y-6 sm:space-y-8 max-w-7xl mx-auto pb-12 select-none">
@@ -418,66 +421,113 @@ export const DashboardPage: React.FC = () => {
 
               {/* Category Filter Pills — Smooth Horizontal Touch Scroll */}
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-1 pt-1 -mx-1 px-1 max-w-full touch-pan-x">
-                {categories.map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setSelectedCategory(cat)}
-                    className={`px-3 py-1.5 min-h-[36px] rounded-xl text-xs font-semibold transition-all shrink-0 cursor-pointer active:scale-95 ${
-                      selectedCategory === cat
-                        ? 'bg-blue-600 text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
+                {categories.map((cat) => {
+                  const isLocked = cat !== 'ALL' && cat !== 'Completed' && cat !== userTrackCategory && !isTrackCompleted;
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => {
+                        setSelectedCategory(cat);
+                        if (isLocked) {
+                          toast.info(
+                            `🔒 ${cat} Track is locked until you complete your active ${userTrackCategory} track.`,
+                            'Track Prerequisite'
+                          );
+                        }
+                      }}
+                      className={`px-3 py-1.5 min-h-[36px] rounded-xl text-xs font-semibold transition-all shrink-0 cursor-pointer active:scale-95 flex items-center gap-1.5 ${
+                        selectedCategory === cat
+                          ? 'bg-blue-600 text-white shadow-xs'
+                          : isLocked
+                          ? 'bg-slate-100/90 text-slate-500 hover:bg-slate-200/90 border border-dashed border-slate-300'
+                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                      }`}
+                    >
+                      {isLocked && <Lock className="w-3 h-3 text-amber-600 shrink-0" />}
+                      <span>{cat}</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {/* Course Cards Grid */}
             {filteredCourses.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {filteredCourses.map((course) => (
-                  <Card
-                    key={course.id}
-                    hoverable
-                    className="p-4 sm:p-5 border-slate-200 bg-white shadow-sm flex flex-col justify-between space-y-3.5"
-                  >
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between">
-                        <Badge variant="slate" size="sm">
-                          {course.category}
-                        </Badge>
-                        <span className="text-[11px] font-medium text-slate-500">
-                          {(course as any).level || 'Intermediate'}
-                        </span>
+                {filteredCourses.map((course) => {
+                  const isCourseLocked = course.category !== userTrackCategory && !isTrackCompleted && !(course as any).isCompleted;
+                  return (
+                    <Card
+                      key={course.id}
+                      hoverable={!isCourseLocked}
+                      className={`p-4 sm:p-5 border-slate-200 bg-white shadow-sm flex flex-col justify-between space-y-3.5 transition-all ${
+                        isCourseLocked ? 'opacity-85 bg-slate-50/50' : ''
+                      }`}
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1.5">
+                            <Badge variant="slate" size="sm">
+                              {course.category}
+                            </Badge>
+                            {isCourseLocked && (
+                              <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1">
+                                <Lock className="w-2.5 h-2.5 text-amber-600" /> Locked Track
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-[11px] font-medium text-slate-500">
+                            {(course as any).level || 'Intermediate'}
+                          </span>
+                        </div>
+
+                        <h4 className="text-sm font-bold text-slate-900 leading-snug line-clamp-1">
+                          {course.title}
+                        </h4>
+                        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
+                          {course.description}
+                        </p>
                       </div>
 
-                      <h4 className="text-sm font-bold text-slate-900 leading-snug line-clamp-1">
-                        {course.title}
-                      </h4>
-                      <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
-                        {course.description}
-                      </p>
-                    </div>
+                      <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+                          <Clock className="w-3.5 h-3.5 text-slate-400" />
+                          <span>{course.durationMinutes} mins</span>
+                        </div>
 
-                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-                        <Clock className="w-3.5 h-3.5 text-slate-400" />
-                        <span>{course.durationMinutes} mins</span>
+                        <Button
+                          variant={isCourseLocked ? 'outline' : 'outline'}
+                          size="sm"
+                          onClick={() => {
+                            if (isCourseLocked) {
+                              toast.warning(
+                                `🔒 This course belongs to the ${course.category} track. Complete your current ${userTrackCategory} track first to unlock it!`,
+                                'Course Locked'
+                              );
+                            } else {
+                              navigate(`/courses/${course.slug}`);
+                            }
+                          }}
+                          className={`text-xs font-semibold cursor-pointer min-h-[38px] px-3.5 ${
+                            isCourseLocked
+                              ? 'border-amber-200 bg-amber-50/60 text-amber-800 hover:bg-amber-100'
+                              : 'border-slate-200 text-slate-700 hover:bg-slate-50'
+                          }`}
+                        >
+                          {isCourseLocked ? (
+                            <span className="flex items-center gap-1.5">
+                              <Lock className="w-3 h-3 text-amber-600" /> Locked
+                            </span>
+                          ) : (course as any).isCompleted ? (
+                            'Review'
+                          ) : (
+                            'Start'
+                          )}
+                        </Button>
                       </div>
-
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => navigate(`/courses/${course.slug}`)}
-                        className="text-xs font-semibold cursor-pointer min-h-[38px] px-3.5 border-slate-200 text-slate-700 hover:bg-slate-50"
-                      >
-                        {(course as any).isCompleted ? 'Review' : 'Start'}
-                      </Button>
-                    </div>
-                  </Card>
-                ))}
+                    </Card>
+                  );
+                })}
               </div>
             ) : (
               <div className="p-6 sm:p-12 rounded-2xl bg-white border border-dashed border-slate-200 text-center space-y-3">

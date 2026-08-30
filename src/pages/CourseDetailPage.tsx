@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
+import { useAuth } from '../contexts/AuthContext.js';
 import { useToast } from '../contexts/ToastContext.js';
 import { Skeleton } from '../components/common/Skeleton.js';
 import { PairProgrammerWorkspace } from '../components/pair-programmer/PairProgrammerWorkspace.js';
@@ -119,6 +120,17 @@ export const CourseDetailPage: React.FC = () => {
     return () => clearInterval(timer);
   }, [showQuizModal, quizTimeLeft, quizResult]);
 
+  const { user } = useAuth();
+  const getTrackCategory = (role?: string) => {
+    if (!role) return 'Full Stack';
+    const lower = role.toLowerCase();
+    if (lower.includes('full')) return 'Full Stack';
+    if (lower.includes('front')) return 'Frontend';
+    if (lower.includes('back')) return 'Backend';
+    if (lower.includes('ai') || lower.includes('machine') || lower.includes('data')) return 'AI / ML';
+    return 'Full Stack';
+  };
+
   if (isLoading || !course) {
     return (
       <div className="space-y-6 max-w-7xl mx-auto pb-12">
@@ -130,6 +142,48 @@ export const CourseDetailPage: React.FC = () => {
           <div className="lg:col-span-8 space-y-4">
             <Skeleton className="h-96 rounded-2xl" />
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  const userTrackCategory = getTrackCategory(user?.targetRole);
+  const isCourseLocked = course.category !== userTrackCategory && !(course as any).isCompleted;
+
+  if (isCourseLocked) {
+    return (
+      <div className="max-w-xl mx-auto py-16 px-4 text-center space-y-6">
+        <div className="w-16 h-16 rounded-3xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center mx-auto shadow-sm">
+          <Lock className="w-8 h-8 text-amber-600" />
+        </div>
+        <div className="space-y-2">
+          <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-200 uppercase tracking-wider">
+            Track Locked • Prerequisite Incomplete
+          </span>
+          <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight pt-2">
+            {course.title}
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed max-w-md mx-auto">
+            You are currently enrolled in the <strong className="text-slate-900">{userTrackCategory}</strong> track. Courses in the <strong className="text-slate-900">{course.category}</strong> track unlock automatically once you complete your active curriculum.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          <Button
+            variant="primary"
+            size="md"
+            onClick={() => navigate('/learning-path')}
+            className="bg-blue-600 hover:bg-blue-700 font-semibold cursor-pointer w-full sm:w-auto"
+          >
+            Continue My Active Roadmap
+          </Button>
+          <Button
+            variant="outline"
+            size="md"
+            onClick={() => navigate('/dashboard')}
+            className="font-semibold cursor-pointer w-full sm:w-auto border-slate-200"
+          >
+            Return to Dashboard
+          </Button>
         </div>
       </div>
     );
