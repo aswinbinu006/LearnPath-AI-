@@ -81,7 +81,18 @@ export const DashboardPage: React.FC = () => {
   const [data, setData] = useState<DashboardData | null>(null);
   const [recCenter, setRecCenter] = useState<RecommendationCenterData | null>(null);
   const [courses, setCourses] = useState<Course[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
+
+  const getTrackCategory = (role?: string) => {
+    if (!role) return 'ALL';
+    const lower = role.toLowerCase();
+    if (lower.includes('full')) return 'Full Stack';
+    if (lower.includes('front')) return 'Frontend';
+    if (lower.includes('back')) return 'Backend';
+    if (lower.includes('ai') || lower.includes('machine') || lower.includes('data')) return 'AI / ML';
+    return 'ALL';
+  };
+
+  const [selectedCategory, setSelectedCategory] = useState<string>(() => getTrackCategory(authUser?.targetRole));
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -94,7 +105,12 @@ export const DashboardPage: React.FC = () => {
         recommendationService.getRecommendationCenter(),
       ]);
 
-      if (dashData) setData(dashData);
+      if (dashData) {
+        setData(dashData);
+        if (selectedCategory === 'ALL' && dashData.user?.targetRole) {
+          setSelectedCategory(getTrackCategory(dashData.user.targetRole));
+        }
+      }
       if (courseList) setCourses(courseList);
       if (recData) setRecCenter(recData);
 

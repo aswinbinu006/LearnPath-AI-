@@ -20,7 +20,6 @@ import {
   Code2,
   BarChart3,
   Check,
-  Star,
 } from 'lucide-react';
 
 export const RegisterPage: React.FC = () => {
@@ -194,32 +193,7 @@ export const RegisterPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Social Proof & Metrics */}
-          <div className="pt-2 flex items-center gap-6 text-xs text-slate-500 border-t border-slate-200">
-            <div className="flex items-center gap-2">
-              <div className="flex -space-x-2">
-                <div className="w-7 h-7 rounded-full bg-blue-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white">
-                  JD
-                </div>
-                <div className="w-7 h-7 rounded-full bg-purple-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white">
-                  SK
-                </div>
-                <div className="w-7 h-7 rounded-full bg-emerald-600 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white">
-                  AL
-                </div>
-              </div>
-              <span className="font-semibold text-slate-700">12,000+ Engineers</span>
-            </div>
 
-            <div className="flex items-center gap-1.5 text-amber-500 font-medium">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span className="text-slate-700 font-bold ml-1">4.9/5</span>
-            </div>
-          </div>
         </motion.div>
 
         {/* Right Side: Registration Glassmorphic Card */}
@@ -244,18 +218,12 @@ export const RegisterPage: React.FC = () => {
 
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-xl relative space-y-6">
             {/* Card Header */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between">
-                <span className="px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 rounded-full flex items-center gap-1.5">
-                  <Sparkles className="w-3 h-3 text-blue-600" /> Get Started Free
-                </span>
-                <span className="text-xs text-slate-400 font-medium">No credit card required</span>
-              </div>
-              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight pt-1">
+            <div className="space-y-1">
+              <h2 className="text-2xl font-extrabold text-slate-900 tracking-tight">
                 Create Account
               </h2>
-              <p className="text-xs text-slate-500">
-                Start your tailored engineering journey in less than 2 minutes.
+              <p className="text-sm text-slate-500">
+                Sign up to start your personalized learning journey.
               </p>
             </div>
 

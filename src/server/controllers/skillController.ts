@@ -28,7 +28,7 @@ export const getSkillAnalysis = async (req: AuthRequest, res: Response) => {
     // Compute competency breakdown from actual skills
     const competencyBreakdown = userSkills.map((us) => ({
       id: us.id,
-      name: us.skill?.name || 'Technical Skill',
+      name: us.skillName || us.skill?.name || 'Core Competency',
       proficiencyScore: us.proficiencyScore ?? 0,
       status: us.status,
       targetLevel: us.targetLevel || user?.experienceLevel || 'Intermediate',
@@ -97,7 +97,7 @@ export const getSkillAnalysis = async (req: AuthRequest, res: Response) => {
     } else if (userSkills.length > 0) {
       // Suggest improving the weakest skill
       const weakest = userSkills[userSkills.length - 1];
-      const weakestName = weakest.skill?.name || 'Core Fundamentals';
+      const weakestName = weakest.skillName || weakest.skill?.name || 'Core Fundamentals';
       const weakestScore = weakest.proficiencyScore ?? 0;
       recommendedNextStep = {
         title: `Strengthen ${weakestName}`,

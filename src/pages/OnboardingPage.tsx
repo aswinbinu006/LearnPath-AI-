@@ -178,18 +178,51 @@ export const OnboardingPage: React.FC = () => {
   // Finish Baseline Quiz (Screen 5 -> Screen 6)
   const handleFinishQuiz = async () => {
     let correct = 0;
+    const dynamicStrengths: string[] = [];
+    const dynamicGaps: string[] = [];
+
     quizQuestions.forEach((q) => {
-      if (userAnswers[q.id] === q.correctOptionIndex) {
+      const isCorrect = userAnswers[q.id] === q.correctOptionIndex;
+      const skill = q.skillTested || 'Core Fundamentals';
+      if (isCorrect) {
         correct++;
+        if (!dynamicStrengths.includes(skill)) dynamicStrengths.push(skill);
+      } else {
+        if (!dynamicGaps.includes(skill)) dynamicGaps.push(skill);
       }
     });
+
+    // Incorporate self-rated skills (>= 4 stars are strengths, <= 2 stars and > 0 are gaps)
+    Object.entries(skillRatings).forEach(([skill, rating]) => {
+      if (rating >= 4 && !dynamicStrengths.includes(skill)) {
+        dynamicStrengths.push(skill);
+      } else if (rating > 0 && rating <= 2 && !dynamicGaps.includes(skill)) {
+        dynamicGaps.push(skill);
+      }
+    });
+
+    // Remove any overlap (if answered correctly in quiz, prioritize strength over self-doubt)
+    const filteredGaps = dynamicGaps.filter((g) => !dynamicStrengths.includes(g));
 
     const score = Math.round((correct / Math.max(1, quizQuestions.length)) * 100);
     setQuizScore(score);
 
+    const finalStrengths = dynamicStrengths.length > 0
+      ? dynamicStrengths
+      : strengths.length > 0 ? strengths : ['Core Programming Logic'];
+
+    const finalWeakAreas = filteredGaps.length > 0
+      ? filteredGaps
+      : score === 100
+        ? []
+        : weakAreas.length > 0 ? weakAreas : ['Advanced Architecture'];
+
+    setStrengths(finalStrengths);
+    setWeakAreas(finalWeakAreas);
+
     // Compute preview confidence score: 0.40(Goal) + 0.35(Skill) + 0.15(Interest) + 0.10(History)
     const goalMatch = detectedRole.toLowerCase().includes('engineer') ? 94 : 88;
-    const skillMatch = Math.min(99, Math.max(35, Math.round(score * 0.7 + (strengths.length > 0 ? 25 : 15))));
+    const skillMatch = Math.min(99, Math.max(35, Math.round(score * 0.7 + (finalStrengths.length > 0 ? 25 : 15))));
     const interestMatch = Math.min(95, Math.max(60, 60 + selectedInterests.length * 10));
     const historyMatch = 70; // Deterministic onboarding profile depth baseline
     const computedConfidence = Math.min(
@@ -202,27 +235,29 @@ export const OnboardingPage: React.FC = () => {
     setConfidenceScore(computedConfidence);
 
     // AI Call 2: Explain Roadmap with Pedagogical Reasoning
-    const primaryWeak = weakAreas[0] || (detectedRole.includes('Backend') ? 'REST APIs' : 'Async JavaScript');
-    const primaryStrong = strengths[0] || (detectedRole.includes('Backend') ? 'Python' : 'HTML/CSS');
-    const injectedModule = score < 50 || weakAreas.length > 0 ? `${primaryWeak} Fundamentals Refresher` : undefined;
-    const fastTracked = strengths.length > 0 ? `${primaryStrong} Advanced Architecture` : undefined;
+    const primaryWeak = finalWeakAreas[0];
+    const primaryStrong = finalStrengths[0] || (detectedRole.includes('Backend') ? 'Python' : 'HTML/CSS');
+    const injectedModule = primaryWeak ? `${primaryWeak} Fundamentals Refresher` : undefined;
+    const fastTracked = `${primaryStrong} Advanced Production Architecture`;
 
     try {
       const explanationText = await recommendationService.explainRoadmap({
         targetRole: detectedRole,
         goalTimeline: timeline || '6 months',
-        strengths,
-        weakAreas,
+        strengths: finalStrengths,
+        weakAreas: finalWeakAreas,
         baselineScore: score,
         studyPaceMinutes: studyPaceMinutes || 30,
         prerequisiteInjected: injectedModule,
         injectedModules: injectedModule ? [injectedModule] : [],
-        fastTrackedModules: fastTracked ? [fastTracked] : [],
+        fastTrackedModules: [fastTracked],
       });
       setExplanation(explanationText);
     } catch {
       setExplanation(
-        `Curriculum sequenced for your ${detectedRole} target on a ${timeline || '6 months'} timeline (${studyPaceMinutes || 30} min/day). ${injectedModule ? `${injectedModule} was prioritized because your baseline scored ${score}%, eliminating downstream learning friction.` : `Your strength in ${primaryStrong} enables fast-tracked progression through production modules.`}`
+        score === 100
+          ? `Exceptional baseline performance! You scored 100% across all ${detectedRole} diagnostic questions. The curriculum has fast-tracked foundational topics so you can proceed directly to production architecture and advanced capstones on your ${timeline || '6 months'} timeline (${studyPaceMinutes || 30} min/day).`
+          : `Curriculum sequenced for your ${detectedRole} target on a ${timeline || '6 months'} timeline (${studyPaceMinutes || 30} min/day). ${injectedModule ? `${injectedModule} was prioritized because your diagnostic check identified growth areas in ${primaryWeak}, eliminating downstream friction.` : `Your validated strength in ${primaryStrong} enables fast-tracked progression through core modules.`}`
       );
     }
 
@@ -726,7 +761,9 @@ export const OnboardingPage: React.FC = () => {
               </div>
               <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200">
                 <span className="text-[11px] font-bold text-amber-700 block mb-1">Identified Skill Gaps</span>
-                <p className="text-slate-800 font-medium">{weakAreas.join(', ') || 'REST APIs, Databases'}</p>
+                <p className="text-slate-800 font-medium">
+                  {weakAreas.length > 0 ? weakAreas.join(', ') : 'None Detected (All Baseline Concepts Validated ✓)'}
+                </p>
               </div>
             </div>
 

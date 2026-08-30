@@ -16,7 +16,6 @@ import {
   Code2,
   BarChart3,
   ShieldCheck,
-  Star,
   XCircle,
 } from 'lucide-react';
 
@@ -133,20 +132,7 @@ export const LoginPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Social Proof */}
-          <div className="pt-2 flex items-center gap-6 text-xs text-slate-500 border-t border-slate-200">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-slate-700">12,000+ Active Engineers</span>
-            </div>
-            <div className="flex items-center gap-1.5 text-amber-500 font-medium">
-              <div className="flex gap-0.5">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <span className="text-slate-700 font-bold ml-1">4.9/5 Rating</span>
-            </div>
-          </div>
+
         </motion.div>
 
         {/* Right Side: Login Card */}
